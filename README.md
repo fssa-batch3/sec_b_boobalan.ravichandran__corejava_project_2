@@ -2,7 +2,7 @@
 
 ## Database Design
 - [ ] ER diagram of the database![\] ](https://iili.io/HtJPxr7.png)
-- [ ] Table scripts [script](path/to/sql/file)
+- [ ] Table scripts: [script](/src/main/resources/db/migration/V1__create_users.sql)
 
        * CREATE database if not exists Ecommerse_FAB;
          use Ecommerse_FAB;
