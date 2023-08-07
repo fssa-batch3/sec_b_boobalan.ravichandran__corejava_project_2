@@ -1,5 +1,5 @@
 package in.fssa.fertagriboomi.model;
 
-public class User {
+public class User extends UserEntity {
 
 }
