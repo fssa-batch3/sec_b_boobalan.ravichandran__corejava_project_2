@@ -33,7 +33,7 @@
        * email ( null, empty, pattern )
        * password ( null, empty, pattern )
        * phone number ( length, >= 600000001 && <= 9999999999 )
-    - [ ]   Business Validation
+   - [ ]   Business Validation
        * Check whether the user already exists
 #### Messages:
    * Invalid user id
