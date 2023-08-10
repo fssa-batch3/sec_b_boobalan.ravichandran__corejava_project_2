@@ -49,7 +49,7 @@ public abstract class UserEntity  implements Comparable<User>{
 	}
 	@Override
 	public String toString() {
-		return "UserEntity [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password
+		return "User [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password
 				+ ", phoneNumber=" + phoneNumber + ", isActive=" + isActive + "]";
 	}
 	

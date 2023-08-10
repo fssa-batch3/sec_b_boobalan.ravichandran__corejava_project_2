@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 
+import in.fssa.fertagriboomi.exception.DAOException;
+import in.fssa.fertagriboomi.exception.ValidationException;
 import in.fssa.fertagriboomi.interfaces.UserInterface;
 import in.fssa.fertagriboomi.model.User;
 import in.fssa.fertagriboomi.util.ConnectionUtil;
@@ -18,11 +20,12 @@ public class UserDAO implements UserInterface {
 		PreparedStatement ps = null;
 
 		try {
-			String query = "INSERT INTO users (name, email, password) VALUES (?,?,?,?)";
+			String query = "INSERT INTO users (name, email,mobile_number, password) VALUES (?,?,?,?)";
 			conn = ConnectionUtil.getConnection();
 			ps = conn.prepareStatement(query);
-			ps.setString(2, newUser.getName());
-			ps.setString(3, newUser.getEmail());
+			ps.setString(1, newUser.getName());
+			ps.setString(2, newUser.getEmail());
+			ps.setLong(3, newUser.getPhoneNumber());
 			ps.setString(4, newUser.getPassword());
 			ps.executeUpdate();
 
@@ -39,7 +42,7 @@ public class UserDAO implements UserInterface {
 	}
 
 	@Override
-	public void update(int id, User updatedUser) throws RuntimeException {
+	public void update(int id, User updatedUser) throws Exception {
 		Connection conn = null;
 		PreparedStatement ps = null;
 
@@ -64,7 +67,11 @@ public class UserDAO implements UserInterface {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println(e.getMessage());
-			throw new RuntimeException();
+			throw new Exception();
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e.getMessage());
+			throw new Exception();
 		} finally {
 			ConnectionUtil.close(conn, ps);
 		}
@@ -91,7 +98,8 @@ public class UserDAO implements UserInterface {
 				user.setName(rs.getString("name"));
 				user.setEmail(rs.getString("email"));
 				user.setPassword(rs.getString("password"));
-				user.setPassword(rs.getString("mobile_number"));
+				user.setPhoneNumber(rs.getLong("mobile_number"));
+
 				user.setActive(rs.getBoolean("is_active"));
 				userArray.add(user);
 			}
@@ -106,16 +114,67 @@ public class UserDAO implements UserInterface {
 		return userArray;
 	}
 
-	@Override
-	public void delete(int id) {
-		// TODO Auto-generated method stub
+	public void isEmailAlreadyExists(String email) throws DAOException {
+
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		try {
+			String query = "SELECT * FROM users where email=?";
+			conn = ConnectionUtil.getConnection();
+			ps = conn.prepareStatement(query);
+			ps.setString(1, email);
+			rs = ps.executeQuery();
+			if (rs.next()) {
+				throw new DAOException("The email already exists");
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println(e.getMessage());
+			throw new DAOException(e);
+		} finally {
+
+			ConnectionUtil.close(conn, ps);
+		}
+
+	}
+
+	public void isValidUserId(int id) throws DAOException {
+
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		boolean isExists = true;
+		try {
+			String query = "SELECT * FROM users where id=?";
+			conn = ConnectionUtil.getConnection();
+			ps = conn.prepareStatement(query);
+			ps.setInt(1, id);
+			rs = ps.executeQuery();
+			if (!rs.next()) {
+				throw new Exception("User Id not found");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println(e.getMessage());
+			throw new DAOException(e);
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e.getMessage());
+			throw new DAOException(e);
+		} finally {
+
+			ConnectionUtil.close(conn, ps);
+		}
 
 	}
 
 	@Override
-	public User findById(int id) {
+	public void delete(int id) {
 		// TODO Auto-generated method stub
-		return null;
+
 	}
 
 }

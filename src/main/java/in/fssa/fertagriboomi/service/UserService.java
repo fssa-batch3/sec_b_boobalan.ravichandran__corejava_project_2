@@ -4,7 +4,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import in.fssa.fertagriboomi.dao.UserDAO;
-import in.fssa.fertagriboomi.exception.ValidationException;
 import in.fssa.fertagriboomi.model.User;
 import in.fssa.fertagriboomi.validator.UserValidator;
 
@@ -28,9 +27,9 @@ public class UserService {
 		userDao.create(newUser);
 	}
 
-	public void update(int id, User newUpdate) throws ValidationException {
+	public void update(int id, User newUpdate) throws Exception {
 		UserDAO userDAO = new UserDAO();
-		UserValidator.validate(newUpdate);
+		UserValidator.validateUpdate(newUpdate, id);
 		userDAO.update(id, newUpdate);
 	}
 

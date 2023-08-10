@@ -6,4 +6,5 @@ public interface UserInterface extends Base<User> {
 	// public abstract User findByEmail(String email);
 
 	// public abstract int count();
+	public abstract void create(User newUser) throws Exception;
 }
