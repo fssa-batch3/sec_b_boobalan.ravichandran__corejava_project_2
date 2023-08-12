@@ -15,7 +15,6 @@ public class PriceValidator {
 
 		if (productId <= 0) {
 			throw new ValidationException("Invalid Product Id ");
-
 		}
 		if (!(price.getPrice() >= 50 && price.getPrice() <= 10000)) {
 			throw new ValidationException("Price should be between a minimum of 50 and a maximum of 10000.");
@@ -29,10 +28,11 @@ public class PriceValidator {
 		}
 
 		if (productId <= 0) {
-			throw new ValidationException("Invalid Product Id ");
+			throw new ValidationException("Invalid Product Id");
 
 		}
-		if (!(newPrice.getPrice() >= 50 && newPrice.getPrice() <= 10000)) {
+		
+		if (newPrice.getPrice() <= 50 || newPrice.getPrice() >= 10000) {
 			throw new ValidationException("Price should be between a minimum of 50 and a maximum of 10000.");
 		}
 

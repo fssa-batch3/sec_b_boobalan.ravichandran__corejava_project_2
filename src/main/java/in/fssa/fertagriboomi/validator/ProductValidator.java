@@ -22,7 +22,8 @@ public class ProductValidator {
 		StringUtil.rejectIfInvalidString(product.getBenefits(), "Product Benefits");
 		StringUtil.rejectIfInvalidString(product.getDescription(), "Product Description");
 		StringUtil.rejectIfInvalidString(product.getManufacture(), "Product manufacture company");
-//		if (product.getName() == null || "".equals(product.getName().trim())) {
+
+		// if (product.getName() == null || "".equals(product.getName().trim())) {
 //			throw new ValidationException("Product name cannot be null or Empty");
 //		}
 
@@ -46,10 +47,22 @@ public class ProductValidator {
 //			throw new ValidationException("Product manufacture company cannot be null or empty.");
 //		}
 
-		ProductDAO productDao = null;
+		ProductDAO productDao = new ProductDAO();
+		try {
+			boolean categoryExists = productDao.isCategoryExists(product.getCategory_id());
+			if (!categoryExists) {
+				throw new ValidationException("Category does not exist");
+			}
+		} catch (DAOException e) {
+			throw new ValidationException(e);
+		}
+
 		try {
 			productDao = new ProductDAO();
-			productDao.isProductAlreadyExists(product.getName());
+			boolean productExists = productDao.isProductAlreadyExists(product.getName());
+			if (productExists) {
+				throw new ValidationException("Product name is already exists");
+			}
 		} catch (DAOException e) {
 			throw new ValidationException(e);
 		}
@@ -95,16 +108,29 @@ public class ProductValidator {
 			throw new ValidationException(e);
 		}
 
+		try {
+			productDao = new ProductDAO();
+			productDao.isDeletedProduct(newId);
+
+		} catch (DAOException e) {
+			throw new ValidationException(e);
+		}
+
 	}
 
 	public static void ValidateCategoryId(int id) throws ValidationException {
 		if (id <= 0) {
-			throw new ValidationException("Invalid Product id");
+			throw new ValidationException("Invalid Category id");
 		}
 		ProductDAO productDao = null;
 		try {
 			productDao = new ProductDAO();
-			productDao.isCategoryExists(id);
+			boolean categoryExists = productDao.isCategoryExists(id);
+			if (categoryExists) {
+				productDao.listAllTheProductsByCategoryId(id);
+			} else {
+				throw new ValidationException("Invalid Category id");
+			}
 		} catch (DAOException e) {
 			throw new ValidationException(e);
 		}

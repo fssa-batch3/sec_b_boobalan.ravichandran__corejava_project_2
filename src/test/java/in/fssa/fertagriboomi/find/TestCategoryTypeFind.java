@@ -14,32 +14,32 @@ public class TestCategoryTypeFind {
 
 	@Test
 	public void testFindAllCategoryType() {
-		CategoryTypeService userService = new CategoryTypeService();
+		CategoryTypeService categoryTypeService = new CategoryTypeService();
 
 		// newUser.setActive(true);
 		assertDoesNotThrow(() -> {
-			System.out.println(userService.getAll());
+			System.out.println(categoryTypeService.getAll());
 		});
 
 	}
 
 	@Test
 	public void testFindCategoryTypeWithValidId() {
-		CategoryTypeService userService = new CategoryTypeService();
+		CategoryTypeService categoryTypeService = new CategoryTypeService();
 
 		// newUser.setActive(true);
 		assertDoesNotThrow(() -> {
-			System.out.println(userService.findById(1));
+			System.out.println(categoryTypeService.findById(1));
 		});
 
 	}
 
 	@Test
 	public void testFindCategoryTypeWithInValidNegativeId() {
-		CategoryTypeService userService = new CategoryTypeService();
+		CategoryTypeService categoryTypeService = new CategoryTypeService();
 
 		Exception exception = assertThrows(Exception.class, () -> {
-			userService.findById(-22);
+			categoryTypeService.findById(-22);
 		});
 
 		String exceptedMessage = "Invalid category type ID";
@@ -50,10 +50,10 @@ public class TestCategoryTypeFind {
 
 	@Test
 	public void testFindCategoryTypeWithInValidNonExistentId() {
-		CategoryTypeService userService = new CategoryTypeService();
+		CategoryTypeService categoryTypeService = new CategoryTypeService();
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			userService.findById(22);
+			categoryTypeService.findById(22);
 		});
 
 		String exceptedMessage = "Category type not available";

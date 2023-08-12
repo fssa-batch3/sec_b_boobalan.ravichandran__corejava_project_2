@@ -5,8 +5,9 @@ import java.util.List;
 
 import in.fssa.fertagriboomi.dao.CategoryDAO;
 import in.fssa.fertagriboomi.dao.ProductDAO;
+import in.fssa.fertagriboomi.exception.ValidationException;
 import in.fssa.fertagriboomi.model.*;
-import in.fssa.fertagriboomi.validator.CategoryValidator;
+
 import in.fssa.fertagriboomi.validator.ProductValidator;
 
 public class ProductService {
@@ -14,11 +15,17 @@ public class ProductService {
 	public void create(Product newProduct) throws Exception {
 		ProductDAO productDao = new ProductDAO();
 		ProductValidator.validate(newProduct);
+
+		Price productPrice = newProduct.getPrice();
+		int priceValue = productPrice.getPrice();
+
+		if (priceValue <= 50 || priceValue >= 10000) {
+			throw new ValidationException("Price should be between a minimum of 50 and a maximum of 10000.");
+		}
+
 		int productId = productDao.create(newProduct);
 		PriceService priceService = new PriceService();
-
 		priceService.create(productId, newProduct.getPrice());
-
 	}
 
 	public List<Product> getAll() {

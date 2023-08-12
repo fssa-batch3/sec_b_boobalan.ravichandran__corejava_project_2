@@ -77,9 +77,7 @@ public class PriceDAO implements PriceInterface {
 			if (!rs.next()) {
 				throw new DAOException("This product price is not available");
 			}
-			if (rs.next()) {
-				priceId = rs.getInt("id");
-			}
+			priceId = rs.getInt("id");
 
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -51,7 +51,7 @@ public class ProductDAO implements ProductInterface {
 	}
 
 	@Override
-	public int create(Product newProduct) throws Exception {
+	public int create(Product newProduct) throws DAOException {
 
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -78,7 +78,7 @@ public class ProductDAO implements ProductInterface {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println(e.getMessage());
-			throw new RuntimeException();
+			throw new DAOException(e);
 		} finally {
 			ConnectionUtil.close(conn, ps);
 		}
@@ -87,21 +87,20 @@ public class ProductDAO implements ProductInterface {
 
 	}
 
-	public void isProductAlreadyExists(String name) throws DAOException {
+	public boolean isProductAlreadyExists(String name) throws DAOException {
 
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 
 		try {
-			String query = "SELECT * FROM products where name=?";
+			String query = "SELECT * FROM products where is_active = true AND name=?";
 			conn = ConnectionUtil.getConnection();
 			ps = conn.prepareStatement(query);
 			ps.setString(1, name);
 			rs = ps.executeQuery();
-			if (rs.next()) {
-				throw new DAOException("Product name is already exists");
-			}
+
+			return rs.next();
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -128,32 +127,28 @@ public class ProductDAO implements ProductInterface {
 			rs = ps.executeQuery();
 
 			if (!rs.next()) {
-				throw new DAOException("Product not available");
+				throw new DAOException("The product is not listed among the available products");
 			}
 
-			if (rs.next()) {
-				product = new Product();
-				product.setId(rs.getInt("id"));
-				product.setName(rs.getString("name"));
-				product.setActive(rs.getBoolean("is_active"));
-				product.setProduct_weight(rs.getString("product_weight"));
-				product.setDescription(rs.getString("description"));
-				product.setBenefits(rs.getString("benefits"));
-				product.setApplication(rs.getString("application"));
-				product.setManufacture(rs.getString("manufacture"));
-				product.setCategory_id(rs.getInt("category_id"));
-			}
+			product = new Product();
+			product.setId(rs.getInt("id"));
+			product.setName(rs.getString("name"));
+			product.setActive(rs.getBoolean("is_active"));
+			product.setProduct_weight(rs.getString("product_weight"));
+			product.setDescription(rs.getString("description"));
+			product.setBenefits(rs.getString("benefits"));
+			product.setApplication(rs.getString("application"));
+			product.setManufacture(rs.getString("manufacture"));
+			product.setCategory_id(rs.getInt("category_id"));
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println(e.getMessage());
 			throw new DAOException(e);
 		} finally {
-
-			ConnectionUtil.close(conn, ps);
+			ConnectionUtil.close(conn, ps, rs); // Close the ResultSet here
 		}
 		return product;
-
 	}
 
 	@Override
@@ -222,7 +217,7 @@ public class ProductDAO implements ProductInterface {
 
 	}
 
-	public void isCategoryExists(int id) throws DAOException {
+	public boolean isCategoryExists(int id) throws DAOException {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -233,9 +228,7 @@ public class ProductDAO implements ProductInterface {
 			ps = conn.prepareStatement(query);
 			ps.setInt(1, id);
 			rs = ps.executeQuery();
-			if (!rs.next()) {
-				throw new DAOException("Category is not available in Category List");
-			}
+			return rs.next();
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -247,7 +240,7 @@ public class ProductDAO implements ProductInterface {
 
 	}
 
-	public List<Product> listAllTheProductsByCategoryId(int categoryId) throws Exception {
+	public List<Product> listAllTheProductsByCategoryId(int categoryId) throws DAOException {
 
 		List<Product> ProductList = new ArrayList<Product>();
 		Connection conn = null;
@@ -259,6 +252,9 @@ public class ProductDAO implements ProductInterface {
 			ps = conn.prepareStatement(query);
 			ps.setInt(1, categoryId);
 			rs = ps.executeQuery();
+			if (!rs.next()) {
+				throw new DAOException("Invalid Category id");
+			}
 			while (rs.next()) {
 				Product product = new Product();
 				product.setId(rs.getInt("id"));
@@ -277,17 +273,35 @@ public class ProductDAO implements ProductInterface {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println(e.getMessage());
-			throw new Exception(e);
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println(e.getMessage());
-			throw new Exception(e);
+			throw new DAOException(e);
 		} finally {
 			ConnectionUtil.close(conn, ps, rs);
 		}
 
 		return ProductList;
 
+	}
+	
+	public void isDeletedProduct(int productId) throws DAOException{
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+		String query = "SELECT * From products WHERE is_active=0 AND id=?";
+		conn = ConnectionUtil.getConnection();
+		ps = conn.prepareStatement(query);
+		ps.setInt(1, productId);
+		rs = ps.executeQuery();
+		if (!rs.next()) {
+			throw new DAOException("This product has already been removed");
+		}
+		}catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println(e.getMessage());
+			throw new DAOException(e);
+		} finally {
+			ConnectionUtil.close(conn, ps, rs);
+		}
 	}
 
 }

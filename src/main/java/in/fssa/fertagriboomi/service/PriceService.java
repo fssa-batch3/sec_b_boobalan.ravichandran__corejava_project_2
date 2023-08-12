@@ -20,9 +20,9 @@ public class PriceService {
 	public void updatePrice(int productId, Price newPrice) throws Exception {
 		PriceDAO priceDao = new PriceDAO();
 		PriceValidator.validateUpdate(productId, newPrice);
-		int priceId = 0;
+
 		try {
-			priceId = priceDao.getPriceIdByProductId(productId);
+			int priceId = priceDao.getPriceIdByProductId(productId);
 			LocalDateTime localDateTime = LocalDateTime.now();
 			java.sql.Timestamp dateTime = java.sql.Timestamp.valueOf(localDateTime);
 
