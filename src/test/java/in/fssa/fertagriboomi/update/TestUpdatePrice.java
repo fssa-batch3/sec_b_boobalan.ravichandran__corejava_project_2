@@ -117,4 +117,24 @@ public class TestUpdatePrice {
 
 		assertTrue(actualMessage.contains(expectedMessage));
 	}
+	
+	@Test
+	public void testUpdatePriceWithExistsPrice() {
+		PriceService priceService = new PriceService();
+
+		Price price = new Price();
+		price.setPrice(1000);
+		// newUser.setActive(true);
+		Exception exception = assertThrows(ValidationException.class, () -> {
+		    priceService.updatePrice(1, price);
+		});
+
+		String expectedMessage = "Product price should be same";
+		String actualMessage = exception.getMessage();
+//		System.out.println("Expected: " + expectedMessage);
+//		System.out.println("Actual: " + actualMessage);
+
+		assertTrue(actualMessage.contains(expectedMessage));
+		
+	}
 }

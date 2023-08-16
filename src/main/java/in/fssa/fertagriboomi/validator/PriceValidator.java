@@ -44,6 +44,12 @@ public class PriceValidator {
 			throw new ValidationException(e);
 		}
 
+		try {
+			priceDao = new PriceDAO();
+			priceDao.isPriceAlreadyExists(productId,newPrice);
+		} catch (DAOException e) {
+			throw new ValidationException(e);
+		}
 	}
 
 }
