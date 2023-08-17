@@ -1,6 +1,7 @@
-CREATE database if not exists Ecommerse_FAB;
 
-use Ecommerse_FAB;
+CREATE database if not exists boobalan_ravichandran_corejava_project;
+
+use boobalan_ravichandran_corejava_project;
 CREATE TABLE if not exists users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(50) NOT NULL,
@@ -18,8 +19,6 @@ INSERT INTO users (name, email, password, mobile_number) VALUES
 
 select* from users;
 
-
-
 CREATE TABLE if not exists categories_type (
 id INT AUTO_INCREMENT PRIMARY KEY,
 name VARCHAR(100) NOT NULL,
@@ -30,8 +29,6 @@ INSERT INTO categories_type (name) VALUES
 ('BRANDS'),
 ('CROP PRODUCTION');
 select* from categories_type;
-
-
 
 CREATE TABLE IF NOT EXISTS categories (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -45,8 +42,6 @@ INSERT INTO categories (name, category_type_id) VALUES
 ('DHANUKA', 1),
 ('BIO INSECTICIDES', 2);
 select* from categories;
-
-
 
 
 CREATE TABLE IF NOT EXISTS products(
@@ -64,9 +59,8 @@ FOREIGN KEY (category_id) REFERENCES categories(id)
 INSERT INTO products (name, product_weight, description, benefits, application, category_id) VALUES
 ('DHANUKA M45 FUNGICIDE', '2kg', 'High-performance fertilizer', 'Fast processing', 'Business and gaming', 1),
 ('BIOVITA SEAWEED ORGANIC PLANT GROWTH REGULATOR', '500g', 'Suitable fertilizers for all the crops', 'Use 20 days only per hector', 'ow has for the first time made 100% silicon available', 2);
+
 select* from products;
-
-
 
 CREATE TABLE IF NOT EXISTS prices(
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -79,15 +73,18 @@ CREATE TABLE IF NOT EXISTS prices(
     FOREIGN KEY (product_id) REFERENCES products(id)
 );
 INSERT INTO prices (price, start_date, product_id)
-VALUES (1000, CURRENT_DATE, 1);
+VALUES (1000, CURRENT_DATE, 1),
+(1200, CURRENT_DATE, 2);
 
+select* from prices;
 
---UPDATE prices
---SET end_date = CURRENT_DATE
---WHERE product_id = 1
---AND end_date IS NULL;
---
---INSERT INTO prices (price, start_date, product_id)
---VALUES (1200, CURRENT_DATE, 1);
---
---select* from prices;
+UPDATE prices
+SET end_date = CURRENT_DATE
+WHERE product_id = 1
+AND end_date IS NULL;
+
+INSERT INTO prices (price, start_date, product_id)
+VALUES (1200, CURRENT_DATE, 1);
+
+select* from prices;
+drop table prices;
