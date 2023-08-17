@@ -3,6 +3,9 @@ package in.fssa.fertagriboomi.service;
 import java.util.*;
 
 import in.fssa.fertagriboomi.dao.CategoryTypeDAO;
+import in.fssa.fertagriboomi.exception.DAOException;
+import in.fssa.fertagriboomi.exception.ServiceException;
+import in.fssa.fertagriboomi.exception.ValidationException;
 import in.fssa.fertagriboomi.model.CategoryType;
 import in.fssa.fertagriboomi.validator.CategoryTypeValidator;
 
@@ -21,12 +24,20 @@ public class CategoryTypeService {
 		return categoryTypeList;
 	}
 
-	public CategoryType findById(int newId) throws Exception {
-		CategoryTypeDAO categoryTypeDao = new CategoryTypeDAO();
+	public CategoryType findById(int newId) throws ServiceException, ValidationException {
+		CategoryTypeDAO categoryTypeDao = null;
+		CategoryType categoryType = null;
+		try {
+			categoryTypeDao = new CategoryTypeDAO();
 
-		CategoryTypeValidator.ValidateId(newId);
+			CategoryTypeValidator.ValidateId(newId);
 
-		return categoryTypeDao.findById(newId);
+			categoryType = categoryTypeDao.findById(newId);
+
+		} catch (DAOException e) {
+			throw new ServiceException(e);
+		}
+		return categoryType;
 
 	}
 

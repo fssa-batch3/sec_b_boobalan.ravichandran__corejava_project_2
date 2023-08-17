@@ -152,7 +152,7 @@ public class ProductDAO implements ProductInterface {
 	}
 
 	@Override
-	public void update(int id, Product updateProduct) throws Exception {
+	public void update(int id, Product updateProduct) throws DAOException {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		try {
@@ -176,11 +176,7 @@ public class ProductDAO implements ProductInterface {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println(e.getMessage());
-			throw new Exception();
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println(e.getMessage());
-			throw new Exception();
+			throw new DAOException(e);
 		} finally {
 			ConnectionUtil.close(conn, ps);
 		}
@@ -188,7 +184,7 @@ public class ProductDAO implements ProductInterface {
 	}
 
 	@Override
-	public void delete(int id) throws Exception {
+	public void delete(int id) throws DAOException {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		try {
@@ -206,11 +202,7 @@ public class ProductDAO implements ProductInterface {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println(e.getMessage());
-			throw new Exception();
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println(e.getMessage());
-			throw new Exception();
+			throw new DAOException(e);
 		} finally {
 			ConnectionUtil.close(conn, ps);
 		}
@@ -292,7 +284,7 @@ public class ProductDAO implements ProductInterface {
 		ps = conn.prepareStatement(query);
 		ps.setInt(1, productId);
 		rs = ps.executeQuery();
-		if (!rs.next()) {
+		if (rs.next()) {
 			throw new DAOException("This product has already been removed");
 		}
 		}catch (SQLException e) {

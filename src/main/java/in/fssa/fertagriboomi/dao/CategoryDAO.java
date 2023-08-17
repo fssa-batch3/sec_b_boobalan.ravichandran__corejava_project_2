@@ -63,13 +63,13 @@ public class CategoryDAO implements CategoryInterface {
 			if (!rs.next()) {
 				throw new DAOException("Category not available");
 			}
-			if (rs.next()) {
+			
 				category = new Category();
 				category.setId(rs.getInt("id"));
 				category.setName(rs.getString("name"));
 				category.setActive(rs.getBoolean("is_active"));
 				category.setCategory_type_id(rs.getInt("category_type_id"));
-			}
+			
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -82,7 +82,7 @@ public class CategoryDAO implements CategoryInterface {
 	}
 
 	@Override
-	public List<Category> findCategoryByCategoryTypeId(int typeId) throws Exception {
+	public List<Category> findCategoryByCategoryTypeId(int typeId) throws DAOException {
 		List<Category> categoryArray = new ArrayList<Category>();
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -105,11 +105,7 @@ public class CategoryDAO implements CategoryInterface {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println(e.getMessage());
-			throw new Exception(e);
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println(e.getMessage());
-			throw new Exception(e);
+			throw new DAOException(e);
 		} finally {
 			ConnectionUtil.close(conn, ps, rs);
 		}

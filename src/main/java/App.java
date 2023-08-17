@@ -44,14 +44,14 @@ public class App {
 //		product.setPrice(price);
 //		
 
-		ProductService productService = new ProductService();
-		System.out.println("All Products:");
-
-		productService.getAll();
+//		ProductService productService = new ProductService();
+//		System.out.println("All Products:");
+//
+//		productService.getAll();
 
 		CategoryService categoryService = new CategoryService();
 		try {
-			categoryService.findCategoriesByCategoryId(2);
+			System.out.println(categoryService.findById(1));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

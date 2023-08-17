@@ -15,7 +15,7 @@ import in.fssa.fertagriboomi.util.ConnectionUtil;
 public class PriceDAO implements PriceInterface {
 
 	@Override
-	public void create(int productId, Price newPrice, Timestamp dateTime) throws Exception {
+	public void create(int productId, Price newPrice, Timestamp dateTime) throws DAOException {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		try {
@@ -30,7 +30,7 @@ public class PriceDAO implements PriceInterface {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println(e.getMessage());
-			throw new Exception();
+			throw new DAOException(e);
 		} finally {
 			ConnectionUtil.close(conn, ps);
 		}
@@ -91,7 +91,7 @@ public class PriceDAO implements PriceInterface {
 		return priceId;
 	}
 
-	public void updateProductPrice(int priceId, Timestamp dateTime) throws Exception {
+	public void updateProductPrice(int priceId, Timestamp dateTime) throws DAOException {
 
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -113,12 +113,8 @@ public class PriceDAO implements PriceInterface {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println(e.getMessage());
-			throw new Exception(e);
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println(e.getMessage());
-			throw new Exception(e);
-		} finally {
+			throw new DAOException(e);
+		}  finally {
 			ConnectionUtil.close(conn, ps);
 		}
 	}

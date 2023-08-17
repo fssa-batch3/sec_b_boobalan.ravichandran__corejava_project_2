@@ -44,7 +44,7 @@ public class CategoryTypeDAO implements CategoryTypeInterface {
 	}
 
 	@Override
-	public CategoryType findById(int categoryTypeId) throws Exception {
+	public CategoryType findById(int categoryTypeId) throws DAOException {
 
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -67,7 +67,7 @@ public class CategoryTypeDAO implements CategoryTypeInterface {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println(e.getMessage());
-			throw new RuntimeException();
+			throw new DAOException(e);
 		} finally {
 			ConnectionUtil.close(conn, ps, rs);
 		}

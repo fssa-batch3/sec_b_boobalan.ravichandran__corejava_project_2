@@ -108,6 +108,22 @@ public class ProductValidator {
 			throw new ValidationException(e);
 		}
 
+
+	}
+	public static void ValidateDeleteId(int newId) throws ValidationException {
+
+		if (newId <= 0) {
+			throw new ValidationException("Invalid Product id");
+		}
+		ProductDAO productDao = null;
+		try {
+			productDao = new ProductDAO();
+			productDao.findById(newId);
+
+		} catch (DAOException e) {
+			throw new ValidationException(e);
+		}
+
 		try {
 			productDao = new ProductDAO();
 			productDao.isDeletedProduct(newId);

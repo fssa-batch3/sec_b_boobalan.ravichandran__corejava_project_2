@@ -27,7 +27,7 @@ public class TestCategoryFind {
 
 		// newUser.setActive(true);
 		assertDoesNotThrow(() -> {
-			System.out.println(categoryService.findById(2));
+			System.out.println(categoryService.findById(6));
 		});
 
 	}
@@ -42,8 +42,10 @@ public class TestCategoryFind {
 
 		String exceptedMessage = "Invalid category ID";
 		String actualMessage = exception.getMessage();
+//		System.out.println("e"+exceptedMessage);
+//		System.out.println("e"+actualMessage);
 
-		assertTrue(exceptedMessage.equals(actualMessage));
+		assertTrue(actualMessage.contains(exceptedMessage));
 	}
 
 	@Test
@@ -57,7 +59,7 @@ public class TestCategoryFind {
 		String exceptedMessage = "Category not available";
 		String actualMessage = exception.getMessage();
 
-		assertTrue(exceptedMessage.equals(actualMessage));
+		assertTrue(actualMessage.contains(exceptedMessage));
 	}
 
 //	category type
@@ -95,7 +97,7 @@ public class TestCategoryFind {
 		String exceptedMessage = "Category type not available";
 		String actualMessage = exception.getMessage();
 
-		assertTrue(exceptedMessage.equals(actualMessage));
+		assertTrue(actualMessage.contains(exceptedMessage));
 	}
 
 }
