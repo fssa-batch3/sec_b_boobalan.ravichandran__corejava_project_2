@@ -110,10 +110,10 @@ public class TestUpdateUser {
 			userService.update(1, newUser);
 		});
 
-		String exceptedMessage = "Invalid User Name";
+		String expectedMessage = "Invalid User Name";
 		String actualMessage = exception.getMessage();
 
-		assertTrue(exceptedMessage.equals(actualMessage));
+		assertTrue(expectedMessage.equals(actualMessage));
 	}
 
 //	password
