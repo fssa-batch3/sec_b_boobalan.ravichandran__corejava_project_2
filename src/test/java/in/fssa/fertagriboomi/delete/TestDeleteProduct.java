@@ -28,10 +28,10 @@ public class TestDeleteProduct {
 
 		});
 
-		String exceptedMessage = "Invalid Product id";
+		String expectedMessage = "Invalid Product id";
 		String actualMessage = exception.getMessage();
 
-		assertTrue(exceptedMessage.equals(actualMessage));
+		assertTrue(expectedMessage.equals(actualMessage));
 	}
 
 	@Test
