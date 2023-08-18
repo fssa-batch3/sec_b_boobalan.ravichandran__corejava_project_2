@@ -23,7 +23,7 @@ public class TestCreateProduct {
 		ProductService productService = new ProductService();
 
 		Product product = new Product();
-		product.setName("Targa Super");
+		product.setName("Targa Super tech");
 		product.setCategory_id(1);
 		product.setManufacture("Dhanuka Agritech Limited");
 		product.setProduct_weight("500g");
