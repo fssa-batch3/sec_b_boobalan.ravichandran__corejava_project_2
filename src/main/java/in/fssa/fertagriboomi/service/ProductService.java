@@ -13,7 +13,12 @@ import in.fssa.fertagriboomi.model.*;
 import in.fssa.fertagriboomi.validator.ProductValidator;
 
 public class ProductService {
-
+/**
+ * 
+ * @param newProduct
+ * @throws ServiceException
+ * @throws ValidationException
+ */
 	public void create(Product newProduct) throws ServiceException, ValidationException {
 		try {
 			ProductDAO productDao = new ProductDAO();
@@ -35,6 +40,10 @@ public class ProductService {
 
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public List<Product> getAll() {
 		ProductDAO productDao = new ProductDAO();
 		List<Product> productList = productDao.findAll();
@@ -47,6 +56,13 @@ public class ProductService {
 
 	}
 
+	/**
+	 * 
+	 * @param id
+	 * @param newUpdate
+	 * @throws ServiceException
+	 * @throws ValidationException
+	 */
 	public void update(int id, Product newUpdate) throws ServiceException, ValidationException {
 		try {
 			ProductDAO productDao = new ProductDAO();
@@ -58,6 +74,13 @@ public class ProductService {
 
 	}
 
+	/**
+	 * 
+	 * @param newId
+	 * @return
+	 * @throws ServiceException
+	 * @throws ValidationException
+	 */
 	public Product findById(int newId) throws ServiceException, ValidationException {
 		Product product = null;
 		ProductDAO productDao = null;
@@ -73,6 +96,12 @@ public class ProductService {
 
 	}
 
+	/**
+	 * 
+	 * @param id
+	 * @throws ServiceException
+	 * @throws ValidationException
+	 */
 	public void delete(int id) throws ServiceException, ValidationException {
 		try {
 			ProductDAO productDao = new ProductDAO();
@@ -83,6 +112,13 @@ public class ProductService {
 		}
 	}
 
+	/**
+	 * 
+	 * @param id
+	 * @return
+	 * @throws ServiceException
+	 * @throws ValidationException
+	 */
 	public List<Product> listAllTheProductsByCategoryId(int id) throws ServiceException, ValidationException {
 		List<Product> product = null;
 		ProductDAO productDao = null;

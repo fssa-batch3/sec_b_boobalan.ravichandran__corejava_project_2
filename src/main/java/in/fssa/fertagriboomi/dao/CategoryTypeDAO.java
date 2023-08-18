@@ -14,6 +14,14 @@ import in.fssa.fertagriboomi.util.ConnectionUtil;
 
 public class CategoryTypeDAO implements CategoryTypeInterface {
 
+
+    /**
+     * Retrieves a list of all active category types from the database.
+     *
+     * @return List of CategoryType objects representing all active category types.
+     * @throws DAOException if an error occurs while accessing the database.
+     * @throws RuntimeException if a database access error occurs.
+     */
 	@Override
 	public List<CategoryType> findAll() throws DAOException {
 		Connection conn = null;
@@ -43,6 +51,14 @@ public class CategoryTypeDAO implements CategoryTypeInterface {
 		return categoryTypeArray;
 	}
 
+	/**
+     * Retrieves a category type by its ID from the database.
+     *
+     * @param categoryTypeId The ID of the category type to retrieve.
+     * @return The CategoryType object corresponding to the given ID.
+     * @throws DAOException if the category type is not found in the database.
+     * @throws RuntimeException if a database access error occurs.
+     */
 	@Override
 	public CategoryType findById(int categoryTypeId) throws DAOException {
 
@@ -74,6 +90,15 @@ public class CategoryTypeDAO implements CategoryTypeInterface {
 		return categoryType;
 	}
 
+
+    /**
+     * Checks if a given category ID exists in the database.
+     *
+     * @param newId The ID of the category to check.
+     * @throws DAOException if an error occurs while accessing the database.
+     * @throws ValidationException if the category type is not available.
+     * @throws RuntimeException if a database access error occurs.
+     */
 	public void isCategoryIdExists(int newId) throws DAOException, ValidationException {
 		Connection conn = null;
 		PreparedStatement ps = null;

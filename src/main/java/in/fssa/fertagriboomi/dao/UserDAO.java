@@ -14,6 +14,13 @@ import in.fssa.fertagriboomi.util.ConnectionUtil;
 
 public class UserDAO implements UserInterface {
 
+	  /**
+     * Creates a new user in the database.
+     *
+     * @param newUser The User object representing the new user.
+     * @throws DAOException if an error occurs while accessing the database.
+     * @throws RuntimeException if a database access error occurs.
+     */
 	@Override
 	public void create(User newUser) throws DAOException {
 		Connection conn = null;
@@ -41,6 +48,14 @@ public class UserDAO implements UserInterface {
 
 	}
 
+	 /**
+     * Updates user information in the database.
+     *
+     * @param id The ID of the user to update.
+     * @param updatedUser The User object representing the updated user information.
+     * @throws Exception if an error occurs while accessing the database.
+     * @throws RuntimeException if a database access error occurs.
+     */
 	@Override
 	public void update(int id, User updatedUser) throws Exception {
 		Connection conn = null;
@@ -77,6 +92,13 @@ public class UserDAO implements UserInterface {
 		}
 	}
 
+
+    /**
+     * Retrieves a list of all active users from the database.
+     *
+     * @return A list of User objects representing all active users.
+     * @throws RuntimeException if a database access error occurs.
+     */
 	@Override
 	public List<User> findAll() {
 		Connection conn = null;
@@ -114,6 +136,11 @@ public class UserDAO implements UserInterface {
 		return userArray;
 	}
 
+	/**
+	 * 
+	 * @param email
+	 * @throws DAOException
+	 */
 	public void isEmailAlreadyExists(String email) throws DAOException {
 
 		Connection conn = null;
@@ -141,6 +168,11 @@ public class UserDAO implements UserInterface {
 
 	}
 
+	/**
+	 * 
+	 * @param id
+	 * @throws DAOException
+	 */
 	public void isValidUserId(int id) throws DAOException {
 
 		Connection conn = null;

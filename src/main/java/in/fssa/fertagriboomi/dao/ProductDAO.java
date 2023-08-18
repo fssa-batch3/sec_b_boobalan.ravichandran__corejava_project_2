@@ -16,6 +16,12 @@ import in.fssa.fertagriboomi.util.ConnectionUtil;
 
 public class ProductDAO implements ProductInterface {
 
+	 /**
+     * Retrieves a list of all active products from the database.
+     *
+     * @return A list of Product objects representing all active products.
+     * @throws RuntimeException if a database access error occurs.
+     */
 	@Override
 	public List<Product> findAll() {
 		Connection conn = null;
@@ -50,6 +56,14 @@ public class ProductDAO implements ProductInterface {
 		return categoryArray;
 	}
 
+	/**
+     * Creates a new product entry in the database.
+     *
+     * @param newProduct The Product object representing the new product.
+     * @return The ID of the newly created product.
+     * @throws DAOException if an error occurs while accessing the database.
+     * @throws RuntimeException if a database access error occurs.
+     */
 	@Override
 	public int create(Product newProduct) throws DAOException {
 
@@ -87,6 +101,14 @@ public class ProductDAO implements ProductInterface {
 
 	}
 
+	  /**
+     * Checks if a product with the given name already exists in the database.
+     *
+     * @param name The name of the product to check.
+     * @return true if the product with the given name already exists, false otherwise.
+     * @throws DAOException if an error occurs while accessing the database.
+     * @throws RuntimeException if a database access error occurs.
+     */
 	public boolean isProductAlreadyExists(String name) throws DAOException {
 
 		Connection conn = null;
@@ -113,6 +135,14 @@ public class ProductDAO implements ProductInterface {
 
 	}
 
+	 /**
+     * Retrieves a product by its ID from the database.
+     *
+     * @param id The ID of the product to retrieve.
+     * @return The Product object representing the retrieved product.
+     * @throws DAOException if the product is not listed among the available products.
+     * @throws RuntimeException if a database access error occurs.
+     */
 	@Override
 	public Product findById(int id) throws DAOException {
 		Connection conn = null;
@@ -151,6 +181,14 @@ public class ProductDAO implements ProductInterface {
 		return product;
 	}
 
+	 /**
+     * Updates a product's information in the database.
+     *
+     * @param id The ID of the product to update.
+     * @param updateProduct The Product object representing the updated product information.
+     * @throws DAOException if an error occurs while accessing the database.
+     * @throws RuntimeException if a database access error occurs.
+     */
 	@Override
 	public void update(int id, Product updateProduct) throws DAOException {
 		Connection conn = null;
@@ -183,6 +221,13 @@ public class ProductDAO implements ProductInterface {
 
 	}
 
+	  /**
+     * Deletes a product from the database.
+     *
+     * @param id The ID of the product to delete.
+     * @throws DAOException if an error occurs while accessing the database.
+     * @throws RuntimeException if a database access error occurs.
+     */
 	@Override
 	public void delete(int id) throws DAOException {
 		Connection conn = null;
@@ -209,6 +254,14 @@ public class ProductDAO implements ProductInterface {
 
 	}
 
+	 /**
+     * Checks if a category with the given ID exists in the database.
+     *
+     * @param id The ID of the category to check.
+     * @return true if the category with the given ID exists, false otherwise.
+     * @throws DAOException if an error occurs while accessing the database.
+     * @throws RuntimeException if a database access error occurs.
+     */
 	public boolean isCategoryExists(int id) throws DAOException {
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -232,6 +285,14 @@ public class ProductDAO implements ProductInterface {
 
 	}
 
+	 /**
+     * Lists all products belonging to a specific category.
+     *
+     * @param categoryId The ID of the category to filter products by.
+     * @return A list of Product objects belonging to the specified category.
+     * @throws DAOException if an error occurs while accessing the database.
+     * @throws RuntimeException if a database access error occurs.
+     */
 	public List<Product> listAllTheProductsByCategoryId(int categoryId) throws DAOException {
 
 		List<Product> ProductList = new ArrayList<Product>();
@@ -274,6 +335,13 @@ public class ProductDAO implements ProductInterface {
 
 	}
 	
+	  /**
+     * Checks if a product with the given ID has been deleted (is_active=0) in the database.
+     *
+     * @param productId The ID of the product to check.
+     * @throws DAOException if the product has already been removed.
+     * @throws RuntimeException if a database access error occurs.
+     */
 	public void isDeletedProduct(int productId) throws DAOException{
 		Connection conn = null;
 		PreparedStatement ps = null;

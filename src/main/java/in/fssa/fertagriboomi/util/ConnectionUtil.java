@@ -9,6 +9,11 @@ import java.sql.SQLException;
 import io.github.cdimascio.dotenv.Dotenv;
 
 public class ConnectionUtil {
+	
+	/**
+	 * 
+	 * @return
+	 */
 	public static Connection getConnection() {
 
 		String url;
@@ -39,6 +44,12 @@ public class ConnectionUtil {
 
 		return conn;
 	}
+	
+	/**
+	 * 
+	 * @param connection
+	 * @param presta
+	 */
 
 	public static void close(Connection connection, PreparedStatement presta) {
 		try {

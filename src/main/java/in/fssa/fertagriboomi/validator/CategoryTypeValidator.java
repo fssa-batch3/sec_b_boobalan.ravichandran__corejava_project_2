@@ -7,6 +7,12 @@ import in.fssa.fertagriboomi.model.CategoryType;
 import in.fssa.fertagriboomi.dao.CategoryTypeDAO;
 
 public class CategoryTypeValidator {
+
+	/**
+	 * 
+	 * @param categorytype
+	 * @throws ValidationException
+	 */
 	public static void validate(CategoryType categorytype) throws ValidationException {
 
 		if (categorytype == null) {
@@ -23,6 +29,11 @@ public class CategoryTypeValidator {
 		}
 	}
 
+	/**
+	 * 
+	 * @param newId
+	 * @throws ValidationException
+	 */
 	public static void ValidateId(int newId) throws ValidationException {
 		if (newId <= 0) {
 			throw new ValidationException("Invalid category type ID");

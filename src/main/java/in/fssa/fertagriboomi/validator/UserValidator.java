@@ -11,6 +11,12 @@ import in.fssa.fertagriboomi.util.StringUtil;
 
 public class UserValidator {
 
+	/**
+	 * 
+	 * @param user
+	 * @throws ValidationException
+	 * @throws DAOException
+	 */
 	public static void validate(User user) throws ValidationException, DAOException {
 
 		if (user == null) {
@@ -53,6 +59,12 @@ public class UserValidator {
 
 	}
 
+	/**
+	 * 
+	 * @param newUpdate
+	 * @param id
+	 * @throws ValidationException
+	 */
 	public static void validateUpdate(User newUpdate, int id) throws ValidationException {
 		if (newUpdate == null) {
 			throw new ValidationException("Invalid User input");

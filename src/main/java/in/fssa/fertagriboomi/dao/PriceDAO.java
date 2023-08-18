@@ -14,6 +14,15 @@ import in.fssa.fertagriboomi.util.ConnectionUtil;
 
 public class PriceDAO implements PriceInterface {
 
+	/**
+	 * Creates a new price entry for a product in the database.
+	 *
+	 * @param productId The ID of the product for which the price is being created.
+	 * @param newPrice  The Price object representing the new price.
+	 * @param dateTime  The timestamp representing the start date of the new price.
+	 * @throws DAOException     if an error occurs while accessing the database.
+	 * @throws RuntimeException if a database access error occurs.
+	 */
 	@Override
 	public void create(int productId, Price newPrice, Timestamp dateTime) throws DAOException {
 		Connection conn = null;
@@ -36,6 +45,13 @@ public class PriceDAO implements PriceInterface {
 		}
 	}
 
+	/**
+	 * Checks if a product with the given ID exists in the database.
+	 *
+	 * @param productId The ID of the product to check.
+	 * @throws DAOException     if the product is not available in the product list.
+	 * @throws RuntimeException if a database access error occurs.
+	 */
 	public void isProductExists(int productId) throws DAOException {
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -62,6 +78,12 @@ public class PriceDAO implements PriceInterface {
 
 	}
 
+	/**
+	 * 
+	 * @param productId
+	 * @return
+	 * @throws DAOException
+	 */
 	public int getPriceIdByProductId(int productId) throws DAOException {
 
 		Connection conn = null;
@@ -91,6 +113,12 @@ public class PriceDAO implements PriceInterface {
 		return priceId;
 	}
 
+	/**
+	 * 
+	 * @param priceId
+	 * @param dateTime
+	 * @throws DAOException
+	 */
 	public void updateProductPrice(int priceId, Timestamp dateTime) throws DAOException {
 
 		Connection conn = null;
@@ -114,12 +142,18 @@ public class PriceDAO implements PriceInterface {
 			e.printStackTrace();
 			System.out.println(e.getMessage());
 			throw new DAOException(e);
-		}  finally {
+		} finally {
 			ConnectionUtil.close(conn, ps);
 		}
 	}
 
-	public void isPriceAlreadyExists(int productId, Price newPrice)throws DAOException {
+	/**
+	 * 
+	 * @param productId
+	 * @param newPrice
+	 * @throws DAOException
+	 */
+	public void isPriceAlreadyExists(int productId, Price newPrice) throws DAOException {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -130,15 +164,15 @@ public class PriceDAO implements PriceInterface {
 			ps.setInt(1, productId);
 			ps.setInt(2, newPrice.getPrice());
 			rs = ps.executeQuery();
-			if(rs.next()) {
+			if (rs.next()) {
 				throw new DAOException("Product price should be same");
 			}
-		
-	}catch (SQLException e) {
-		e.printStackTrace();
-		System.out.println(e.getMessage());
-		throw new DAOException(e);
-	}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println(e.getMessage());
+			throw new DAOException(e);
+		}
 	}
 
 }

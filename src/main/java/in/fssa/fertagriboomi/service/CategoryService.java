@@ -12,6 +12,10 @@ import in.fssa.fertagriboomi.validator.CategoryValidator;
 
 public class CategoryService {
 
+	/**
+	 * 
+	 * @return
+	 */
 	public List<Category> getAll() {
 		CategoryDAO categoryDao = new CategoryDAO();
 		List<Category> categoryList = categoryDao.findAll();
@@ -27,6 +31,14 @@ public class CategoryService {
 
 	}
 
+	/**
+	 * 
+	 * @param newId
+	 * @return
+	 * @throws ServiceException
+	 * @throws ValidationException
+	 */
+
 	public Category findById(int newId) throws ServiceException, ValidationException {
 		CategoryDAO categoryDao = null;
 		Category category = null;
@@ -38,10 +50,16 @@ public class CategoryService {
 			throw new ServiceException(e);
 		}
 		return category;
-		
 
 	}
 
+	/**
+	 * 
+	 * @param categoryTypeId
+	 * @return
+	 * @throws ServiceException
+	 * @throws ValidationException
+	 */
 	public List<Category> findCategoriesByCategoryId(int categoryTypeId) throws ServiceException, ValidationException {
 		CategoryDAO categoryDao = null;
 		List<Category> categoryList = null;

@@ -7,6 +7,12 @@ import in.fssa.fertagriboomi.model.Product;
 import in.fssa.fertagriboomi.util.StringUtil;
 
 public class ProductValidator {
+	
+	/**
+	 * 
+	 * @param product
+	 * @throws ValidationException
+	 */
 	public static void validate(Product product) throws ValidationException {
 		if (product == null) {
 			throw new ValidationException("Invalid Product");
@@ -68,7 +74,14 @@ public class ProductValidator {
 		}
 
 	}
-
+	
+	
+/**
+ * 
+ * @param id
+ * @param newUpdate
+ * @throws ValidationException
+ */
 	public static void validateUpdate(int id, Product newUpdate) throws ValidationException {
 		if (newUpdate == null) {
 			throw new ValidationException("Invalid Product input");
@@ -94,6 +107,11 @@ public class ProductValidator {
 
 	}
 
+	/**
+	 * 
+	 * @param newId
+	 * @throws ValidationException
+	 */
 	public static void ValidateId(int newId) throws ValidationException {
 
 		if (newId <= 0) {
@@ -110,6 +128,12 @@ public class ProductValidator {
 
 
 	}
+	
+	/**
+	 * 
+	 * @param newId
+	 * @throws ValidationException
+	 */
 	public static void ValidateDeleteId(int newId) throws ValidationException {
 
 		if (newId <= 0) {
@@ -134,6 +158,11 @@ public class ProductValidator {
 
 	}
 
+	/**
+	 * 
+	 * @param id
+	 * @throws ValidationException
+	 */
 	public static void ValidateCategoryId(int id) throws ValidationException {
 		if (id <= 0) {
 			throw new ValidationException("Invalid Category id");

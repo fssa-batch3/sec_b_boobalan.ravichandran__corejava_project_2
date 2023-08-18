@@ -7,6 +7,12 @@ import in.fssa.fertagriboomi.exception.ValidationException;
 import in.fssa.fertagriboomi.model.Category;
 
 public class CategoryValidator {
+
+	/**
+	 * 
+	 * @param category
+	 * @throws ValidationException
+	 */
 	public static void validate(Category category) throws ValidationException {
 
 		if (category == null) {
@@ -27,6 +33,11 @@ public class CategoryValidator {
 		}
 	}
 
+	/**
+	 * 
+	 * @param newId
+	 * @throws ValidationException
+	 */
 	public static void ValidateId(int newId) throws ValidationException {
 		if (newId <= 0) {
 			throw new ValidationException("Invalid category ID");
@@ -41,6 +52,11 @@ public class CategoryValidator {
 		}
 	}
 
+	/**
+	 * 
+	 * @param categoryTypeId
+	 * @throws ValidationException
+	 */
 	public static void validateCategoryTypeId(int categoryTypeId) throws ValidationException {
 		if (categoryTypeId <= 0) {
 			throw new ValidationException("Invalid category type Id");

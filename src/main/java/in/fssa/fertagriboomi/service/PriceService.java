@@ -10,20 +10,34 @@ import in.fssa.fertagriboomi.model.Price;
 import in.fssa.fertagriboomi.validator.PriceValidator;
 
 public class PriceService {
-	public void create(int productId, Price newPrice) throws  ValidationException, ServiceException {
-		
+	/**
+	 * 
+	 * @param productId
+	 * @param newPrice
+	 * @throws ValidationException
+	 * @throws ServiceException
+	 */
+	public void create(int productId, Price newPrice) throws ValidationException, ServiceException {
+
 		try {
-		PriceDAO priceDao = new PriceDAO();
-		LocalDateTime localDateTime = LocalDateTime.now();
-		java.sql.Timestamp dateTime = java.sql.Timestamp.valueOf(localDateTime);
-		PriceValidator.validate(productId, newPrice);
-		priceDao.create(productId, newPrice, dateTime);
+			PriceDAO priceDao = new PriceDAO();
+			LocalDateTime localDateTime = LocalDateTime.now();
+			java.sql.Timestamp dateTime = java.sql.Timestamp.valueOf(localDateTime);
+			PriceValidator.validate(productId, newPrice);
+			priceDao.create(productId, newPrice, dateTime);
 		} catch (DAOException e) {
 			throw new ServiceException(e);
 		}
 
 	}
 
+	/**
+	 * 
+	 * @param productId
+	 * @param newPrice
+	 * @throws ServiceException
+	 * @throws ValidationException
+	 */
 	public void updatePrice(int productId, Price newPrice) throws ServiceException, ValidationException {
 		PriceDAO priceDao = new PriceDAO();
 		PriceValidator.validateUpdate(productId, newPrice);

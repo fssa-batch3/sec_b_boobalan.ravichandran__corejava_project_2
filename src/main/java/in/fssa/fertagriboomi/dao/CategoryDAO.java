@@ -14,8 +14,18 @@ import in.fssa.fertagriboomi.model.Category;
 import in.fssa.fertagriboomi.model.CategoryType;
 import in.fssa.fertagriboomi.util.ConnectionUtil;
 
+/**
+ * This class provides methods for interacting with the database to perform
+ * operations related to Categories.
+ */
 public class CategoryDAO implements CategoryInterface {
 
+	/**
+	 * Retrieves a list of all active categories from the database.
+	 *
+	 * @return List of Category objects representing all active categories.
+	 * @throws RuntimeException if a database access error occurs.
+	 */
 	@Override
 	public List<Category> findAll() {
 		Connection conn = null;
@@ -45,6 +55,14 @@ public class CategoryDAO implements CategoryInterface {
 		return categoryArray;
 	}
 
+	/**
+	 * Retrieves a category by its ID from the database.
+	 *
+	 * @param id The ID of the category to retrieve.
+	 * @return The Category object corresponding to the given ID.
+	 * @throws DAOException     if the category is not found in the database.
+	 * @throws RuntimeException if a database access error occurs.
+	 */
 	@Override
 	public Category findById(int id) throws DAOException {
 
@@ -63,13 +81,12 @@ public class CategoryDAO implements CategoryInterface {
 			if (!rs.next()) {
 				throw new DAOException("Category not available");
 			}
-			
-				category = new Category();
-				category.setId(rs.getInt("id"));
-				category.setName(rs.getString("name"));
-				category.setActive(rs.getBoolean("is_active"));
-				category.setCategory_type_id(rs.getInt("category_type_id"));
-			
+
+			category = new Category();
+			category.setId(rs.getInt("id"));
+			category.setName(rs.getString("name"));
+			category.setActive(rs.getBoolean("is_active"));
+			category.setCategory_type_id(rs.getInt("category_type_id"));
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -81,6 +98,14 @@ public class CategoryDAO implements CategoryInterface {
 		return category;
 	}
 
+	/**
+	 * Retrieves a list of active categories belonging to a specific category type.
+	 *
+	 * @param typeId The ID of the category type.
+	 * @return List of Category objects belonging to the specified category type.
+	 * @throws DAOException     if an error occurs while accessing the database.
+	 * @throws RuntimeException if a database access error occurs.
+	 */
 	@Override
 	public List<Category> findCategoryByCategoryTypeId(int typeId) throws DAOException {
 		List<Category> categoryArray = new ArrayList<Category>();
@@ -114,6 +139,13 @@ public class CategoryDAO implements CategoryInterface {
 
 	}
 
+	/**
+	 * Checks if a given category type ID exists in the database.
+	 *
+	 * @param categoryTypeId The ID of the category type to check.
+	 * @throws DAOException     if the category type does not exist in the database.
+	 * @throws RuntimeException if a database access error occurs.
+	 */
 	public void isCategoryTypeIdExists(int categoryTypeId) throws DAOException {
 
 		Connection conn = null;

@@ -11,6 +11,11 @@ import in.fssa.fertagriboomi.validator.CategoryTypeValidator;
 
 public class CategoryTypeService {
 
+	/**
+	 * 
+	 * @return
+	 * @throws ServiceException
+	 */
 	public List<CategoryType> getAll() throws ServiceException {
 		CategoryTypeDAO categoryTypeDao = new CategoryTypeDAO();
 		List<CategoryType> categoryTypeList = null;
@@ -29,6 +34,13 @@ public class CategoryTypeService {
 		return categoryTypeList;
 	}
 
+	/**
+	 * 
+	 * @param newId
+	 * @return
+	 * @throws ServiceException
+	 * @throws ValidationException
+	 */
 	public CategoryType findById(int newId) throws ServiceException, ValidationException {
 		CategoryTypeDAO categoryTypeDao = null;
 		CategoryType categoryType = null;
