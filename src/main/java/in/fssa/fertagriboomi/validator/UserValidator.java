@@ -43,8 +43,13 @@ public class UserValidator {
 			throw new ValidationException("Invalid Password");
 		}
 
-		UserDAO userDao = new UserDAO();
-		userDao.isEmailAlreadyExists(user.getEmail());
+		UserDAO userDao = null;
+		try {
+			userDao = new UserDAO();
+			userDao.isEmailAlreadyExists(user.getEmail());
+		} catch (DAOException e) {
+			throw new ValidationException(e);
+		}
 
 	}
 

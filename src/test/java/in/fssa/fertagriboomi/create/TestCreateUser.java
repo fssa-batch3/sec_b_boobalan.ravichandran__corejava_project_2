@@ -20,9 +20,9 @@ public class TestCreateUser {
 		User newUser = new User();
 
 		newUser.setName("Boobalan");
-		newUser.setEmail("rboomibaln459@gmail.com");
+		newUser.setEmail("rboomibaln467@gmail.com");
 		newUser.setPassword("Xyz12345@");
-		newUser.setPhoneNumber(967654665277l);
+		newUser.setPhoneNumber(9676546652l);
 		// newUser.setActive(true);
 		assertDoesNotThrow(() -> {
 			userService.create(newUser);
@@ -119,9 +119,11 @@ public class TestCreateUser {
 
 			userService.create(newUser);
 		});
-		String expectedMessage = "The email already exists";
+		String exceptedMessage = "The email already exists";
 		String actualMessage = exception.getMessage();
-		assertTrue(expectedMessage.equals(actualMessage));
+		// System.out.println("ex" + exceptedMessage);
+		// System.out.println("ac" + actualMessage);
+		assertTrue(actualMessage.contains(exceptedMessage));
 	}
 
 	@Test

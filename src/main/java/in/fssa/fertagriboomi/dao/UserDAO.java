@@ -15,7 +15,7 @@ import in.fssa.fertagriboomi.util.ConnectionUtil;
 public class UserDAO implements UserInterface {
 
 	@Override
-	public void create(User newUser) throws RuntimeException {
+	public void create(User newUser) throws DAOException {
 		Connection conn = null;
 		PreparedStatement ps = null;
 
@@ -34,7 +34,7 @@ public class UserDAO implements UserInterface {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println(e.getMessage());
-			throw new RuntimeException();
+			throw new DAOException(e);
 		} finally {
 			ConnectionUtil.close(conn, ps);
 		}
