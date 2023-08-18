@@ -58,7 +58,9 @@ public class TestCategoryTypeFind {
 
 		String exceptedMessage = "Category type not available";
 		String actualMessage = exception.getMessage();
+		System.out.println("ex"+ exceptedMessage);
+		System.out.println("ac"+ actualMessage);
 
-		assertTrue(exceptedMessage.equals(actualMessage));
+		assertTrue(actualMessage.contains(exceptedMessage));
 	}
 }

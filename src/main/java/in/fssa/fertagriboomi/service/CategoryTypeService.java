@@ -11,9 +11,14 @@ import in.fssa.fertagriboomi.validator.CategoryTypeValidator;
 
 public class CategoryTypeService {
 
-	public List<CategoryType> getAll() {
+	public List<CategoryType> getAll() throws ServiceException {
 		CategoryTypeDAO categoryTypeDao = new CategoryTypeDAO();
-		List<CategoryType> categoryTypeList = categoryTypeDao.findAll();
+		List<CategoryType> categoryTypeList = null;
+		try {
+			categoryTypeList = categoryTypeDao.findAll();
+		} catch (DAOException e) {
+			throw new ServiceException(e);
+		}
 		Iterator<CategoryType> iterator = categoryTypeList.iterator();
 
 		while (iterator.hasNext()) {

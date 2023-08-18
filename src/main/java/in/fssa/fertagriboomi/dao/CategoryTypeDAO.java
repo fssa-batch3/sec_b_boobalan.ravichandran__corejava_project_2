@@ -15,7 +15,7 @@ import in.fssa.fertagriboomi.util.ConnectionUtil;
 public class CategoryTypeDAO implements CategoryTypeInterface {
 
 	@Override
-	public List<CategoryType> findAll() {
+	public List<CategoryType> findAll() throws DAOException {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		List<CategoryType> categoryTypeArray = new ArrayList<CategoryType>();
@@ -36,7 +36,7 @@ public class CategoryTypeDAO implements CategoryTypeInterface {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println(e.getMessage());
-			throw new RuntimeException();
+			throw new DAOException(e);
 		} finally {
 			ConnectionUtil.close(conn, ps, rs);
 		}
@@ -81,7 +81,7 @@ public class CategoryTypeDAO implements CategoryTypeInterface {
 		ResultSet rs = null;
 
 		try {
-			String query = "SELECT * From categories_type WHERE is_active=1 AND id=?";
+			String query = "SELECT * From categories_type WHERE is_active = 1 AND id=?";
 			conn = ConnectionUtil.getConnection();
 			ps = conn.prepareStatement(query);
 			ps.setInt(1, newId);
