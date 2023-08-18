@@ -104,7 +104,7 @@ public class TestUpdatePrice {
 		PriceService priceService = new PriceService();
 
 		Price price = new Price();
-		price.setPrice(2000);
+		price.setPrice(2300);
 		// newUser.setActive(true);
 		Exception exception = assertThrows(ValidationException.class, () -> {
 		    priceService.updatePrice(22, price);

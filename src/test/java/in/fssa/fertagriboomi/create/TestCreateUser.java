@@ -20,7 +20,7 @@ public class TestCreateUser {
 		User newUser = new User();
 
 		newUser.setName("Boobalan");
-		newUser.setEmail("rboomibaln407@gmail.com");
+		newUser.setEmail("rboomibaln97@gmail.com");
 		newUser.setPassword("Xyz12345@");
 		newUser.setPhoneNumber(9676546652l);
 		// newUser.setActive(true);

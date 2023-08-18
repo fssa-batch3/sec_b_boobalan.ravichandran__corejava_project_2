@@ -27,7 +27,7 @@ public class TestCategoryFind {
 
 		// newUser.setActive(true);
 		assertDoesNotThrow(() -> {
-			System.out.println(categoryService.findById(6));
+			System.out.println(categoryService.findById(2));
 		});
 
 	}
