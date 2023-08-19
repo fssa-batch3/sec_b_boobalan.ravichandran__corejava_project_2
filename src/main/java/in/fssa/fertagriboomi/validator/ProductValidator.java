@@ -7,7 +7,7 @@ import in.fssa.fertagriboomi.model.Product;
 import in.fssa.fertagriboomi.util.StringUtil;
 
 public class ProductValidator {
-	
+
 	/**
 	 * 
 	 * @param product
@@ -74,14 +74,13 @@ public class ProductValidator {
 		}
 
 	}
-	
-	
-/**
- * 
- * @param id
- * @param newUpdate
- * @throws ValidationException
- */
+
+	/**
+	 * 
+	 * @param id
+	 * @param newUpdate
+	 * @throws ValidationException
+	 */
 	public static void validateUpdate(int id, Product newUpdate) throws ValidationException {
 		if (newUpdate == null) {
 			throw new ValidationException("Invalid Product input");
@@ -126,9 +125,8 @@ public class ProductValidator {
 			throw new ValidationException(e);
 		}
 
-
 	}
-	
+
 	/**
 	 * 
 	 * @param newId
@@ -150,7 +148,10 @@ public class ProductValidator {
 
 		try {
 			productDao = new ProductDAO();
-			productDao.isDeletedProduct(newId);
+			boolean val = productDao.isDeletedProduct(newId);
+			if (val) {
+				throw new ValidationException("This product has already been removed");
+			}
 
 		} catch (DAOException e) {
 			throw new ValidationException(e);

@@ -342,7 +342,7 @@ public class ProductDAO implements ProductInterface {
      * @throws DAOException if the product has already been removed.
      * @throws RuntimeException if a database access error occurs.
      */
-	public void isDeletedProduct(int productId) throws DAOException{
+	public boolean isDeletedProduct(int productId) throws DAOException{
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -352,9 +352,7 @@ public class ProductDAO implements ProductInterface {
 		ps = conn.prepareStatement(query);
 		ps.setInt(1, productId);
 		rs = ps.executeQuery();
-		if (rs.next()) {
-			throw new DAOException("This product has already been removed");
-		}
+		return rs.next();
 		}catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println(e.getMessage());
