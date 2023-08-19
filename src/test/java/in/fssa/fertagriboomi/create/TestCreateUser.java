@@ -6,28 +6,27 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import in.fssa.fertagriboomi.exception.DAOException;
 import in.fssa.fertagriboomi.exception.ValidationException;
 import in.fssa.fertagriboomi.model.User;
 import in.fssa.fertagriboomi.service.UserService;
+import in.fssa.fertagriboomi.util.EmailGenerator;
 
 public class TestCreateUser {
 
 	@Test
-	public void testCreateUserWithValideInput() {
+	public void testCreateUserWithValidInput() {
 		UserService userService = new UserService();
 
 		User newUser = new User();
 
-		newUser.setName("Boobalan");
-		newUser.setEmail("rboomibaln97@gmail.com");
+		newUser.setName("Ragunath");
+		newUser.setEmail(EmailGenerator.generateRandomEmail()); // Generate a random email
 		newUser.setPassword("Xyz12345@");
-		newUser.setPhoneNumber(9676546652l);
-		// newUser.setActive(true);
+		newUser.setPhoneNumber(9676547782L);
+
 		assertDoesNotThrow(() -> {
 			userService.create(newUser);
 		});
-
 	}
 
 	@Test

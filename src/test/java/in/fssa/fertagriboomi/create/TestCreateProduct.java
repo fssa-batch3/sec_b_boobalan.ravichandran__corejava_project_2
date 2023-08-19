@@ -23,9 +23,9 @@ public class TestCreateProduct {
 		ProductService productService = new ProductService();
 
 		Product product = new Product();
-		product.setName("Targa Super tech");
+		product.setName("Dow Agro Science");
 		product.setCategory_id(1);
-		product.setManufacture("Dhanuka Agritech Limited");
+		product.setManufacture("Dow Agro Science Agritech Limited");
 		product.setProduct_weight("500g");
 		product.setDescription(
 				"Targa Super  (Quizalofop Ethyl 5% EC) is selective, systemic herbicide of Aryloxyphenoxy-propionates group. It is used to control narrow leaf weeds in broad leaf crops.");
@@ -37,7 +37,7 @@ public class TestCreateProduct {
 
 		PriceService priceService = new PriceService();
 		Price price = new Price();
-		price.setPrice(1000);
+		price.setPrice(1600);
 		product.setPrice(price);
 
 		assertDoesNotThrow(() -> {
