@@ -16,13 +16,13 @@ public class TestUpdatePrice {
 		PriceService priceService = new PriceService();
 
 		Price price = new Price();
-		price.setPrice(1090);
+		price.setPrice(1060);
 		// newUser.setActive(true);
 		assertDoesNotThrow(() -> {
 			priceService.updatePrice(2, price);
 		});
 	}
-	
+
 	@Test
 	public void testUpdatePriceWithNullObjectPrice() {
 		PriceService priceService = new PriceService();
@@ -33,15 +33,13 @@ public class TestUpdatePrice {
 		Exception exception = assertThrows(ValidationException.class, () -> {
 			priceService.updatePrice(2, null);
 		});
-		
-		
+
 		String exceptedMessage = "Invalid Price input";
 		String actualMessage = exception.getMessage();
 
 		assertTrue(exceptedMessage.equals(actualMessage));
 	}
-	
-	
+
 	@Test
 	public void testUpdatePriceMinimumRequiredAmount() {
 		PriceService priceService = new PriceService();
@@ -50,17 +48,17 @@ public class TestUpdatePrice {
 		price.setPrice(20);
 		// newUser.setActive(true);
 		Exception exception = assertThrows(ValidationException.class, () -> {
-		    priceService.updatePrice(2, price);
+			priceService.updatePrice(2, price);
 		});
 
 		String expectedMessage = "Price should be between a minimum of 50 and a maximum of 10000.";
 		String actualMessage = exception.getMessage();
-		//System.out.println("Expected: " + expectedMessage);
-		//System.out.println("Actual: " + actualMessage);
+		// System.out.println("Expected: " + expectedMessage);
+		// System.out.println("Actual: " + actualMessage);
 
 		assertTrue(expectedMessage.equals(actualMessage));
 	}
-	
+
 	@Test
 	public void testUpdatePriceMaximumRequiredAmount() {
 		PriceService priceService = new PriceService();
@@ -69,7 +67,7 @@ public class TestUpdatePrice {
 		price.setPrice(10002);
 		// newUser.setActive(true);
 		Exception exception = assertThrows(ValidationException.class, () -> {
-		    priceService.updatePrice(2, price);
+			priceService.updatePrice(2, price);
 		});
 
 		String expectedMessage = "Price should be between a minimum of 50 and a maximum of 10000.";
@@ -79,7 +77,7 @@ public class TestUpdatePrice {
 
 		assertTrue(expectedMessage.equals(actualMessage));
 	}
-	
+
 	@Test
 	public void testUpdatePriceWithInvalidNegativeOrZeroProductId() {
 		PriceService priceService = new PriceService();
@@ -88,7 +86,7 @@ public class TestUpdatePrice {
 		price.setPrice(10002);
 		// newUser.setActive(true);
 		Exception exception = assertThrows(ValidationException.class, () -> {
-		    priceService.updatePrice(-22, price);
+			priceService.updatePrice(-22, price);
 		});
 
 		String expectedMessage = "Invalid Product Id";
@@ -98,7 +96,7 @@ public class TestUpdatePrice {
 
 		assertTrue(expectedMessage.equals(actualMessage));
 	}
-	
+
 	@Test
 	public void testUpdatePriceWithInvalidNonExistenProductId() {
 		PriceService priceService = new PriceService();
@@ -107,7 +105,7 @@ public class TestUpdatePrice {
 		price.setPrice(2300);
 		// newUser.setActive(true);
 		Exception exception = assertThrows(ValidationException.class, () -> {
-		    priceService.updatePrice(22, price);
+			priceService.updatePrice(22, price);
 		});
 
 		String expectedMessage = "Product not available in the product list";
@@ -117,7 +115,7 @@ public class TestUpdatePrice {
 
 		assertTrue(actualMessage.contains(expectedMessage));
 	}
-	
+
 	@Test
 	public void testUpdatePriceWithExistsPrice() {
 		PriceService priceService = new PriceService();
@@ -126,7 +124,7 @@ public class TestUpdatePrice {
 		price.setPrice(1000);
 		// newUser.setActive(true);
 		Exception exception = assertThrows(ValidationException.class, () -> {
-		    priceService.updatePrice(1, price);
+			priceService.updatePrice(1, price);
 		});
 
 		String expectedMessage = "Product price should be same";
@@ -135,6 +133,6 @@ public class TestUpdatePrice {
 //		System.out.println("Actual: " + actualMessage);
 
 		assertTrue(actualMessage.contains(expectedMessage));
-		
+
 	}
 }

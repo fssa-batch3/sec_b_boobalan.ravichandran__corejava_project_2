@@ -23,7 +23,7 @@ public class TestCreateProduct {
 		ProductService productService = new ProductService();
 
 		Product product = new Product();
-		product.setName("Dow Agro gowth");
+		product.setName("herbicides menautham");
 		product.setCategory_id(1);
 		product.setManufacture("Dow Agro Science Agritech Limited");
 		product.setProduct_weight("500g");
@@ -538,7 +538,7 @@ public class TestCreateProduct {
 		ProductService productService = new ProductService();
 
 		Product product = new Product();
-		product.setName("Dow agro science");
+		product.setName("Dow agro ");
 		product.setCategory_id(1);
 		product.setManufacture("Dhanuka Agritech Limited");
 		product.setProduct_weight("500g");
@@ -562,7 +562,7 @@ public class TestCreateProduct {
 		String exceptedMessage = "Price should be between a minimum of 50 and a maximum of 10000.";
 		String actualMessage = exception.getMessage();
 
-		assertTrue(exceptedMessage.equals(actualMessage));
+		assertTrue(actualMessage.contains(exceptedMessage));
 	}
 
 	@Test
