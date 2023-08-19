@@ -403,10 +403,10 @@ public class TestCreateProduct {
 			productService.create(product);
 		});
 
-		String exceptedMessage = "Product Description cannot be null or empty";
+		String expectedMessage = "Product Description cannot be null or empty";
 		String actualMessage = exception.getMessage();
 
-		assertTrue(exceptedMessage.equals(actualMessage));
+		assertTrue(expectedMessage.equals(actualMessage));
 	}
 
 	@Test
@@ -564,6 +564,7 @@ public class TestCreateProduct {
 
 		assertTrue(exceptedMessage.equals(actualMessage));
 	}
+
 	@Test
 	public void testCreateProductPriceUnder10000Rupees() {
 		ProductService productService = new ProductService();
