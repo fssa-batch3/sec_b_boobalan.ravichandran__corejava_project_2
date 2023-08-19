@@ -16,12 +16,12 @@ import in.fssa.fertagriboomi.util.ConnectionUtil;
 
 public class ProductDAO implements ProductInterface {
 
-	 /**
-     * Retrieves a list of all active products from the database.
-     *
-     * @return A list of Product objects representing all active products.
-     * @throws RuntimeException if a database access error occurs.
-     */
+	/**
+	 * Retrieves a list of all active products from the database.
+	 *
+	 * @return A list of Product objects representing all active products.
+	 * @throws RuntimeException if a database access error occurs.
+	 */
 	@Override
 	public List<Product> findAll() {
 		Connection conn = null;
@@ -57,13 +57,13 @@ public class ProductDAO implements ProductInterface {
 	}
 
 	/**
-     * Creates a new product entry in the database.
-     *
-     * @param newProduct The Product object representing the new product.
-     * @return The ID of the newly created product.
-     * @throws DAOException if an error occurs while accessing the database.
-     * @throws RuntimeException if a database access error occurs.
-     */
+	 * Creates a new product entry in the database.
+	 *
+	 * @param newProduct The Product object representing the new product.
+	 * @return The ID of the newly created product.
+	 * @throws DAOException     if an error occurs while accessing the database.
+	 * @throws RuntimeException if a database access error occurs.
+	 */
 	@Override
 	public int create(Product newProduct) throws DAOException {
 
@@ -101,14 +101,15 @@ public class ProductDAO implements ProductInterface {
 
 	}
 
-	  /**
-     * Checks if a product with the given name already exists in the database.
-     *
-     * @param name The name of the product to check.
-     * @return true if the product with the given name already exists, false otherwise.
-     * @throws DAOException if an error occurs while accessing the database.
-     * @throws RuntimeException if a database access error occurs.
-     */
+	/**
+	 * Checks if a product with the given name already exists in the database.
+	 *
+	 * @param name The name of the product to check.
+	 * @return true if the product with the given name already exists, false
+	 *         otherwise.
+	 * @throws DAOException     if an error occurs while accessing the database.
+	 * @throws RuntimeException if a database access error occurs.
+	 */
 	public boolean isProductAlreadyExists(String name) throws DAOException {
 
 		Connection conn = null;
@@ -135,14 +136,15 @@ public class ProductDAO implements ProductInterface {
 
 	}
 
-	 /**
-     * Retrieves a product by its ID from the database.
-     *
-     * @param id The ID of the product to retrieve.
-     * @return The Product object representing the retrieved product.
-     * @throws DAOException if the product is not listed among the available products.
-     * @throws RuntimeException if a database access error occurs.
-     */
+	/**
+	 * Retrieves a product by its ID from the database.
+	 *
+	 * @param id The ID of the product to retrieve.
+	 * @return The Product object representing the retrieved product.
+	 * @throws DAOException     if the product is not listed among the available
+	 *                          products.
+	 * @throws RuntimeException if a database access error occurs.
+	 */
 	@Override
 	public Product findById(int id) throws DAOException {
 		Connection conn = null;
@@ -181,14 +183,15 @@ public class ProductDAO implements ProductInterface {
 		return product;
 	}
 
-	 /**
-     * Updates a product's information in the database.
-     *
-     * @param id The ID of the product to update.
-     * @param updateProduct The Product object representing the updated product information.
-     * @throws DAOException if an error occurs while accessing the database.
-     * @throws RuntimeException if a database access error occurs.
-     */
+	/**
+	 * Updates a product's information in the database.
+	 *
+	 * @param id            The ID of the product to update.
+	 * @param updateProduct The Product object representing the updated product
+	 *                      information.
+	 * @throws DAOException     if an error occurs while accessing the database.
+	 * @throws RuntimeException if a database access error occurs.
+	 */
 	@Override
 	public void update(int id, Product updateProduct) throws DAOException {
 		Connection conn = null;
@@ -221,13 +224,13 @@ public class ProductDAO implements ProductInterface {
 
 	}
 
-	  /**
-     * Deletes a product from the database.
-     *
-     * @param id The ID of the product to delete.
-     * @throws DAOException if an error occurs while accessing the database.
-     * @throws RuntimeException if a database access error occurs.
-     */
+	/**
+	 * Deletes a product from the database.
+	 *
+	 * @param id The ID of the product to delete.
+	 * @throws DAOException     if an error occurs while accessing the database.
+	 * @throws RuntimeException if a database access error occurs.
+	 */
 	@Override
 	public void delete(int id) throws DAOException {
 		Connection conn = null;
@@ -254,14 +257,14 @@ public class ProductDAO implements ProductInterface {
 
 	}
 
-	 /**
-     * Checks if a category with the given ID exists in the database.
-     *
-     * @param id The ID of the category to check.
-     * @return true if the category with the given ID exists, false otherwise.
-     * @throws DAOException if an error occurs while accessing the database.
-     * @throws RuntimeException if a database access error occurs.
-     */
+	/**
+	 * Checks if a category with the given ID exists in the database.
+	 *
+	 * @param id The ID of the category to check.
+	 * @return true if the category with the given ID exists, false otherwise.
+	 * @throws DAOException     if an error occurs while accessing the database.
+	 * @throws RuntimeException if a database access error occurs.
+	 */
 	public boolean isCategoryExists(int id) throws DAOException {
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -285,14 +288,14 @@ public class ProductDAO implements ProductInterface {
 
 	}
 
-	 /**
-     * Lists all products belonging to a specific category.
-     *
-     * @param categoryId The ID of the category to filter products by.
-     * @return A list of Product objects belonging to the specified category.
-     * @throws DAOException if an error occurs while accessing the database.
-     * @throws RuntimeException if a database access error occurs.
-     */
+	/**
+	 * Lists all products belonging to a specific category.
+	 *
+	 * @param categoryId The ID of the category to filter products by.
+	 * @return A list of Product objects belonging to the specified category.
+	 * @throws DAOException     if an error occurs while accessing the database.
+	 * @throws RuntimeException if a database access error occurs.
+	 */
 	public List<Product> listAllTheProductsByCategoryId(int categoryId) throws DAOException {
 
 		List<Product> ProductList = new ArrayList<Product>();
@@ -334,32 +337,60 @@ public class ProductDAO implements ProductInterface {
 		return ProductList;
 
 	}
-	
-	  /**
-     * Checks if a product with the given ID has been deleted (is_active=0) in the database.
-     *
-     * @param productId The ID of the product to check.
-     * @throws DAOException if the product has already been removed.
-     * @throws RuntimeException if a database access error occurs.
-     */
-	public boolean isDeletedProduct(int productId) throws DAOException{
+
+	/**
+	 * Checks if a product with the given ID has been deleted (is_active=0) in the
+	 * database.
+	 *
+	 * @param productId The ID of the product to check.
+	 * @throws DAOException     if the product has already been removed.
+	 * @throws RuntimeException if a database access error occurs.
+	 */
+	public boolean isDeletedProduct(int productId) throws DAOException {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		try {
-		String query = "SELECT * From products WHERE is_active=0 AND id=?";
-		conn = ConnectionUtil.getConnection();
-		ps = conn.prepareStatement(query);
-		ps.setInt(1, productId);
-		rs = ps.executeQuery();
-		return rs.next();
-		}catch (SQLException e) {
+			String query = "SELECT * From products WHERE is_active=0 AND id=?";
+			conn = ConnectionUtil.getConnection();
+			ps = conn.prepareStatement(query);
+			ps.setInt(1, productId);
+			rs = ps.executeQuery();
+			return rs.next();
+		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println(e.getMessage());
 			throw new DAOException(e);
 		} finally {
 			ConnectionUtil.close(conn, ps, rs);
 		}
+	}
+
+	public void changeActive(int id) throws DAOException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		try {
+			String query = "UPDATE products SET is_active=? WHERE id=?";
+			conn = ConnectionUtil.getConnection();
+			ps = conn.prepareStatement(query);
+			ps.setBoolean(1, true);
+			ps.setInt(2, id);
+			int rowsUpdated = ps.executeUpdate();
+
+			if (rowsUpdated > 0) {
+				System.out.println("Product with ID " + id + " has been isActive updated successfully.");
+			} else {
+				System.out.println("Product with ID " + id + " not found.");
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println(e.getMessage());
+			throw new DAOException(e);
+		} finally {
+			ConnectionUtil.close(conn, ps);
+		}
+
 	}
 
 }

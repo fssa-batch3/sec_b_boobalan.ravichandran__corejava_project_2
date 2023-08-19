@@ -132,4 +132,14 @@ public class ProductService {
 		return product;
 	}
 
+	public void changeActive(int id) throws ServiceException{
+		try {
+			ProductDAO productDao = new ProductDAO();
+			productDao.changeActive(id);
+		}catch (DAOException e) {
+			throw new ServiceException(e);
+		}
+		
+	}
+
 }

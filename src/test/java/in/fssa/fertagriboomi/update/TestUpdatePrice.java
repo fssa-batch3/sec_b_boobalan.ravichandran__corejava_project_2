@@ -16,7 +16,7 @@ public class TestUpdatePrice {
 		PriceService priceService = new PriceService();
 
 		Price price = new Price();
-		price.setPrice(2500);
+		price.setPrice(1090);
 		// newUser.setActive(true);
 		assertDoesNotThrow(() -> {
 			priceService.updatePrice(2, price);

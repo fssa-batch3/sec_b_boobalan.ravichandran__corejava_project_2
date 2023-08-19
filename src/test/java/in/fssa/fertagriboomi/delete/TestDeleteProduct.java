@@ -15,8 +15,9 @@ public class TestDeleteProduct {
 	public void testDeleteProductWithValideInput() {
 		ProductService productService = new ProductService();
 		assertDoesNotThrow(() -> {
-			productService.delete(1);
-
+			productService.delete(2);
+			
+			productService.changeActive(2);
 		});
 	}
 
