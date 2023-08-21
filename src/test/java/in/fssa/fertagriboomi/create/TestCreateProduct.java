@@ -117,10 +117,10 @@ public class TestCreateProduct {
 			productService.create(product);
 		});
 
-		String exceptedMessage = "Product name cannot be null or empty";
+		String expectedMessage = "Product name cannot be null or empty";
 		String actualMessage = exception.getMessage();
 
-		assertTrue(exceptedMessage.equals(actualMessage));
+		assertTrue(expectedMessage.equals(actualMessage));
 	}
 
 	@Test
