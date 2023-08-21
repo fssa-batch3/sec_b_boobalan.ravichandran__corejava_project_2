@@ -171,7 +171,7 @@ public class TestUpdateUser {
 			userService.update(1, newUser);
 		});
 
-		String exceptedMessage = "Invalid Password";
+		String exceptedMessage = "Invalid Password. The password must be at least 8 characters long and contain at least one letter, one digit, and one special character. It should not contain spaces.";
 		String actualMessage = exception.getMessage();
 
 		assertTrue(exceptedMessage.equals(actualMessage));
@@ -191,7 +191,7 @@ public class TestUpdateUser {
 			userService.update(1, newUser);
 		});
 
-		String exceptedMessage = "Invalid phone number";
+		String exceptedMessage = "Invalid phone number. The phone number must be in the range of 6000000001 to 9999999999.";
 		String actualMessage = exception.getMessage();
 
 		assertTrue(exceptedMessage.equals(actualMessage));
