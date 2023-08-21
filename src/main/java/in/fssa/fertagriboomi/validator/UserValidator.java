@@ -28,13 +28,13 @@ public class UserValidator {
 
 		if (!(user.getPhoneNumber() >= 6000000001l && user.getPhoneNumber() <= 9999999999l)) {
 
-			throw new ValidationException("Invalid phone number");
+			throw new ValidationException(
+					"Invalid phone number. The phone number must be in the range of 6000000001 to 9999999999.");
 		}
-
 		Pattern namePattern = Pattern.compile("^[A-Za-z]+$");
 		Matcher nameMatcher = namePattern.matcher(user.getName());
 		if (!nameMatcher.matches()) {
-			throw new ValidationException("Invalid User Name");
+			throw new ValidationException("Invalid User Name. The name must only contain alphabetic characters");
 		}
 
 		Pattern emailPattern = Pattern.compile("^[A-Za-z0-9+_.-]+@(.+)$");
@@ -46,7 +46,8 @@ public class UserValidator {
 		Pattern passwordPattern = Pattern.compile("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@#$%^&+=_!])(?!.*\\s).{8,}$");
 		Matcher passwordMatcher = passwordPattern.matcher(user.getPassword());
 		if (!passwordMatcher.matches()) {
-			throw new ValidationException("Invalid Password");
+			throw new ValidationException(
+					"Invalid Password. The password must be at least 8 characters long and contain at least one letter, one digit, and one special character. It should not contain spaces.");
 		}
 
 		UserDAO userDao = null;
@@ -77,7 +78,8 @@ public class UserValidator {
 
 		if (!(newUpdate.getPhoneNumber() >= 6000000001l && newUpdate.getPhoneNumber() <= 9999999999l)) {
 
-			throw new ValidationException("Invalid phone number");
+			throw new ValidationException(
+					"Invalid phone number. The phone number must be in the range of 6000000001 to 9999999999.");
 		}
 
 		Pattern namePattern = Pattern.compile("^[A-Za-z ]+$");
@@ -89,7 +91,8 @@ public class UserValidator {
 		Pattern passwordPattern = Pattern.compile("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@#$%^&+=_!])(?!.*\\s).{8,}$");
 		Matcher passwordMatcher = passwordPattern.matcher(newUpdate.getPassword());
 		if (!passwordMatcher.matches()) {
-			throw new ValidationException("Invalid Password");
+			throw new ValidationException(
+					"\"Invalid Password. The password must be at least 8 characters long and contain at least one letter, one digit, and one special character. It should not contain spaces.");
 		}
 
 		UserDAO userDao = null;

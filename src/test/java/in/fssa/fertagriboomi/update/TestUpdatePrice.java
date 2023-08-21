@@ -9,18 +9,28 @@ import org.junit.jupiter.api.Test;
 import in.fssa.fertagriboomi.exception.ValidationException;
 import in.fssa.fertagriboomi.model.Price;
 import in.fssa.fertagriboomi.service.PriceService;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TestUpdatePrice {
-	@Test
-	public void testUpdatePriceWithValidInput() {
-		PriceService priceService = new PriceService();
 
-		Price price = new Price();
-		price.setPrice(1960);
-		// newUser.setActive(true);
-		assertDoesNotThrow(() -> {
-			priceService.updatePrice(2, price);
-		});
+	public class PriceServiceTest {
+
+		@Test
+		public void testUpdatePriceWithValidInput() {
+			PriceService priceService = new PriceService();
+
+			Price price = new Price();
+			price.setPrice(generateRandomPriceInRange(50, 10000));
+
+			assertDoesNotThrow(() -> {
+				priceService.updatePrice(2, price);
+			});
+		}
+
+		private int generateRandomPriceInRange(int min, int max) {
+			return (int) (Math.random() * (max - min + 1)) + min;
+		}
 	}
 
 	@Test

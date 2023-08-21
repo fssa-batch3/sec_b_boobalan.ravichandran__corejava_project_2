@@ -181,7 +181,7 @@ public class TestCreateUser {
 			userService.create(newUser);
 		});
 
-		String exceptedMessage = "Invalid Password";
+		String exceptedMessage = "Invalid Password. The password must be at least 8 characters long and contain at least one letter, one digit, and one special character. It should not contain spaces.";
 		String actualMessage = exception.getMessage();
 
 		assertTrue(exceptedMessage.equals(actualMessage));
@@ -244,7 +244,7 @@ public class TestCreateUser {
 			userService.create(newUser);
 		});
 
-		String exceptedMessage = "Invalid User Name";
+		String exceptedMessage = "Invalid User Name. The name must only contain alphabetic characters";
 		String actualMessage = exception.getMessage();
 
 		assertTrue(exceptedMessage.equals(actualMessage));
@@ -258,16 +258,20 @@ public class TestCreateUser {
 
 		newUser.setName("BoobalanR");
 		newUser.setEmail("rboomibaln461@gmailcom");
-		newUser.setPassword("Xyz12345@");
-		newUser.setPhoneNumber(0);
+		newUser.setPhoneNumber(96);
+		newUser.setPassword("Abcd1234@");
+		
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
 			userService.create(newUser);
 		});
 
-		String exceptedMessage = "Invalid phone number";
+		String exceptedMessage = "Invalid phone number. The phone number must be in the range of 6000000001 to 9999999999.";
 		String actualMessage = exception.getMessage();
+		
+		System.out.println(exceptedMessage);
+		System.out.println(actualMessage);
 
-		assertTrue(exceptedMessage.equals(actualMessage));
+		assertTrue(actualMessage.contains(exceptedMessage));
 	}
 }

@@ -39,7 +39,7 @@ public class TestDeleteProduct {
 	public void testDeleteProductByInvalidNonExistenProductId() {
 		ProductService productService = new ProductService();
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			productService.delete(10);
+			productService.delete(100);
 
 		});
 
