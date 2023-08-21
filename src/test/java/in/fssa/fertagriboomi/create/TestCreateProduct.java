@@ -23,7 +23,7 @@ public class TestCreateProduct {
 		ProductService productService = new ProductService();
 
 		Product product = new Product();
-		product.setName("herbicides menautham");
+		product.setName("herbicides Growth");
 		product.setCategory_id(1);
 		product.setManufacture("Dow Agro Science Agritech Limited");
 		product.setProduct_weight("500g");
