@@ -52,10 +52,10 @@ public class TestCreateProduct {
 		Exception exception = assertThrows(Exception.class, () -> {
 			productService.create(null);
 		});
-		String exceptedMessage = "Invalid Product";
+		String expectedMessage = "Invalid Product";
 		String actualMessage = exception.getMessage();
 
-		assertTrue(exceptedMessage.equals(actualMessage));
+		assertTrue(expectedMessage.equals(actualMessage));
 
 	}
 
