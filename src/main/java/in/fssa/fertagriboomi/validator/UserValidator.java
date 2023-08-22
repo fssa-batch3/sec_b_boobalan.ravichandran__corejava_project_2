@@ -9,13 +9,17 @@ import in.fssa.fertagriboomi.exception.ValidationException;
 import in.fssa.fertagriboomi.model.User;
 import in.fssa.fertagriboomi.util.StringUtil;
 
+/**
+ * Validator class for validating User objects.
+ */
 public class UserValidator {
 
 	/**
-	 * 
-	 * @param user
-	 * @throws ValidationException
-	 * @throws DAOException
+	 * Validates a User for creation.
+	 *
+	 * @param user The User object to validate.
+	 * @throws ValidationException If the User object is invalid.
+	 * @throws DAOException        If there's an issue with data access.
 	 */
 	public static void validate(User user) throws ValidationException, DAOException {
 
@@ -61,10 +65,11 @@ public class UserValidator {
 	}
 
 	/**
-	 * 
-	 * @param newUpdate
-	 * @param id
-	 * @throws ValidationException
+	 * Validates updates to a User.
+	 *
+	 * @param newUpdate The updated User object.
+	 * @param id        The ID of the User being updated.
+	 * @throws ValidationException If the updated User object is invalid.
 	 */
 	public static void validateUpdate(User newUpdate, int id) throws ValidationException {
 		if (newUpdate == null) {
@@ -92,7 +97,7 @@ public class UserValidator {
 		Matcher passwordMatcher = passwordPattern.matcher(newUpdate.getPassword());
 		if (!passwordMatcher.matches()) {
 			throw new ValidationException(
-					"\"Invalid Password. The password must be at least 8 characters long and contain at least one letter, one digit, and one special character. It should not contain spaces.");
+					"Invalid Password. The password must be at least 8 characters long and contain at least one letter, one digit, and one special character. It should not contain spaces.");
 		}
 
 		UserDAO userDao = null;

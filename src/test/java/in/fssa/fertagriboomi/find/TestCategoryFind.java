@@ -80,9 +80,10 @@ public class TestCategoryFind {
 			categoryService.findCategoriesByCategoryId(-99);
 		});
 
-		String exceptedMessage = "Invalid category type Id";
+		String exceptedMessage = "Invalid category type ID";
 		String actualMessage = exception.getMessage();
-
+		System.out.println("e" + exceptedMessage);
+		System.out.println("e" + actualMessage);
 		assertTrue(exceptedMessage.equals(actualMessage));
 	}
 

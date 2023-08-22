@@ -148,10 +148,13 @@ public class PriceDAO implements PriceInterface {
 	}
 
 	/**
-	 * 
-	 * @param productId
-	 * @param newPrice
-	 * @throws DAOException
+	 * Checks if a price entry with the same product ID and price value already
+	 * exists in the database and has no end date set.
+	 *
+	 * @param productId The ID of the product to check for.
+	 * @param newPrice  The new price object to check for duplication.
+	 * @throws DAOException If an error occurs while interacting with the database
+	 *                      or if a duplicate price entry is found.
 	 */
 	public void isPriceAlreadyExists(int productId, Price newPrice) throws DAOException {
 		Connection conn = null;

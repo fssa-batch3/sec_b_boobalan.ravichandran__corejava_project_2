@@ -6,12 +6,17 @@ import in.fssa.fertagriboomi.exception.ValidationException;
 import in.fssa.fertagriboomi.model.Product;
 import in.fssa.fertagriboomi.util.StringUtil;
 
+/**
+ * Validator class for validating Product objects.
+ */
 public class ProductValidator {
 
 	/**
-	 * 
-	 * @param product
-	 * @throws ValidationException
+	 * Validates a Product object for creation.
+	 *
+	 * @param product The Product object to validate.
+	 * @throws ValidationException If the Product object is invalid or conflicts
+	 *                             with existing data.
 	 */
 	public static void validate(Product product) throws ValidationException {
 		if (product == null) {
@@ -76,10 +81,12 @@ public class ProductValidator {
 	}
 
 	/**
-	 * 
-	 * @param id
-	 * @param newUpdate
-	 * @throws ValidationException
+	 * Validates a Product object for update.
+	 *
+	 * @param id        The ID of the Product to update.
+	 * @param newUpdate The updated Product object.
+	 * @throws ValidationException If the updated Product object is invalid or
+	 *                             conflicts with existing data.
 	 */
 	public static void validateUpdate(int id, Product newUpdate) throws ValidationException {
 		if (newUpdate == null) {
@@ -107,11 +114,12 @@ public class ProductValidator {
 	}
 
 	/**
-	 * 
-	 * @param newId
-	 * @throws ValidationException
+	 * Validates a Product ID.
+	 *
+	 * @param newId The ID to validate.
+	 * @throws ValidationException If the Product ID is invalid or not found.
 	 */
-	public static void ValidateId(int newId) throws ValidationException {
+	public static void validateId(int newId) throws ValidationException {
 
 		if (newId <= 0) {
 			throw new ValidationException("Invalid Product id");
@@ -128,11 +136,13 @@ public class ProductValidator {
 	}
 
 	/**
-	 * 
-	 * @param newId
-	 * @throws ValidationException
+	 * Validates a Product ID for deletion.
+	 *
+	 * @param newId The ID to validate.
+	 * @throws ValidationException If the Product ID is invalid, not found, or has
+	 *                             already been removed.
 	 */
-	public static void ValidateDeleteId(int newId) throws ValidationException {
+	public static void validateDeleteId(int newId) throws ValidationException {
 
 		if (newId <= 0) {
 			throw new ValidationException("Invalid Product id");
@@ -160,11 +170,12 @@ public class ProductValidator {
 	}
 
 	/**
-	 * 
-	 * @param id
-	 * @throws ValidationException
+	 * Validates a Category ID for listing products.
+	 *
+	 * @param id The Category ID to validate.
+	 * @throws ValidationException If the Category ID is invalid or not found.
 	 */
-	public static void ValidateCategoryId(int id) throws ValidationException {
+	public static void validateCategoryId(int id) throws ValidationException {
 		if (id <= 0) {
 			throw new ValidationException("Invalid Category id");
 		}

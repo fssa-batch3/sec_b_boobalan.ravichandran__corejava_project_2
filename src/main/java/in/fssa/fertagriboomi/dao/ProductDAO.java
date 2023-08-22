@@ -366,6 +366,13 @@ public class ProductDAO implements ProductInterface {
 		}
 	}
 
+	/**
+	 * Changes the active status of a product with the given ID to "active".
+	 *
+	 * @param id The ID of the product to be marked as active.
+	 * @throws DAOException If an error occurs while interacting with the database
+	 *                      or if the product with the specified ID is not found.
+	 */
 	public void changeActive(int id) throws DAOException {
 		Connection conn = null;
 		PreparedStatement ps = null;

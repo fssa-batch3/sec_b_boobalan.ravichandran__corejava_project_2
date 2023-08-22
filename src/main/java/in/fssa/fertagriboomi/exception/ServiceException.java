@@ -1,20 +1,25 @@
 package in.fssa.fertagriboomi.exception;
 
+/**
+ * Custom exception class for service layer related errors.
+ */
 public class ServiceException extends Exception {
-	/**
-	 * 
-	 * @param string
-	 */
-	public ServiceException(String string) {
-		super(string);
-	}
-	/**
-	 * 
-	 * @param errorMessage
-	 */
 
-	public ServiceException(Exception errorMessage) {
-		super(errorMessage);
-	}
+    /**
+     * Constructs a new ServiceException with the specified error message.
+     *
+     * @param errorMessage The error message describing the exception.
+     */
+    public ServiceException(String errorMessage) {
+        super(errorMessage);
+    }
 
+    /**
+     * Constructs a new ServiceException with the specified cause.
+     *
+     * @param cause The cause of the exception.
+     */
+    public ServiceException(Exception cause) {
+        super(cause);
+    }
 }

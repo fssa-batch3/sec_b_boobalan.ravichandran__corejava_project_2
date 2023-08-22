@@ -1,25 +1,25 @@
 package in.fssa.fertagriboomi.exception;
 
+/**
+ * Custom exception class for validation errors.
+ */
 public class ValidationException extends Exception {
 
 	/**
-	 * 
-	 * @param errorMessage
+	 * Constructs a new ValidationException with the specified error message.
+	 *
+	 * @param errorMessage The error message describing the exception.
 	 */
 	public ValidationException(String errorMessage) {
 		super(errorMessage);
 	}
 
 	/**
-	 * 
-	 * @param errorMessage
+	 * Constructs a new ValidationException with the specified cause.
+	 *
+	 * @param cause The cause of the exception.
 	 */
-	public ValidationException(Exception errorMessage) {
-		super(errorMessage);
+	public ValidationException(Exception cause) {
+		super(cause);
 	}
-
-
-	
-
-
 }

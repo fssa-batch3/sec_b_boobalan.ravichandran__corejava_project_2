@@ -3,22 +3,28 @@ package in.fssa.fertagriboomi.service;
 import java.util.Iterator;
 import java.util.List;
 
-import in.fssa.fertagriboomi.dao.CategoryDAO;
 import in.fssa.fertagriboomi.dao.ProductDAO;
 import in.fssa.fertagriboomi.exception.DAOException;
 import in.fssa.fertagriboomi.exception.ServiceException;
 import in.fssa.fertagriboomi.exception.ValidationException;
-import in.fssa.fertagriboomi.model.*;
-
+import in.fssa.fertagriboomi.model.Product;
+import in.fssa.fertagriboomi.model.Price;
 import in.fssa.fertagriboomi.validator.ProductValidator;
 
-public class ProductService {
 /**
- * 
- * @param newProduct
- * @throws ServiceException
- * @throws ValidationException
+ * Service class for managing Product entities.
  */
+public class ProductService {
+
+	/**
+	 * Creates a new product.
+	 *
+	 * @param newProduct The new product to create.
+	 * @throws ServiceException    If an error occurs while interacting with the
+	 *                             database.
+	 * @throws ValidationException If the provided data is not valid for creating a
+	 *                             product.
+	 */
 	public void create(Product newProduct) throws ServiceException, ValidationException {
 		try {
 			ProductDAO productDao = new ProductDAO();
@@ -37,12 +43,12 @@ public class ProductService {
 		} catch (DAOException e) {
 			throw new ServiceException(e);
 		}
-
 	}
 
 	/**
-	 * 
-	 * @return
+	 * Retrieves a list of all products.
+	 *
+	 * @return A list of Product objects.
 	 */
 	public List<Product> getAll() {
 		ProductDAO productDao = new ProductDAO();
@@ -53,15 +59,17 @@ public class ProductService {
 			System.out.println(product);
 		}
 		return productList;
-
 	}
 
 	/**
-	 * 
-	 * @param id
-	 * @param newUpdate
-	 * @throws ServiceException
-	 * @throws ValidationException
+	 * Updates a product by its ID.
+	 *
+	 * @param id        The ID of the product to update.
+	 * @param newUpdate The updated product object.
+	 * @throws ServiceException    If an error occurs while interacting with the
+	 *                             database.
+	 * @throws ValidationException If the provided data is not valid for updating
+	 *                             the product.
 	 */
 	public void update(int id, Product newUpdate) throws ServiceException, ValidationException {
 		try {
@@ -71,75 +79,83 @@ public class ProductService {
 		} catch (DAOException e) {
 			throw new ServiceException(e);
 		}
-
 	}
 
 	/**
-	 * 
-	 * @param newId
-	 * @return
-	 * @throws ServiceException
-	 * @throws ValidationException
+	 * Finds a product by its ID.
+	 *
+	 * @param newId The ID of the product to find.
+	 * @return The Product object with the given ID.
+	 * @throws ServiceException    If an error occurs while interacting with the
+	 *                             database.
+	 * @throws ValidationException If the provided ID is not valid.
 	 */
 	public Product findById(int newId) throws ServiceException, ValidationException {
 		Product product = null;
 		ProductDAO productDao = null;
 		try {
-			 productDao = new ProductDAO();
-			ProductValidator.ValidateId(newId);
+			productDao = new ProductDAO();
+			ProductValidator.validateId(newId);
 			product = productDao.findById(newId);
-
-		}catch (DAOException e) {
+		} catch (DAOException e) {
 			throw new ServiceException(e);
 		}
 		return product;
-
 	}
 
 	/**
-	 * 
-	 * @param id
-	 * @throws ServiceException
-	 * @throws ValidationException
+	 * Deletes a product by its ID.
+	 *
+	 * @param id The ID of the product to delete.
+	 * @throws ServiceException    If an error occurs while interacting with the
+	 *                             database.
+	 * @throws ValidationException If the provided ID is not valid.
 	 */
 	public void delete(int id) throws ServiceException, ValidationException {
 		try {
 			ProductDAO productDao = new ProductDAO();
-			ProductValidator.ValidateDeleteId(id);
+			ProductValidator.validateDeleteId(id);
 			productDao.delete(id);
-		}catch (DAOException e) {
+		} catch (DAOException e) {
 			throw new ServiceException(e);
 		}
 	}
 
 	/**
-	 * 
-	 * @param id
-	 * @return
-	 * @throws ServiceException
-	 * @throws ValidationException
+	 * Lists all products belonging to a specific category.
+	 *
+	 * @param id The ID of the category.
+	 * @return A list of Product objects belonging to the specified category.
+	 * @throws ServiceException    If an error occurs while interacting with the
+	 *                             database.
+	 * @throws ValidationException If the provided category ID is not valid.
 	 */
 	public List<Product> listAllTheProductsByCategoryId(int id) throws ServiceException, ValidationException {
 		List<Product> product = null;
 		ProductDAO productDao = null;
 		try {
 			productDao = new ProductDAO();
-		ProductValidator.ValidateCategoryId(id);
-		product =  productDao.listAllTheProductsByCategoryId(id);
-		}catch (DAOException e) {
+			ProductValidator.validateCategoryId(id);
+			product = productDao.listAllTheProductsByCategoryId(id);
+		} catch (DAOException e) {
 			throw new ServiceException(e);
 		}
 		return product;
 	}
 
-	public void changeActive(int id) throws ServiceException{
+	/**
+	 * Changes the active status of a product by its ID.
+	 *
+	 * @param id The ID of the product to change the active status for.
+	 * @throws ServiceException If an error occurs while interacting with the
+	 *                          database.
+	 */
+	public void changeActive(int id) throws ServiceException {
 		try {
 			ProductDAO productDao = new ProductDAO();
 			productDao.changeActive(id);
-		}catch (DAOException e) {
+		} catch (DAOException e) {
 			throw new ServiceException(e);
 		}
-		
 	}
-
 }

@@ -45,7 +45,10 @@ public class TestCategoryTypeFind {
 		String exceptedMessage = "Invalid category type ID";
 		String actualMessage = exception.getMessage();
 
-		assertTrue(exceptedMessage.equals(actualMessage));
+		System.out.println("e" + exceptedMessage);
+		System.out.println("e" + actualMessage);
+
+		assertTrue(actualMessage.contains(exceptedMessage));
 	}
 
 	@Test

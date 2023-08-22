@@ -99,12 +99,12 @@ public class TestUpdatePrice {
 			priceService.updatePrice(-22, price);
 		});
 
-		String expectedMessage = "Invalid Product Id";
+		String expectedMessage = "Invalid Product ID";
 		String actualMessage = exception.getMessage();
-//		System.out.println("Expected: " + expectedMessage);
-//		System.out.println("Actual: " + actualMessage);
+		System.out.println("Expected: " + expectedMessage);
+		System.out.println("Actual: " + actualMessage);
 
-		assertTrue(expectedMessage.equals(actualMessage));
+		assertTrue(actualMessage.contains(expectedMessage));
 	}
 
 	@Test

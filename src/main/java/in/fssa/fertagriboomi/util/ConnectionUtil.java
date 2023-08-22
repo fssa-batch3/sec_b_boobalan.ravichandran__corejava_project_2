@@ -8,14 +8,17 @@ import java.sql.SQLException;
 
 import io.github.cdimascio.dotenv.Dotenv;
 
+/**
+ * Utility class for managing database connections and resources.
+ */
 public class ConnectionUtil {
-	
+
 	/**
-	 * 
-	 * @return
+	 * Establishes a database connection based on environment variables.
+	 *
+	 * @return A database Connection object.
 	 */
 	public static Connection getConnection() {
-
 		String url;
 		String userName;
 		String passWord;
@@ -33,39 +36,41 @@ public class ConnectionUtil {
 		Connection conn = null;
 
 		try {
-
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			conn = DriverManager.getConnection(url, userName, passWord);
-
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new RuntimeException(e);
 		}
-
 		return conn;
 	}
-	
-	/**
-	 * 
-	 * @param connection
-	 * @param presta
-	 */
 
+	/**
+	 * Closes the database connection and PreparedStatement.
+	 *
+	 * @param connection The database Connection to close.
+	 * @param presta     The PreparedStatement to close.
+	 */
 	public static void close(Connection connection, PreparedStatement presta) {
 		try {
 			if (presta != null) {
 				presta.close();
 			}
 			if (connection != null) {
-
 				connection.close();
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
 	}
 
+	/**
+	 * Closes the database connection, PreparedStatement, and ResultSet.
+	 *
+	 * @param connection The database Connection to close.
+	 * @param presta     The PreparedStatement to close.
+	 * @param rs         The ResultSet to close.
+	 */
 	public static void close(Connection connection, PreparedStatement presta, ResultSet rs) {
 		try {
 			if (rs != null) {
@@ -80,6 +85,5 @@ public class ConnectionUtil {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
 	}
 }

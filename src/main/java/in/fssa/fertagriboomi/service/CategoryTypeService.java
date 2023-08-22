@@ -9,12 +9,17 @@ import in.fssa.fertagriboomi.exception.ValidationException;
 import in.fssa.fertagriboomi.model.CategoryType;
 import in.fssa.fertagriboomi.validator.CategoryTypeValidator;
 
+/**
+ * Service class for managing CategoryType entities.
+ */
 public class CategoryTypeService {
 
 	/**
-	 * 
-	 * @return
-	 * @throws ServiceException
+	 * Retrieves a list of all category types.
+	 *
+	 * @return A list of CategoryType objects.
+	 * @throws ServiceException If an error occurs while interacting with the
+	 *                          database.
 	 */
 	public List<CategoryType> getAll() throws ServiceException {
 		CategoryTypeDAO categoryTypeDao = new CategoryTypeDAO();
@@ -29,17 +34,18 @@ public class CategoryTypeService {
 		while (iterator.hasNext()) {
 			CategoryType categoryType = iterator.next();
 			System.out.println(categoryType);
-
 		}
 		return categoryTypeList;
 	}
 
 	/**
-	 * 
-	 * @param newId
-	 * @return
-	 * @throws ServiceException
-	 * @throws ValidationException
+	 * Finds a category type by its ID.
+	 *
+	 * @param newId The ID of the category type to find.
+	 * @return The CategoryType object with the given ID.
+	 * @throws ServiceException    If an error occurs while interacting with the
+	 *                             database.
+	 * @throws ValidationException If the provided ID is not valid.
 	 */
 	public CategoryType findById(int newId) throws ServiceException, ValidationException {
 		CategoryTypeDAO categoryTypeDao = null;
@@ -47,7 +53,7 @@ public class CategoryTypeService {
 		try {
 			categoryTypeDao = new CategoryTypeDAO();
 
-			CategoryTypeValidator.ValidateId(newId);
+			CategoryTypeValidator.validateId(newId);
 
 			categoryType = categoryTypeDao.findById(newId);
 
@@ -55,7 +61,5 @@ public class CategoryTypeService {
 			throw new ServiceException(e);
 		}
 		return categoryType;
-
 	}
-
 }
