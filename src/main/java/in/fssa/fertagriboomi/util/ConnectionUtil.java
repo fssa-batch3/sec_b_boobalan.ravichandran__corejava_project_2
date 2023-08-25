@@ -24,9 +24,9 @@ public class ConnectionUtil {
 		String passWord;
 
 		// if we use local use this
-		url = System.getenv("DATABASE_HOSTNAME");
-		userName = System.getenv("DATABASE_USERNAME");
-		passWord = System.getenv("DATABASE_PASSWORD");
+//		url = System.getenv("DATABASE_HOSTNAME");
+//		userName = System.getenv("DATABASE_USERNAME");
+//		passWord = System.getenv("DATABASE_PASSWORD");
 
 //			Dotenv env = Dotenv.load();
 //			url = env.get("DATABASE_HOSTNAME");
@@ -34,9 +34,9 @@ public class ConnectionUtil {
 //			passWord = env.get("DATABASE_PASSWORD");
 
 		// if we use cloud use this
-//			url = "jdbc:mysql://164.52.216.41:3306/boobalan_ravichandran_corejava_project";
-//			userName = "vcMmMZBgHbzR";
-//			passWord = "ccf7e6b8-34a3-47b3-ad19-ab83f8512e3f";
+		url = "jdbc:mysql://164.52.216.41:3306/boobalan_ravichandran_corejava_project";
+		userName = "vcMmMZBgHbzR";
+		passWord = "ccf7e6b8-34a3-47b3-ad19-ab83f8512e3f";
 
 		Connection conn = null;
 
