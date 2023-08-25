@@ -18,7 +18,7 @@ import in.fssa.fertagriboomi.service.UserService;
 
 public class TestCreateProduct {
 	private String generateRandomProductName() {
-		String alphabet = "abcdefghijklmnopqrstuvwxyz";
+		String alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 		StringBuilder dishName = new StringBuilder();
 		for (int i = 0; i < 10; i++) {
 			int index = (int) (Math.random() * alphabet.length());
