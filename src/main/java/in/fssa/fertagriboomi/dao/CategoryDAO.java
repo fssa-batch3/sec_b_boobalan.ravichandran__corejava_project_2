@@ -153,7 +153,7 @@ public class CategoryDAO implements CategoryInterface {
 		ResultSet rs = null;
 
 		try {
-			String query = "SELECT id From categories_type WHERE is_active=1 AND id=?";
+			String query = "SELECT id From category_types WHERE is_active=1 AND id=?";
 			conn = ConnectionUtil.getConnection();
 			ps = conn.prepareStatement(query);
 			ps.setInt(1, categoryTypeId);
