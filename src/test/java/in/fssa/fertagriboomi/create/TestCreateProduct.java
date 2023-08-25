@@ -17,15 +17,15 @@ import in.fssa.fertagriboomi.service.ProductService;
 import in.fssa.fertagriboomi.service.UserService;
 
 public class TestCreateProduct {
-
-	private String generateRandomName() {
-		// Implement your random name generation logic here
-		// For simplicity, let's assume you have a predefined list of names
-		String[] names = { "Product A", "Product B", "Product C", "Product D", "Product E", "Product F", "Product G",
-				"Product H", "Product I", "Product J", "Product K", "Product L", "Product M", "Product N", "Product O",
-				"Product P", "Product Q", "Product R", "Product S", "Product T", "Product U" };
-		int randomIndex = (int) (Math.random() * names.length);
-		return names[randomIndex];
+	private String generateRandomProductName() {
+		String alphabet = "abcdefghijklmnopqrstuvwxyz";
+		StringBuilder dishName = new StringBuilder();
+		for (int i = 0; i < 10; i++) {
+			int index = (int) (Math.random() * alphabet.length());
+			char randomChar = alphabet.charAt(index);
+			dishName.append(Character.toUpperCase(randomChar));
+		}
+		return dishName.toString();
 	}
 
 	@Test
@@ -33,7 +33,7 @@ public class TestCreateProduct {
 		ProductService productService = new ProductService();
 
 		Product product = new Product();
-		product.setName(generateRandomName());
+		product.setName(generateRandomProductName());
 		product.setCategoryId(1);
 		product.setManufacture("Dow Agro Science Agritech Limited");
 		product.setProductWeight("500g");
