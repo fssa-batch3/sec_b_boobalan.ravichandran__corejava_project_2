@@ -42,10 +42,10 @@ public class CategoryTypeValidator {
 			throw new ValidationException("Invalid category type ID");
 		}
 
-		CategoryTypeDAO categoryTypeDao = null;
+		CategoryTypeDAO categoryTypeDAO = null;
 		try {
-			categoryTypeDao = new CategoryTypeDAO();
-			categoryTypeDao.isCategoryIdExists(newId);
+			categoryTypeDAO = new CategoryTypeDAO();
+			categoryTypeDAO.isCategoryIdExists(newId);
 		} catch (DAOException e) {
 			throw new ValidationException(e);
 		}

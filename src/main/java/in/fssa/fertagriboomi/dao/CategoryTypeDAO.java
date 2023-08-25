@@ -30,7 +30,7 @@ public class CategoryTypeDAO implements CategoryTypeInterface {
 		ResultSet rs = null;
 
 		try {
-			String query = "select * from categories_type where is_active = 1";
+			String query = "SELECT id, name, is_active FROM categories_type WHERE is_active = 1";
 			conn = ConnectionUtil.getConnection();
 			ps = conn.prepareStatement(query);
 			rs = ps.executeQuery();
@@ -68,7 +68,7 @@ public class CategoryTypeDAO implements CategoryTypeInterface {
 		ResultSet rs = null;
 
 		try {
-			String query = "SELECT * From categories_type WHERE is_active=1 AND id=?";
+			String query = "SELECT id, name, is_active FROM categories_type WHERE is_active=1 AND id=?";
 			conn = ConnectionUtil.getConnection();
 			ps = conn.prepareStatement(query);
 			ps.setInt(1, categoryTypeId);
@@ -106,7 +106,7 @@ public class CategoryTypeDAO implements CategoryTypeInterface {
 		ResultSet rs = null;
 
 		try {
-			String query = "SELECT * From categories_type WHERE is_active = 1 AND id=?";
+			String query = "SELECT id FROM categories_type WHERE is_active = 1 AND id=?";
 			conn = ConnectionUtil.getConnection();
 			ps = conn.prepareStatement(query);
 			ps.setInt(1, newId);

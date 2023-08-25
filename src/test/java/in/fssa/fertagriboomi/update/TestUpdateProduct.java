@@ -21,7 +21,7 @@ public class TestUpdateProduct {
 
 		Product product = new Product();
 
-		product.setProduct_weight("5kg");
+		product.setProductWeight("5kg");
 		product.setDescription(
 				" Super  (Quizalofop Ethyl 5% EC) is selective, systemic herbicide of Aryloxyphenoxy-propionates group. It is used to control narrow leaf weeds in broad leaf crops.");
 		product.setApplication(
@@ -30,7 +30,7 @@ public class TestUpdateProduct {
 				"It is a very effective weedicide for control of narrow leaf weeds in broad leaf crops.It does not burn the weeds but kills the weeds - so they do not regerminate.");
 
 		assertDoesNotThrow(() -> {
-			productService.update(1, product);
+			productService.updateProduct(1, product);
 
 		});
 	}
@@ -41,7 +41,7 @@ public class TestUpdateProduct {
 
 		Product product = new Product();
 
-		product.setProduct_weight("5kg");
+		product.setProductWeight("5kg");
 		product.setDescription(
 				" Super  (Quizalofop Ethyl 5% EC) is selective, systemic herbicide of Aryloxyphenoxy-propionates group. It is used to control narrow leaf weeds in broad leaf crops.");
 		product.setApplication(
@@ -50,7 +50,7 @@ public class TestUpdateProduct {
 				"It is a very effective weedicide for control of narrow leaf weeds in broad leaf crops.It does not burn the weeds but kills the weeds - so they do not regerminate.");
 
 		Exception exception = assertThrows(Exception.class, () -> {
-			productService.update(0, product);
+			productService.updateProduct(0, product);
 		});
 		String exceptedMessage = "Invalid Product id";
 		String actualMessage = exception.getMessage();
@@ -64,7 +64,7 @@ public class TestUpdateProduct {
 
 		Product product = new Product();
 
-		product.setProduct_weight("1kg");
+		product.setProductWeight("1kg");
 		product.setDescription(
 				" Super  (Quizalofop Ethyl 5% EC) is selective, systemic herbicide of Aryloxyphenoxy-propionates group. It is used to control narrow leaf weeds in broad leaf crops.");
 		product.setApplication(
@@ -73,7 +73,7 @@ public class TestUpdateProduct {
 				"It is a very effective weedicide for control of narrow leaf weeds in broad leaf crops.It does not burn the weeds but kills the weeds - so they do not regerminate.");
 
 		Exception exception = assertThrows(Exception.class, () -> {
-			productService.update(28, product);
+			productService.updateProduct(28, product);
 		});
 
 		String exceptedMessage = "The product is not listed among the available products";
@@ -87,7 +87,7 @@ public class TestUpdateProduct {
 		ProductService productService = new ProductService();
 
 		Product product = new Product();
-		product.setProduct_weight(null);
+		product.setProductWeight(null);
 		product.setDescription(
 				"Targa Super  (Quizalofop Ethyl 5% EC) is selective, systemic herbicide of Aryloxyphenoxy-propionates group. It is used to control narrow leaf weeds in broad leaf crops.");
 		product.setApplication(
@@ -96,7 +96,7 @@ public class TestUpdateProduct {
 				"It is a very effective weedicide for control of narrow leaf weeds in broad leaf crops.It does not burn the weeds but kills the weeds - so they do not regerminate.");
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			productService.update(1, product);
+			productService.updateProduct(1, product);
 
 		});
 
@@ -112,7 +112,7 @@ public class TestUpdateProduct {
 
 		Product product = new Product();
 
-		product.setProduct_weight("");
+		product.setProductWeight("");
 		product.setDescription(
 				"Targa Super  (Quizalofop Ethyl 5% EC) is selective, systemic herbicide of Aryloxyphenoxy-propionates group. It is used to control narrow leaf weeds in broad leaf crops.");
 		product.setApplication(
@@ -121,7 +121,7 @@ public class TestUpdateProduct {
 				"It is a very effective weedicide for control of narrow leaf weeds in broad leaf crops.It does not burn the weeds but kills the weeds - so they do not regerminate.");
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			productService.update(1, product);
+			productService.updateProduct(1, product);
 
 		});
 
@@ -137,7 +137,7 @@ public class TestUpdateProduct {
 
 		Product product = new Product();
 
-		product.setProduct_weight("500g");
+		product.setProductWeight("500g");
 		product.setDescription(null);
 		product.setApplication(
 				"Weed leaves turn purplish/red within 5-8 days after Targa Super application and within 10-15 days are completely killed.");
@@ -145,7 +145,7 @@ public class TestUpdateProduct {
 				"It is a very effective weedicide for control of narrow leaf weeds in broad leaf crops.It does not burn the weeds but kills the weeds - so they do not regerminate.");
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			productService.update(1, product);
+			productService.updateProduct(1, product);
 		});
 
 		String exceptedMessage = "Product Description cannot be null or empty";
@@ -160,7 +160,7 @@ public class TestUpdateProduct {
 
 		Product product = new Product();
 
-		product.setProduct_weight("500g");
+		product.setProductWeight("500g");
 		product.setDescription("");
 		product.setApplication(
 				"Weed leaves turn purplish/red within 5-8 days after Targa Super application and within 10-15 days are completely killed.");
@@ -168,7 +168,7 @@ public class TestUpdateProduct {
 				"It is a very effective weedicide for control of narrow leaf weeds in broad leaf crops.It does not burn the weeds but kills the weeds - so they do not regerminate.");
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			productService.update(1, product);
+			productService.updateProduct(1, product);
 		});
 
 		String exceptedMessage = "Product Description cannot be null or empty";
@@ -183,7 +183,7 @@ public class TestUpdateProduct {
 
 		Product product = new Product();
 
-		product.setProduct_weight("500g");
+		product.setProductWeight("500g");
 		product.setDescription(
 				"Targa Super  (Quizalofop Ethyl 5% EC) is selective, systemic herbicide of Aryloxyphenoxy-propionates group. It is used to control narrow leaf weeds in broad leaf crops.");
 		product.setApplication(null);
@@ -191,7 +191,7 @@ public class TestUpdateProduct {
 				"It is a very effective weedicide for control of narrow leaf weeds in broad leaf crops.It does not burn the weeds but kills the weeds - so they do not regerminate.");
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			productService.update(1, product);
+			productService.updateProduct(1, product);
 
 		});
 
@@ -207,7 +207,7 @@ public class TestUpdateProduct {
 
 		Product product = new Product();
 
-		product.setProduct_weight("500g");
+		product.setProductWeight("500g");
 		product.setDescription(
 				"Targa Super  (Quizalofop Ethyl 5% EC) is selective, systemic herbicide of Aryloxyphenoxy-propionates group. It is used to control narrow leaf weeds in broad leaf crops.");
 		product.setApplication("");
@@ -215,7 +215,7 @@ public class TestUpdateProduct {
 				"It is a very effective weedicide for control of narrow leaf weeds in broad leaf crops.It does not burn the weeds but kills the weeds - so they do not regerminate.");
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			productService.update(1, product);
+			productService.updateProduct(1, product);
 
 		});
 
@@ -231,7 +231,7 @@ public class TestUpdateProduct {
 
 		Product product = new Product();
 
-		product.setProduct_weight("500g");
+		product.setProductWeight("500g");
 		product.setDescription(
 				"Targa Super  (Quizalofop Ethyl 5% EC) is selective, systemic herbicide of Aryloxyphenoxy-propionates group. It is used to control narrow leaf weeds in broad leaf crops.");
 		product.setApplication(
@@ -239,7 +239,7 @@ public class TestUpdateProduct {
 		product.setBenefits(null);
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			productService.update(1, product);
+			productService.updateProduct(1, product);
 		});
 
 		String exceptedMessage = "Product Benefits cannot be null or empty";
@@ -254,7 +254,7 @@ public class TestUpdateProduct {
 
 		Product product = new Product();
 
-		product.setProduct_weight("500g");
+		product.setProductWeight("500g");
 		product.setDescription(
 				"Targa Super  (Quizalofop Ethyl 5% EC) is selective, systemic herbicide of Aryloxyphenoxy-propionates group. It is used to control narrow leaf weeds in broad leaf crops.");
 		product.setApplication(
@@ -262,7 +262,7 @@ public class TestUpdateProduct {
 		product.setBenefits("");
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			productService.update(1, product);
+			productService.updateProduct(1, product);
 
 		});
 

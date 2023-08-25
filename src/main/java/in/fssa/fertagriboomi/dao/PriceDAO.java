@@ -57,7 +57,7 @@ public class PriceDAO implements PriceInterface {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		try {
-			String query = "SELECT * FROM products where id=?";
+			String query = "SELECT id FROM products WHERE id=?";
 			conn = ConnectionUtil.getConnection();
 			ps = conn.prepareStatement(query);
 			ps.setInt(1, productId);
@@ -91,7 +91,7 @@ public class PriceDAO implements PriceInterface {
 		ResultSet rs = null;
 		int priceId = 0;
 		try {
-			String query = "SELECT * FROM prices where product_id=? AND end_date is NULL";
+			String query = "SELECT id FROM prices WHERE product_id=? AND end_date is NULL";
 			conn = ConnectionUtil.getConnection();
 			ps = conn.prepareStatement(query);
 			ps.setInt(1, productId);
@@ -161,7 +161,7 @@ public class PriceDAO implements PriceInterface {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		try {
-			String query = "SELECT * FROM prices WHERE product_id = ? AND price = ? AND end_date IS NULL";
+			String query = "SELECT id, price FROM prices WHERE product_id = ? AND price = ? AND end_date IS NULL";
 			conn = ConnectionUtil.getConnection();
 			ps = conn.prepareStatement(query);
 			ps.setInt(1, productId);

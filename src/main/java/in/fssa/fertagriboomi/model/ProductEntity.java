@@ -4,13 +4,13 @@ public abstract class ProductEntity implements Comparable<Product> {
 
 	private int id;
 	private String name;
-	private String product_weight;
+	private String productWeight;
 	private String description;
 	private String application;
 	private String benefits;
 	private String manufacture;
 	private boolean isActive = true;
-	private int category_id;
+	private int categoryId;
 	private Price price;
 
 	public Price getPrice() {
@@ -45,12 +45,12 @@ public abstract class ProductEntity implements Comparable<Product> {
 		this.name = name;
 	}
 
-	public String getProduct_weight() {
-		return product_weight;
+	public String getProductWeight() {
+		return productWeight;
 	}
 
-	public void setProduct_weight(String product_weight) {
-		this.product_weight = product_weight;
+	public void setProductWeight(String productWeight) {
+		this.productWeight = productWeight;
 	}
 
 	public String getDescription() {
@@ -85,19 +85,19 @@ public abstract class ProductEntity implements Comparable<Product> {
 		this.isActive = isActive;
 	}
 
-	public int getCategory_id() {
-		return category_id;
+	public int getCategoryId() {
+		return categoryId;
 	}
 
-	public void setCategory_id(int category_id) {
-		this.category_id = category_id;
+	public void setCategoryId(int categoryId) {
+		this.categoryId = categoryId;
 	}
 
 	@Override
 	public String toString() {
-		return "ProductEntity [id=" + id + ", name=" + name + ", product_weight=" + product_weight + ", description="
+		return "ProductEntity [id=" + id + ", name=" + name + ", productWeight=" + productWeight + ", description="
 				+ description + ", application=" + application + ", benefits=" + benefits + ", manufacture="
-				+ manufacture + ", isActive=" + isActive + ", category_id=" + category_id + "]";
+				+ manufacture + ", isActive=" + isActive + ", categoryId=" + categoryId + "]";
 	}
 
 	@Override

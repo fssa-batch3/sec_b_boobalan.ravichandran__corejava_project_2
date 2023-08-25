@@ -51,7 +51,7 @@ public class App {
 
 		CategoryService categoryService = new CategoryService();
 		try {
-			System.out.println(categoryService.findById(1));
+			System.out.println(categoryService.findCategoryById(1));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

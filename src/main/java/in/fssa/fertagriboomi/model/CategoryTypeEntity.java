@@ -1,6 +1,6 @@
 package in.fssa.fertagriboomi.model;
 
-public abstract class CategoryTypeEntity implements Comparable<CategoryType> {
+public abstract class CategoryTypeEntity {
 
 	private int id;
 	private String name;
@@ -33,16 +33,6 @@ public abstract class CategoryTypeEntity implements Comparable<CategoryType> {
 	@Override
 	public String toString() {
 		return "Category Type [id=" + id + ", name=" + name + ", isActive=" + isActive + "]";
-	}
-
-	public int compareTo(CategoryType o) {
-		if (this.id == o.getId()) {
-			return 0;
-		} else if (this.id > o.getId()) {
-			return 1;
-		} else {
-			return -1;
-		}
 	}
 
 }

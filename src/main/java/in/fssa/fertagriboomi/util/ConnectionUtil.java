@@ -6,7 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import io.github.cdimascio.dotenv.Dotenv;
+//import io.github.cdimascio.dotenv.Dotenv;
 
 /**
  * Utility class for managing database connections and resources.
@@ -23,16 +23,21 @@ public class ConnectionUtil {
 		String userName;
 		String passWord;
 
-		if (System.getenv("CI") != null) {
-			url = System.getenv("DATABASE_HOSTNAME");
-			userName = System.getenv("DATABASE_USERNAME");
-			passWord = System.getenv("DATABASE_PASSWORD");
-		} else {
-			Dotenv env = Dotenv.load();
-			url = env.get("DATABASE_HOSTNAME");
-			userName = env.get("DATABASE_USERNAME");
-			passWord = env.get("DATABASE_PASSWORD");
-		}
+		// if we use local use this
+		url = System.getenv("DATABASE_HOSTNAME");
+		userName = System.getenv("DATABASE_USERNAME");
+		passWord = System.getenv("DATABASE_PASSWORD");
+
+//			Dotenv env = Dotenv.load();
+//			url = env.get("DATABASE_HOSTNAME");
+//			userName = env.get("DATABASE_USERNAME");
+//			passWord = env.get("DATABASE_PASSWORD");
+
+		// if we use cloud use this
+//			url = "jdbc:mysql://164.52.216.41:3306/boobalan_ravichandran_corejava_project";
+//			userName = "vcMmMZBgHbzR";
+//			passWord = "ccf7e6b8-34a3-47b3-ad19-ab83f8512e3f";
+
 		Connection conn = null;
 
 		try {

@@ -17,7 +17,7 @@ public class UserService {
 	 *
 	 * @return A list of User objects.
 	 */
-	public List<User> getAll() {
+	public List<User> getAllUsers() {
 		UserDAO userDao = new UserDAO();
 		List<User> userList = userDao.findAll();
 		Iterator<User> iterator = userList.iterator();
@@ -36,7 +36,7 @@ public class UserService {
 	 * @throws Exception If an error occurs while interacting with the database or
 	 *                   validating user data.
 	 */
-	public void create(User newUser) throws Exception {
+	public void createUser(User newUser) throws Exception {
 		UserDAO userDao = new UserDAO();
 		UserValidator.validate(newUser);
 		userDao.create(newUser);
@@ -50,7 +50,7 @@ public class UserService {
 	 * @throws Exception If an error occurs while interacting with the database or
 	 *                   validating user data.
 	 */
-	public void update(int id, User newUpdate) throws Exception {
+	public void updateUser(int id, User newUpdate) throws Exception {
 		UserDAO userDAO = new UserDAO();
 		UserValidator.validateUpdate(newUpdate, id);
 		userDAO.update(id, newUpdate);

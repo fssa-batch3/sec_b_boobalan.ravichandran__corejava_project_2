@@ -21,7 +21,7 @@ public class CategoryTypeService {
 	 * @throws ServiceException If an error occurs while interacting with the
 	 *                          database.
 	 */
-	public List<CategoryType> getAll() throws ServiceException {
+	public List<CategoryType> getAllCategoryTypes() throws ServiceException {
 		CategoryTypeDAO categoryTypeDao = new CategoryTypeDAO();
 		List<CategoryType> categoryTypeList = null;
 		try {
@@ -47,7 +47,7 @@ public class CategoryTypeService {
 	 *                             database.
 	 * @throws ValidationException If the provided ID is not valid.
 	 */
-	public CategoryType findById(int newId) throws ServiceException, ValidationException {
+	public CategoryType findCategoryTypeById(int newId) throws ServiceException, ValidationException {
 		CategoryTypeDAO categoryTypeDao = null;
 		CategoryType categoryType = null;
 		try {

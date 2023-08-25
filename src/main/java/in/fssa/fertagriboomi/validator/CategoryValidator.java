@@ -29,7 +29,7 @@ public class CategoryValidator {
 			throw new ValidationException("Invalid category ID");
 		}
 
-		if (category.getCategory_type_id() <= 0) {
+		if (category.getCategoryTypeId() <= 0) {
 			throw new ValidationException("Invalid category type ID");
 		}
 	}
@@ -46,10 +46,10 @@ public class CategoryValidator {
 			throw new ValidationException("Invalid category ID");
 		}
 
-		CategoryDAO categoryDao = null;
+		CategoryDAO categoryDAO = null;
 		try {
-			categoryDao = new CategoryDAO();
-			categoryDao.findById(newId);
+			categoryDAO = new CategoryDAO();
+			categoryDAO.findById(newId);
 		} catch (DAOException e) {
 			throw new ValidationException(e);
 		}
@@ -67,10 +67,10 @@ public class CategoryValidator {
 			throw new ValidationException("Invalid category type ID");
 		}
 
-		CategoryDAO categoryDao = null;
+		CategoryDAO categoryDAO = null;
 		try {
-			categoryDao = new CategoryDAO();
-			categoryDao.isCategoryTypeIdExists(categoryTypeId);
+			categoryDAO = new CategoryDAO();
+			categoryDAO.isCategoryTypeIdExists(categoryTypeId);
 		} catch (DAOException e) {
 			throw new ValidationException(e);
 		}

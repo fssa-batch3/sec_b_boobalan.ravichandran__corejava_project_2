@@ -15,9 +15,9 @@ public class TestDeleteProduct {
 	public void testDeleteProductWithValideInput() {
 		ProductService productService = new ProductService();
 		assertDoesNotThrow(() -> {
-			productService.delete(2);
+			productService.deleteProduct(2);
 			
-			productService.changeActive(2);
+			productService.changeIsActiveToActive(2);
 		});
 	}
 
@@ -25,7 +25,7 @@ public class TestDeleteProduct {
 	public void testDeleteProductByInvalidNegativeProductId() {
 		ProductService productService = new ProductService();
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			productService.delete(0);
+			productService.deleteProduct(0);
 
 		});
 
@@ -39,7 +39,7 @@ public class TestDeleteProduct {
 	public void testDeleteProductByInvalidNonExistenProductId() {
 		ProductService productService = new ProductService();
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			productService.delete(100);
+			productService.deleteProduct(100);
 
 		});
 
@@ -56,7 +56,7 @@ public class TestDeleteProduct {
 	public void testDeleteProductByAlreadyDeletedProductId() {
 		ProductService productService = new ProductService();
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			productService.delete(3);
+			productService.deleteProduct(3);
 
 		});
 

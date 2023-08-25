@@ -54,10 +54,10 @@ public class UserValidator {
 					"Invalid Password. The password must be at least 8 characters long and contain at least one letter, one digit, and one special character. It should not contain spaces.");
 		}
 
-		UserDAO userDao = null;
+		UserDAO userDAO = null;
 		try {
-			userDao = new UserDAO();
-			userDao.isEmailAlreadyExists(user.getEmail());
+			userDAO = new UserDAO();
+			userDAO.isEmailAlreadyExists(user.getEmail());
 		} catch (DAOException e) {
 			throw new ValidationException(e);
 		}
@@ -100,10 +100,10 @@ public class UserValidator {
 					"Invalid Password. The password must be at least 8 characters long and contain at least one letter, one digit, and one special character. It should not contain spaces.");
 		}
 
-		UserDAO userDao = null;
+		UserDAO userDAO = null;
 		try {
-			userDao = new UserDAO();
-			userDao.isValidUserId(id);
+			userDAO = new UserDAO();
+			userDAO.isValidUserId(id);
 		} catch (DAOException e) {
 			throw new ValidationException(e);
 		}

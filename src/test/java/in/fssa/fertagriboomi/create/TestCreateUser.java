@@ -25,7 +25,7 @@ public class TestCreateUser {
 		newUser.setPhoneNumber(9676547782L);
 
 		assertDoesNotThrow(() -> {
-			userService.create(newUser);
+			userService.createUser(newUser);
 		});
 	}
 
@@ -33,7 +33,7 @@ public class TestCreateUser {
 	public void testCreateUSerWithInvalidInput() {
 		UserService userService = new UserService();
 		Exception exception = assertThrows(Exception.class, () -> {
-			userService.create(null);
+			userService.createUser(null);
 		});
 		String exceptedMessage = "Invalid User input";
 		String actualMessage = exception.getMessage();
@@ -53,7 +53,7 @@ public class TestCreateUser {
 		newUser.setPhoneNumber(967654665277l);
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			userService.create(newUser);
+			userService.createUser(newUser);
 		});
 
 		String exceptedMessage = "email cannot be null or empty";
@@ -74,7 +74,7 @@ public class TestCreateUser {
 		newUser.setPhoneNumber(967654665277l);
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			userService.create(newUser);
+			userService.createUser(newUser);
 		});
 
 		String exceptedMessage = "email cannot be null or empty";
@@ -95,7 +95,7 @@ public class TestCreateUser {
 		newUser.setPhoneNumber(9676546652l);
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			userService.create(newUser);
+			userService.createUser(newUser);
 		});
 
 		String exceptedMessage = "Invalid Email Address";
@@ -116,7 +116,7 @@ public class TestCreateUser {
 			newUser.setPassword("Xyz12345@");
 			newUser.setPhoneNumber(9676546652l);
 
-			userService.create(newUser);
+			userService.createUser(newUser);
 		});
 		String exceptedMessage = "The email already exists";
 		String actualMessage = exception.getMessage();
@@ -137,7 +137,7 @@ public class TestCreateUser {
 		newUser.setPhoneNumber(967654665277l);
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			userService.create(newUser);
+			userService.createUser(newUser);
 		});
 
 		String exceptedMessage = "password cannot be null or empty";
@@ -157,7 +157,7 @@ public class TestCreateUser {
 		newUser.setPassword(null);
 		newUser.setPhoneNumber(967654665277l);
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			userService.create(newUser);
+			userService.createUser(newUser);
 		});
 
 		String exceptedMessage = "password cannot be null or empty";
@@ -178,7 +178,7 @@ public class TestCreateUser {
 		newUser.setPhoneNumber(9676546652l);
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			userService.create(newUser);
+			userService.createUser(newUser);
 		});
 
 		String exceptedMessage = "Invalid Password. The password must be at least 8 characters long and contain at least one letter, one digit, and one special character. It should not contain spaces.";
@@ -200,7 +200,7 @@ public class TestCreateUser {
 		newUser.setPhoneNumber(967654665277l);
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			userService.create(newUser);
+			userService.createUser(newUser);
 		});
 
 		String exceptedMessage = "Name cannot be null or empty";
@@ -220,7 +220,7 @@ public class TestCreateUser {
 		newUser.setPhoneNumber(967654665277l);
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			userService.create(newUser);
+			userService.createUser(newUser);
 		});
 
 		String exceptedMessage = "Name cannot be null or empty";
@@ -241,7 +241,7 @@ public class TestCreateUser {
 		newUser.setPhoneNumber(9676546652l);
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			userService.create(newUser);
+			userService.createUser(newUser);
 		});
 
 		String exceptedMessage = "Invalid User Name. The name must only contain alphabetic characters";
@@ -263,7 +263,7 @@ public class TestCreateUser {
 		
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			userService.create(newUser);
+			userService.createUser(newUser);
 		});
 
 		String exceptedMessage = "Invalid phone number. The phone number must be in the range of 6000000001 to 9999999999.";

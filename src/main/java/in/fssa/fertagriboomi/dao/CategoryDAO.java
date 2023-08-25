@@ -33,7 +33,7 @@ public class CategoryDAO implements CategoryInterface {
 		List<Category> categoryArray = new ArrayList<Category>();
 		ResultSet rs = null;
 		try {
-			String query = "select * from categories where is_active = 1";
+			String query = "SELECT id, name, is_active, category_type_id FROM categories WHERE is_active = 1";
 			conn = ConnectionUtil.getConnection();
 			ps = conn.prepareStatement(query);
 			rs = ps.executeQuery();
@@ -42,7 +42,7 @@ public class CategoryDAO implements CategoryInterface {
 				category.setId(rs.getInt("id"));
 				category.setName(rs.getString("name"));
 				category.setActive(rs.getBoolean("is_active"));
-				category.setCategory_type_id(rs.getInt("category_type_id"));
+				category.setCategoryTypeId(rs.getInt("category_type_id"));
 				categoryArray.add(category);
 			}
 		} catch (SQLException e) {
@@ -73,7 +73,7 @@ public class CategoryDAO implements CategoryInterface {
 		ResultSet rs = null;
 
 		try {
-			String query = "SELECT * From categories WHERE is_active=1 AND id=?";
+			String query = "SELECT id, name, is_active, category_type_id FROM categories WHERE is_active=1 AND id=?";
 			conn = ConnectionUtil.getConnection();
 			ps = conn.prepareStatement(query);
 			ps.setInt(1, id);
@@ -86,7 +86,7 @@ public class CategoryDAO implements CategoryInterface {
 			category.setId(rs.getInt("id"));
 			category.setName(rs.getString("name"));
 			category.setActive(rs.getBoolean("is_active"));
-			category.setCategory_type_id(rs.getInt("category_type_id"));
+			category.setCategoryTypeId(rs.getInt("category_type_id"));
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -113,7 +113,7 @@ public class CategoryDAO implements CategoryInterface {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		try {
-			String query = "SELECT * From categories WHERE is_active=1 AND category_type_id=?";
+			String query = "SELECT id, name, is_active, category_type_id FROM categories WHERE is_active=1 AND category_type_id=?";
 			conn = ConnectionUtil.getConnection();
 			ps = conn.prepareStatement(query);
 			ps.setInt(1, typeId);
@@ -122,7 +122,7 @@ public class CategoryDAO implements CategoryInterface {
 				Category category = new Category();
 				category.setId(rs.getInt("id"));
 				category.setName(rs.getString("name"));
-				category.setCategory_type_id(rs.getInt("category_type_id"));
+				category.setCategoryTypeId(rs.getInt("category_type_id"));
 				category.setActive(rs.getBoolean("is_active"));
 				categoryArray.add(category);
 			}
@@ -153,7 +153,7 @@ public class CategoryDAO implements CategoryInterface {
 		ResultSet rs = null;
 
 		try {
-			String query = "SELECT * From categories_type WHERE is_active=1 AND id=?";
+			String query = "SELECT id From categories_type WHERE is_active=1 AND id=?";
 			conn = ConnectionUtil.getConnection();
 			ps = conn.prepareStatement(query);
 			ps.setInt(1, categoryTypeId);

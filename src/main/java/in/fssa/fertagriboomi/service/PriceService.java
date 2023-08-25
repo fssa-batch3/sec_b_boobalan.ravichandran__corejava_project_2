@@ -23,7 +23,7 @@ public class PriceService {
 	 * @throws ServiceException    If an error occurs while interacting with the
 	 *                             database.
 	 */
-	public void create(int productId, Price newPrice) throws ValidationException, ServiceException {
+	public void createPrice(int productId, Price newPrice) throws ValidationException, ServiceException {
 		try {
 			PriceDAO priceDao = new PriceDAO();
 			LocalDateTime localDateTime = LocalDateTime.now();

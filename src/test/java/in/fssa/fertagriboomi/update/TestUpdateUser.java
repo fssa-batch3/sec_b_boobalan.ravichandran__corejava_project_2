@@ -22,7 +22,7 @@ public class TestUpdateUser {
 		newUser.setPassword("Abc12345@");
 
 		assertDoesNotThrow(() -> {
-			userService.update(1, newUser);
+			userService.updateUser(1, newUser);
 		});
 	}
 
@@ -35,7 +35,7 @@ public class TestUpdateUser {
 		newUser.setPhoneNumber(8876546652l);
 		newUser.setPassword("Abc12345@");
 		Exception exception = assertThrows(Exception.class, () -> {
-			userService.update(0, newUser);
+			userService.updateUser(0, newUser);
 		});
 		String exceptedMessage = "Invalid User id";
 		String actualMessage = exception.getMessage();
@@ -48,7 +48,7 @@ public class TestUpdateUser {
 		UserService userService = new UserService();
 
 		Exception exception = assertThrows(Exception.class, () -> {
-			userService.update(1, null);
+			userService.updateUser(1, null);
 		});
 		String exceptedMessage = "Invalid User input";
 		String actualMessage = exception.getMessage();
@@ -68,7 +68,7 @@ public class TestUpdateUser {
 		newUser.setPhoneNumber(967654665277l);
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			userService.update(1, newUser);
+			userService.updateUser(1, newUser);
 		});
 
 		String exceptedMessage = "Name cannot be null or empty";
@@ -87,7 +87,7 @@ public class TestUpdateUser {
 		newUser.setPhoneNumber(967654665277l);
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			userService.update(1, newUser);
+			userService.updateUser(1, newUser);
 		});
 
 		String exceptedMessage = "Name cannot be null or empty";
@@ -107,7 +107,7 @@ public class TestUpdateUser {
 		newUser.setPhoneNumber(9676546652l);
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			userService.update(1, newUser);
+			userService.updateUser(1, newUser);
 		});
 
 		String expectedMessage = "Invalid User Name";
@@ -129,7 +129,7 @@ public class TestUpdateUser {
 		newUser.setPhoneNumber(967654665277l);
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			userService.update(1, newUser);
+			userService.updateUser(1, newUser);
 		});
 
 		String exceptedMessage = "password cannot be null or empty";
@@ -148,7 +148,7 @@ public class TestUpdateUser {
 		newUser.setPassword(null);
 		newUser.setPhoneNumber(967654665277l);
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			userService.update(1, newUser);
+			userService.updateUser(1, newUser);
 		});
 
 		String exceptedMessage = "password cannot be null or empty";
@@ -168,7 +168,7 @@ public class TestUpdateUser {
 		newUser.setPhoneNumber(9676546652l);
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			userService.update(1, newUser);
+			userService.updateUser(1, newUser);
 		});
 
 		String exceptedMessage = "Invalid Password. The password must be at least 8 characters long and contain at least one letter, one digit, and one special character. It should not contain spaces.";
@@ -188,7 +188,7 @@ public class TestUpdateUser {
 		newUser.setPhoneNumber(0);
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			userService.update(1, newUser);
+			userService.updateUser(1, newUser);
 		});
 
 		String exceptedMessage = "Invalid phone number. The phone number must be in the range of 6000000001 to 9999999999.";

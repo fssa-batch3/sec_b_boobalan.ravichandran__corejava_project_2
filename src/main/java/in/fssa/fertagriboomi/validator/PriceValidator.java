@@ -1,7 +1,6 @@
 package in.fssa.fertagriboomi.validator;
 
 import in.fssa.fertagriboomi.dao.PriceDAO;
-import in.fssa.fertagriboomi.dao.ProductDAO;
 import in.fssa.fertagriboomi.exception.DAOException;
 import in.fssa.fertagriboomi.exception.ValidationException;
 import in.fssa.fertagriboomi.model.Price;
@@ -53,17 +52,18 @@ public class PriceValidator {
 			throw new ValidationException("Price should be between a minimum of 50 and a maximum of 10000.");
 		}
 
-		PriceDAO priceDao = null;
+		PriceDAO priceDAO = null;
 		try {
-			priceDao = new PriceDAO();
-			priceDao.isProductExists(productId);
+			priceDAO = new PriceDAO();
+			priceDAO.isProductExists(productId);
 		} catch (DAOException e) {
 			throw new ValidationException(e);
 		}
 
+		
 		try {
-			priceDao = new PriceDAO();
-			priceDao.isPriceAlreadyExists(productId, newPrice);
+			priceDAO = new PriceDAO();
+			priceDAO.isPriceAlreadyExists(productId, newPrice);
 		} catch (DAOException e) {
 			throw new ValidationException(e);
 		}

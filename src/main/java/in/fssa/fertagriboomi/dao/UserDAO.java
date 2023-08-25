@@ -106,7 +106,7 @@ public class UserDAO implements UserInterface {
 		ResultSet rs = null;
 
 		try {
-			String query = "select * from users where is_active = 1";
+			String query = "SELECT id, name, email, password, mobile_number, is_active FROM users WHERE is_active = 1";
 
 			// String query = "select * from users";
 			conn = ConnectionUtil.getConnection();
@@ -149,7 +149,7 @@ public class UserDAO implements UserInterface {
 		ResultSet rs = null;
 
 		try {
-			String query = "SELECT * FROM users where email=?";
+			String query = "SELECT email FROM users WHERE email=?";
 			conn = ConnectionUtil.getConnection();
 			ps = conn.prepareStatement(query);
 			ps.setString(1, email);
@@ -183,7 +183,7 @@ public class UserDAO implements UserInterface {
 		ResultSet rs = null;
 		boolean isExists = true;
 		try {
-			String query = "SELECT * FROM users where id=?";
+			String query = "SELECT id FROM users WHERE id=?";
 			conn = ConnectionUtil.getConnection();
 			ps = conn.prepareStatement(query);
 			ps.setInt(1, id);

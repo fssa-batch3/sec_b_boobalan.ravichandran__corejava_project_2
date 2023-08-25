@@ -19,7 +19,7 @@ public class TestProductFind {
 
 		// newUser.setActive(true);
 		assertDoesNotThrow(() -> {
-			System.out.println(productService.getAll());
+			System.out.println(productService.getAllProducts());
 		});
 
 	}
@@ -30,7 +30,7 @@ public class TestProductFind {
 
 		// newUser.setActive(true);
 		assertDoesNotThrow(() -> {
-			System.out.println(productService.findById(1));
+			System.out.println(productService.findProductById(1));
 		});
 
 	}
@@ -40,7 +40,7 @@ public class TestProductFind {
 		ProductService productService = new ProductService();
 
 		Exception exception = assertThrows(Exception.class, () -> {
-			productService.findById(-22);
+			productService.findProductById(-22);
 		});
 
 		String exceptedMessage = "Invalid Product id";
@@ -54,7 +54,7 @@ public class TestProductFind {
 		ProductService productService = new ProductService();
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			productService.findById(150);
+			productService.findProductById(150);
 		});
 
 		String expectedMessage = "The product is not listed among the available products";
@@ -69,7 +69,7 @@ public class TestProductFind {
 		ProductService productService = new ProductService();
 
 		assertDoesNotThrow(() -> {
-			System.out.println(productService.listAllTheProductsByCategoryId(2));
+			System.out.println(productService.listAllProductsByCategoryId(2));
 		});
 	}
 
@@ -78,7 +78,7 @@ public class TestProductFind {
 		ProductService productService = new ProductService();
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			productService.listAllTheProductsByCategoryId(-20);
+			productService.listAllProductsByCategoryId(-20);
 		});
 
 		String exceptedMessage = "Invalid Category id";
@@ -92,7 +92,7 @@ public class TestProductFind {
 		ProductService productService = new ProductService();
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			productService.listAllTheProductsByCategoryId(5);
+			productService.listAllProductsByCategoryId(5);
 		});
 
 		String expectedMessage = "Invalid Category id";

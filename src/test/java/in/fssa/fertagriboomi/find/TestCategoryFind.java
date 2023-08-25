@@ -11,12 +11,12 @@ import in.fssa.fertagriboomi.service.CategoryService;
 
 public class TestCategoryFind {
 	@Test
-	public void testFindAllCategory() {
+	public void getAllCategory() {
 		CategoryService categoryService = new CategoryService();
 
 		// newUser.setActive(true);
 		assertDoesNotThrow(() -> {
-			System.out.println(categoryService.getAll());
+			System.out.println(categoryService.getAllCategories());
 		});
 
 	}
@@ -27,7 +27,7 @@ public class TestCategoryFind {
 
 		// newUser.setActive(true);
 		assertDoesNotThrow(() -> {
-			System.out.println(categoryService.findById(2));
+			System.out.println(categoryService.findCategoryById(2));
 		});
 
 	}
@@ -37,7 +37,7 @@ public class TestCategoryFind {
 		CategoryService categoryService = new CategoryService();
 
 		Exception exception = assertThrows(Exception.class, () -> {
-			categoryService.findById(-22);
+			categoryService.findCategoryById(-22);
 		});
 
 		String exceptedMessage = "Invalid category ID";
@@ -53,7 +53,7 @@ public class TestCategoryFind {
 		CategoryService categoryService = new CategoryService();
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			categoryService.findById(99);
+			categoryService.findCategoryById(99);
 		});
 
 		String exceptedMessage = "Category not available";
@@ -68,7 +68,7 @@ public class TestCategoryFind {
 		CategoryService categoryService = new CategoryService();
 
 		assertDoesNotThrow(() -> {
-			System.out.println(categoryService.findCategoriesByCategoryId(2));
+			System.out.println(categoryService.findCategoriesByCategoryTypeId(2));
 		});
 	}
 
@@ -77,7 +77,7 @@ public class TestCategoryFind {
 		CategoryService categoryService = new CategoryService();
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			categoryService.findCategoriesByCategoryId(-99);
+			categoryService.findCategoriesByCategoryTypeId(-99);
 		});
 
 		String exceptedMessage = "Invalid category type ID";
@@ -92,7 +92,7 @@ public class TestCategoryFind {
 		CategoryService categoryService = new CategoryService();
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			categoryService.findCategoriesByCategoryId(99);
+			categoryService.findCategoriesByCategoryTypeId(99);
 		});
 
 		String exceptedMessage = "Category type not available";

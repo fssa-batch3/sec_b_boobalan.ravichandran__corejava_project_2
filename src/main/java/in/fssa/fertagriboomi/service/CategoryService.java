@@ -20,7 +20,7 @@ public class CategoryService {
 	 *
 	 * @return A list of Category objects.
 	 */
-	public List<Category> getAll() {
+	public List<Category> getAllCategories() {
 		CategoryDAO categoryDao = new CategoryDAO();
 		List<Category> categoryList = categoryDao.findAll();
 
@@ -42,7 +42,7 @@ public class CategoryService {
 	 *                             database.
 	 * @throws ValidationException If the provided ID is not valid.
 	 */
-	public Category findById(int newId) throws ServiceException, ValidationException {
+	public Category findCategoryById(int newId) throws ServiceException, ValidationException {
 		CategoryDAO categoryDao = null;
 		Category category = null;
 		try {
@@ -65,7 +65,8 @@ public class CategoryService {
 	 *                             database.
 	 * @throws ValidationException If the provided category type ID is not valid.
 	 */
-	public List<Category> findCategoriesByCategoryId(int categoryTypeId) throws ServiceException, ValidationException {
+	public List<Category> findCategoriesByCategoryTypeId(int categoryTypeId)
+			throws ServiceException, ValidationException {
 		CategoryDAO categoryDao = null;
 		List<Category> categoryList = null;
 		try {

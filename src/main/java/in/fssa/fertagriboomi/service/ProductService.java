@@ -25,7 +25,7 @@ public class ProductService {
 	 * @throws ValidationException If the provided data is not valid for creating a
 	 *                             product.
 	 */
-	public void create(Product newProduct) throws ServiceException, ValidationException {
+	public void createProduct(Product newProduct) throws ServiceException, ValidationException {
 		try {
 			ProductDAO productDao = new ProductDAO();
 			ProductValidator.validate(newProduct);
@@ -39,7 +39,7 @@ public class ProductService {
 
 			int productId = productDao.create(newProduct);
 			PriceService priceService = new PriceService();
-			priceService.create(productId, newProduct.getPrice());
+			priceService.createPrice(productId, newProduct.getPrice());
 		} catch (DAOException e) {
 			throw new ServiceException(e);
 		}
@@ -50,7 +50,7 @@ public class ProductService {
 	 *
 	 * @return A list of Product objects.
 	 */
-	public List<Product> getAll() {
+	public List<Product> getAllProducts() {
 		ProductDAO productDao = new ProductDAO();
 		List<Product> productList = productDao.findAll();
 		Iterator<Product> iterator = productList.iterator();
@@ -71,7 +71,7 @@ public class ProductService {
 	 * @throws ValidationException If the provided data is not valid for updating
 	 *                             the product.
 	 */
-	public void update(int id, Product newUpdate) throws ServiceException, ValidationException {
+	public void updateProduct(int id, Product newUpdate) throws ServiceException, ValidationException {
 		try {
 			ProductDAO productDao = new ProductDAO();
 			ProductValidator.validateUpdate(id, newUpdate);
@@ -90,7 +90,7 @@ public class ProductService {
 	 *                             database.
 	 * @throws ValidationException If the provided ID is not valid.
 	 */
-	public Product findById(int newId) throws ServiceException, ValidationException {
+	public Product findProductById(int newId) throws ServiceException, ValidationException {
 		Product product = null;
 		ProductDAO productDao = null;
 		try {
@@ -111,7 +111,7 @@ public class ProductService {
 	 *                             database.
 	 * @throws ValidationException If the provided ID is not valid.
 	 */
-	public void delete(int id) throws ServiceException, ValidationException {
+	public void deleteProduct(int id) throws ServiceException, ValidationException {
 		try {
 			ProductDAO productDao = new ProductDAO();
 			ProductValidator.validateDeleteId(id);
@@ -130,7 +130,7 @@ public class ProductService {
 	 *                             database.
 	 * @throws ValidationException If the provided category ID is not valid.
 	 */
-	public List<Product> listAllTheProductsByCategoryId(int id) throws ServiceException, ValidationException {
+	public List<Product> listAllProductsByCategoryId(int id) throws ServiceException, ValidationException {
 		List<Product> product = null;
 		ProductDAO productDao = null;
 		try {
@@ -150,7 +150,7 @@ public class ProductService {
 	 * @throws ServiceException If an error occurs while interacting with the
 	 *                          database.
 	 */
-	public void changeActive(int id) throws ServiceException {
+	public void changeIsActiveToActive(int id) throws ServiceException {
 		try {
 			ProductDAO productDao = new ProductDAO();
 			productDao.changeActive(id);

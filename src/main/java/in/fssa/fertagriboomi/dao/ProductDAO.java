@@ -29,7 +29,7 @@ public class ProductDAO implements ProductInterface {
 		List<Product> categoryArray = new ArrayList<Product>();
 		ResultSet rs = null;
 		try {
-			String query = "select * from products where is_active = 1";
+			String query = "SELECT id, name, is_active, product_weight, description, benefits, application, manufacture, category_id   FROM products WHERE is_active = 1";
 			conn = ConnectionUtil.getConnection();
 			ps = conn.prepareStatement(query);
 			rs = ps.executeQuery();
@@ -38,12 +38,12 @@ public class ProductDAO implements ProductInterface {
 				product.setId(rs.getInt("id"));
 				product.setName(rs.getString("name"));
 				product.setActive(rs.getBoolean("is_active"));
-				product.setProduct_weight(rs.getString("product_weight"));
+				product.setProductWeight(rs.getString("product_weight"));
 				product.setDescription(rs.getString("description"));
 				product.setBenefits(rs.getString("benefits"));
 				product.setApplication(rs.getString("application"));
 				product.setManufacture(rs.getString("manufacture"));
-				product.setCategory_id(rs.getInt("category_id"));
+				product.setCategoryId(rs.getInt("category_id"));
 				categoryArray.add(product);
 			}
 		} catch (SQLException e) {
@@ -76,12 +76,12 @@ public class ProductDAO implements ProductInterface {
 			conn = ConnectionUtil.getConnection();
 			ps = conn.prepareStatement(query, java.sql.Statement.RETURN_GENERATED_KEYS);
 			ps.setString(1, newProduct.getName());
-			ps.setString(2, newProduct.getProduct_weight());
+			ps.setString(2, newProduct.getProductWeight());
 			ps.setString(3, newProduct.getDescription());
 			ps.setString(4, newProduct.getBenefits());
 			ps.setString(5, newProduct.getApplication());
 			ps.setString(6, newProduct.getManufacture());
-			ps.setInt(7, newProduct.getCategory_id());
+			ps.setInt(7, newProduct.getCategoryId());
 			ps.executeUpdate();
 
 			rs = ps.getGeneratedKeys();
@@ -117,7 +117,7 @@ public class ProductDAO implements ProductInterface {
 		ResultSet rs = null;
 
 		try {
-			String query = "SELECT * FROM products where is_active = true AND name=?";
+			String query = "SELECT name, is_active FROM products WHERE is_active = true AND name=?";
 			conn = ConnectionUtil.getConnection();
 			ps = conn.prepareStatement(query);
 			ps.setString(1, name);
@@ -152,7 +152,7 @@ public class ProductDAO implements ProductInterface {
 		ResultSet rs = null;
 		Product product = null;
 		try {
-			String query = "SELECT * FROM products where id=?";
+			String query = "SELECT id, name, is_active, product_weight, description, benefits, application, manufacture, category_id  FROM products WHERE id=?";
 			conn = ConnectionUtil.getConnection();
 			ps = conn.prepareStatement(query);
 			ps.setInt(1, id);
@@ -166,12 +166,12 @@ public class ProductDAO implements ProductInterface {
 			product.setId(rs.getInt("id"));
 			product.setName(rs.getString("name"));
 			product.setActive(rs.getBoolean("is_active"));
-			product.setProduct_weight(rs.getString("product_weight"));
+			product.setProductWeight(rs.getString("product_weight"));
 			product.setDescription(rs.getString("description"));
 			product.setBenefits(rs.getString("benefits"));
 			product.setApplication(rs.getString("application"));
 			product.setManufacture(rs.getString("manufacture"));
-			product.setCategory_id(rs.getInt("category_id"));
+			product.setCategoryId(rs.getInt("category_id"));
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -200,7 +200,7 @@ public class ProductDAO implements ProductInterface {
 			String query = "UPDATE products SET product_weight=?, description=?, benefits=?, application=? WHERE is_active=1 AND id=?";
 			conn = ConnectionUtil.getConnection();
 			ps = conn.prepareStatement(query);
-			ps.setString(1, updateProduct.getProduct_weight());
+			ps.setString(1, updateProduct.getProductWeight());
 			ps.setString(2, updateProduct.getDescription());
 			ps.setString(3, updateProduct.getBenefits());
 			ps.setString(4, updateProduct.getApplication());
@@ -271,7 +271,7 @@ public class ProductDAO implements ProductInterface {
 		ResultSet rs = null;
 
 		try {
-			String query = "SELECT * From categories WHERE is_active=1 AND id=?";
+			String query = "SELECT id FROM categories WHERE is_active=1 AND id=?";
 			conn = ConnectionUtil.getConnection();
 			ps = conn.prepareStatement(query);
 			ps.setInt(1, id);
@@ -303,7 +303,7 @@ public class ProductDAO implements ProductInterface {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		try {
-			String query = "SELECT * From products WHERE is_active=1 AND category_id=?";
+			String query = "SELECT id, name, is_active, product_weight, description, benefits, application, manufacture, category_id  FROM products WHERE is_active=1 AND category_id=?";
 			conn = ConnectionUtil.getConnection();
 			ps = conn.prepareStatement(query);
 			ps.setInt(1, categoryId);
@@ -316,12 +316,12 @@ public class ProductDAO implements ProductInterface {
 				product.setId(rs.getInt("id"));
 				product.setName(rs.getString("name"));
 				product.setActive(rs.getBoolean("is_active"));
-				product.setProduct_weight(rs.getString("product_weight"));
+				product.setProductWeight(rs.getString("product_weight"));
 				product.setDescription(rs.getString("description"));
 				product.setBenefits(rs.getString("benefits"));
 				product.setApplication(rs.getString("application"));
 				product.setManufacture(rs.getString("manufacture"));
-				product.setCategory_id(rs.getInt("category_id"));
+				product.setCategoryId(rs.getInt("category_id"));
 				ProductList.add(product);
 
 			}
@@ -351,7 +351,7 @@ public class ProductDAO implements ProductInterface {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		try {
-			String query = "SELECT * From products WHERE is_active=0 AND id=?";
+			String query = "SELECT id FROM products WHERE is_active=0 AND id=?";
 			conn = ConnectionUtil.getConnection();
 			ps = conn.prepareStatement(query);
 			ps.setInt(1, productId);
