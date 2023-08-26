@@ -33,8 +33,8 @@ public class ProductService {
 			Price productPrice = newProduct.getPrice();
 			int priceValue = productPrice.getPrice();
 
-			if (priceValue <= 50 || priceValue >= 10000) {
-				throw new ValidationException("Price should be between a minimum of 50 and a maximum of 10000.");
+			if (priceValue <= 50 || priceValue >= 50000) {
+				throw new ValidationException("Price should be between a minimum of 50 and a maximum of 50000.");
 			}
 
 			int productId = productDao.create(newProduct);

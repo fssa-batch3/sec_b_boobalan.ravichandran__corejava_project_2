@@ -56,7 +56,7 @@ public class TestCategoryFind {
 			categoryService.findCategoryById(99);
 		});
 
-		String exceptedMessage = "Category not available";
+		String exceptedMessage = "The Category is not listed among the available Categories";
 		String actualMessage = exception.getMessage();
 
 		assertTrue(actualMessage.contains(exceptedMessage));
@@ -95,7 +95,7 @@ public class TestCategoryFind {
 			categoryService.findCategoriesByCategoryTypeId(99);
 		});
 
-		String exceptedMessage = "Category type not available";
+		String exceptedMessage = "This Category type is not listed among the available Category types";
 		String actualMessage = exception.getMessage();
 
 		assertTrue(actualMessage.contains(exceptedMessage));

@@ -59,7 +59,7 @@ public class TestCategoryTypeFind {
 			categoryTypeService.findCategoryTypeById(22);
 		});
 
-		String exceptedMessage = "Category type not available";
+		String exceptedMessage = "This Category type is not listed among the available Category types";
 		String actualMessage = exception.getMessage();
 //		System.out.println("ex"+ exceptedMessage);
 //		System.out.println("ac"+ actualMessage);

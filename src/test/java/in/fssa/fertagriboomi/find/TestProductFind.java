@@ -92,7 +92,7 @@ public class TestProductFind {
 		ProductService productService = new ProductService();
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			productService.listAllProductsByCategoryId(5);
+			productService.listAllProductsByCategoryId(50);
 		});
 
 		String expectedMessage = "Invalid Category id";

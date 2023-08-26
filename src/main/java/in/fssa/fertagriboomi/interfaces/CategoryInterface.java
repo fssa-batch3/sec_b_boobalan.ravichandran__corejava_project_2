@@ -11,6 +11,6 @@ public interface CategoryInterface {
 
 	public abstract Category findById(int id) throws ValidationException, DAOException;
 
-	public abstract List<Category> findCategoryByCategoryTypeId(int typeId) throws Exception;
+	public abstract List<Category> findCategoriesByCategoryTypeId(int typeId) throws DAOException;
 
 }

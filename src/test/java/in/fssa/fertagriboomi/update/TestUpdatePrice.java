@@ -61,7 +61,7 @@ public class TestUpdatePrice {
 			priceService.updatePrice(2, price);
 		});
 
-		String expectedMessage = "Price should be between a minimum of 50 and a maximum of 10000.";
+		String expectedMessage = "Price should be between a minimum of 50 and a maximum of 50000.";
 		String actualMessage = exception.getMessage();
 		// System.out.println("Expected: " + expectedMessage);
 		// System.out.println("Actual: " + actualMessage);
@@ -74,13 +74,13 @@ public class TestUpdatePrice {
 		PriceService priceService = new PriceService();
 
 		Price price = new Price();
-		price.setPrice(10002);
+		price.setPrice(50002);
 		// newUser.setActive(true);
 		Exception exception = assertThrows(ValidationException.class, () -> {
 			priceService.updatePrice(2, price);
 		});
 
-		String expectedMessage = "Price should be between a minimum of 50 and a maximum of 10000.";
+		String expectedMessage = "Price should be between a minimum of 50 and a maximum of 50000.";
 		String actualMessage = exception.getMessage();
 //		System.out.println("Expected: " + expectedMessage);
 //		System.out.println("Actual: " + actualMessage);

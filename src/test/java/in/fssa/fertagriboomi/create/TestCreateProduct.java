@@ -62,7 +62,7 @@ public class TestCreateProduct {
 		Exception exception = assertThrows(Exception.class, () -> {
 			productService.createProduct(null);
 		});
-		String expectedMessage = "Invalid Product";
+		String expectedMessage = "Invalid Product input";
 		String actualMessage = exception.getMessage();
 
 		assertTrue(expectedMessage.equals(actualMessage));
@@ -198,7 +198,7 @@ public class TestCreateProduct {
 	}
 
 	@Test
-	public void testCreateProductWithNonExistsCategoryId() {
+	public void testCreateProductWithNonExistenCategoryId() {
 		ProductService productService = new ProductService();
 
 		Product product = new Product();
@@ -569,7 +569,7 @@ public class TestCreateProduct {
 			productService.createProduct(product);
 		});
 
-		String exceptedMessage = "Price should be between a minimum of 50 and a maximum of 10000.";
+		String exceptedMessage = "Price should be between a minimum of 50 and a maximum of 50000.";
 		String actualMessage = exception.getMessage();
 
 		assertTrue(actualMessage.contains(exceptedMessage));
@@ -594,14 +594,14 @@ public class TestCreateProduct {
 
 		PriceService priceService = new PriceService();
 		Price price = new Price();
-		price.setPrice(10020);
+		price.setPrice(50020);
 		product.setPrice(price);
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
 			productService.createProduct(product);
 		});
 
-		String exceptedMessage = "Price should be between a minimum of 50 and a maximum of 10000.";
+		String exceptedMessage = "Price should be between a minimum of 50 and a maximum of 50000.";
 		String actualMessage = exception.getMessage();
 
 		assertTrue(exceptedMessage.equals(actualMessage));

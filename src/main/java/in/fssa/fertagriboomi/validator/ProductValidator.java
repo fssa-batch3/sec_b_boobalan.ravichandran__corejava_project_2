@@ -20,7 +20,7 @@ public class ProductValidator {
 	 */
 	public static void validate(Product product) throws ValidationException {
 		if (product == null) {
-			throw new ValidationException("Invalid Product");
+			throw new ValidationException("Invalid Product input");
 		}
 
 		if (product.getCategoryId() <= 0) {

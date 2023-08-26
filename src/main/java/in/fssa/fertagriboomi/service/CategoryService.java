@@ -72,7 +72,7 @@ public class CategoryService {
 		try {
 			categoryDao = new CategoryDAO();
 			CategoryValidator.validateCategoryTypeId(categoryTypeId);
-			categoryList = categoryDao.findCategoryByCategoryTypeId(categoryTypeId);
+			categoryList = categoryDao.findCategoriesByCategoryTypeId(categoryTypeId);
 			Iterator<Category> iterator = categoryList.iterator();
 			while (iterator.hasNext()) {
 				Category categoryType = iterator.next();

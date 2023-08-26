@@ -112,7 +112,7 @@ public class CategoryTypeDAO implements CategoryTypeInterface {
 			ps.setInt(1, newId);
 			rs = ps.executeQuery();
 			if (!rs.next()) {
-				throw new ValidationException("Category type not available");
+				throw new ValidationException("This Category type is not listed among the available Category types");
 			}
 
 		} catch (SQLException e) {

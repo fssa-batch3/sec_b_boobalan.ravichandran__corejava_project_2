@@ -79,7 +79,7 @@ public class CategoryDAO implements CategoryInterface {
 			ps.setInt(1, id);
 			rs = ps.executeQuery();
 			if (!rs.next()) {
-				throw new DAOException("Category not available");
+				throw new DAOException("The Category is not listed among the available Categories");
 			}
 
 			category = new Category();
@@ -107,7 +107,7 @@ public class CategoryDAO implements CategoryInterface {
 	 * @throws RuntimeException if a database access error occurs.
 	 */
 	@Override
-	public List<Category> findCategoryByCategoryTypeId(int typeId) throws DAOException {
+	public List<Category> findCategoriesByCategoryTypeId(int typeId) throws DAOException {
 		List<Category> categoryArray = new ArrayList<Category>();
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -159,7 +159,7 @@ public class CategoryDAO implements CategoryInterface {
 			ps.setInt(1, categoryTypeId);
 			rs = ps.executeQuery();
 			if (!rs.next()) {
-				throw new DAOException("Category type not available");
+				throw new DAOException("This Category type is not listed among the available Category types");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
