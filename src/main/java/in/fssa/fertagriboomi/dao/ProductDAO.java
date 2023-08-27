@@ -29,7 +29,7 @@ public class ProductDAO implements ProductInterface {
 		List<Product> categoryArray = new ArrayList<Product>();
 		ResultSet rs = null;
 		try {
-			String query = "SELECT id, name, is_active, product_weight, description, benefits, application, manufacture, category_id   FROM products WHERE is_active = 1";
+			String query = "SELECT id, name, is_active, product_weight, description, benefits, application, manufacture, category_id, image_url   FROM products WHERE is_active = 1";
 			conn = ConnectionUtil.getConnection();
 			ps = conn.prepareStatement(query);
 			rs = ps.executeQuery();
@@ -44,6 +44,8 @@ public class ProductDAO implements ProductInterface {
 				product.setApplication(rs.getString("application"));
 				product.setManufacture(rs.getString("manufacture"));
 				product.setCategoryId(rs.getInt("category_id"));
+				product.setImageURL(rs.getString("image_url"));
+				
 				categoryArray.add(product);
 			}
 		} catch (SQLException e) {
@@ -72,7 +74,7 @@ public class ProductDAO implements ProductInterface {
 		ResultSet rs = null;
 		int productId = 0;
 		try {
-			String query = "INSERT INTO products (name, product_weight, description, benefits, application, manufacture, category_id) VALUES (?,?,?,?,?,?,?)";
+			String query = "INSERT INTO products (name, product_weight, description, benefits, application, manufacture, category_id, image_url) VALUES (?,?,?,?,?,?,?,?)";
 			conn = ConnectionUtil.getConnection();
 			ps = conn.prepareStatement(query, java.sql.Statement.RETURN_GENERATED_KEYS);
 			ps.setString(1, newProduct.getName());
@@ -82,6 +84,7 @@ public class ProductDAO implements ProductInterface {
 			ps.setString(5, newProduct.getApplication());
 			ps.setString(6, newProduct.getManufacture());
 			ps.setInt(7, newProduct.getCategoryId());
+			ps.setString(8, newProduct.getImageURL());
 			ps.executeUpdate();
 
 			rs = ps.getGeneratedKeys();
@@ -152,7 +155,7 @@ public class ProductDAO implements ProductInterface {
 		ResultSet rs = null;
 		Product product = null;
 		try {
-			String query = "SELECT id, name, is_active, product_weight, description, benefits, application, manufacture, category_id  FROM products WHERE id=?";
+			String query = "SELECT id, name, is_active, product_weight, description, benefits, application, manufacture, category_id, image_url FROM products WHERE id=?";
 			conn = ConnectionUtil.getConnection();
 			ps = conn.prepareStatement(query);
 			ps.setInt(1, id);
@@ -172,6 +175,7 @@ public class ProductDAO implements ProductInterface {
 			product.setApplication(rs.getString("application"));
 			product.setManufacture(rs.getString("manufacture"));
 			product.setCategoryId(rs.getInt("category_id"));
+			product.setImageURL(rs.getString("image_url"));
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -197,14 +201,15 @@ public class ProductDAO implements ProductInterface {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		try {
-			String query = "UPDATE products SET product_weight=?, description=?, benefits=?, application=? WHERE is_active=1 AND id=?";
+			String query = "UPDATE products SET product_weight=?, description=?, benefits=?, application=?, image_url=? WHERE is_active=1 AND id=?";
 			conn = ConnectionUtil.getConnection();
 			ps = conn.prepareStatement(query);
 			ps.setString(1, updateProduct.getProductWeight());
 			ps.setString(2, updateProduct.getDescription());
 			ps.setString(3, updateProduct.getBenefits());
 			ps.setString(4, updateProduct.getApplication());
-			ps.setInt(5, id);
+			ps.setString(5, updateProduct.getImageURL());
+			ps.setInt(6, id);
 
 			int rowsUpdated = ps.executeUpdate();
 
@@ -303,7 +308,7 @@ public class ProductDAO implements ProductInterface {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		try {
-			String query = "SELECT id, name, is_active, product_weight, description, benefits, application, manufacture, category_id  FROM products WHERE is_active=1 AND category_id=?";
+			String query = "SELECT id, name, is_active, product_weight, description, benefits, application, manufacture, category_id, image_url  FROM products WHERE is_active=1 AND category_id=?";
 			conn = ConnectionUtil.getConnection();
 			ps = conn.prepareStatement(query);
 			ps.setInt(1, categoryId);
@@ -322,6 +327,8 @@ public class ProductDAO implements ProductInterface {
 				product.setApplication(rs.getString("application"));
 				product.setManufacture(rs.getString("manufacture"));
 				product.setCategoryId(rs.getInt("category_id"));
+				product.setImageURL(rs.getString("image_url"));
+				
 				ProductList.add(product);
 
 			}

@@ -63,8 +63,8 @@ public class TestUpdatePrice {
 
 		String expectedMessage = "Price should be between a minimum of 50 and a maximum of 50000.";
 		String actualMessage = exception.getMessage();
-		// System.out.println("Expected: " + expectedMessage);
-		// System.out.println("Actual: " + actualMessage);
+		 System.out.println("Expected: " + expectedMessage);
+		 System.out.println("Actual: " + actualMessage);
 
 		assertTrue(expectedMessage.equals(actualMessage));
 	}

@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.UUID;
+
 import org.junit.jupiter.api.Test;
 
 import in.fssa.fertagriboomi.dao.ProductDAO;
@@ -17,6 +19,7 @@ import in.fssa.fertagriboomi.service.ProductService;
 import in.fssa.fertagriboomi.service.UserService;
 
 public class TestCreateProduct {
+	
 	private String generateRandomProductName() {
 		String alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 		StringBuilder dishName = new StringBuilder();
@@ -27,7 +30,12 @@ public class TestCreateProduct {
 		}
 		return dishName.toString();
 	}
-
+	public String generateImageURL() {
+        // Generate a unique image URL using UUID
+        String imageName = UUID.randomUUID().toString() + ".jpg";
+        String imageUrl = "https://example.com/images/" + imageName;
+        return imageUrl;
+    }
 	@Test
 	public void testCreateProductWithValideInput() {
 		ProductService productService = new ProductService();
@@ -44,11 +52,12 @@ public class TestCreateProduct {
 		product.setBenefits(
 				"It is a very effective weedicide for control of narrow leaf weeds in broad leaf crops.It does not burn the weeds but kills the weeds - so they do not regerminate.");
 		product.setActive(true);
-
+		product.setImageURL(generateImageURL());
 		PriceService priceService = new PriceService();
 		Price price = new Price();
 		price.setPrice(1600);
 		product.setPrice(price);
+		
 
 		assertDoesNotThrow(() -> {
 			productService.createProduct(product);
@@ -85,7 +94,8 @@ public class TestCreateProduct {
 		product.setBenefits(
 				"It is a very effective weedicide for control of narrow leaf weeds in broad leaf crops.It does not burn the weeds but kills the weeds - so they do not regerminate.");
 		product.setActive(true);
-
+		product.setImageURL(generateImageURL());
+		
 		PriceService priceService = new PriceService();
 		Price price = new Price();
 		price.setPrice(1000);
@@ -117,6 +127,7 @@ public class TestCreateProduct {
 		product.setBenefits(
 				"It is a very effective weedicide for control of narrow leaf weeds in broad leaf crops.It does not burn the weeds but kills the weeds - so they do not regerminate.");
 		product.setActive(true);
+		product.setImageURL(generateImageURL());
 
 		PriceService priceService = new PriceService();
 		Price price = new Price();
@@ -149,6 +160,7 @@ public class TestCreateProduct {
 		product.setBenefits(
 				"It is a very effective weedicide for control of narrow leaf weeds in broad leaf crops.It does not burn the weeds but kills the weeds - so they do not regerminate.");
 		product.setActive(true);
+		product.setImageURL(generateImageURL());
 
 		PriceService priceService = new PriceService();
 		Price price = new Price();
@@ -181,6 +193,7 @@ public class TestCreateProduct {
 		product.setBenefits(
 				"It is a very effective weedicide for control of narrow leaf weeds in broad leaf crops.It does not burn the weeds but kills the weeds - so they do not regerminate.");
 		product.setActive(true);
+		product.setImageURL(generateImageURL());
 
 		PriceService priceService = new PriceService();
 		Price price = new Price();
@@ -213,6 +226,7 @@ public class TestCreateProduct {
 		product.setBenefits(
 				"It is a very effective weedicide for control of narrow leaf weeds in broad leaf crops.It does not burn the weeds but kills the weeds - so they do not regerminate.");
 		product.setActive(true);
+		product.setImageURL(generateImageURL());
 
 		PriceService priceService = new PriceService();
 		Price price = new Price();
@@ -245,6 +259,7 @@ public class TestCreateProduct {
 		product.setBenefits(
 				"It is a very effective weedicide for control of narrow leaf weeds in broad leaf crops.It does not burn the weeds but kills the weeds - so they do not regerminate.");
 		product.setActive(true);
+		product.setImageURL(generateImageURL());
 
 		PriceService priceService = new PriceService();
 		Price price = new Price();
@@ -277,7 +292,8 @@ public class TestCreateProduct {
 		product.setBenefits(
 				"It is a very effective weedicide for control of narrow leaf weeds in broad leaf crops.It does not burn the weeds but kills the weeds - so they do not regerminate.");
 		product.setActive(true);
-
+		product.setImageURL(generateImageURL());
+		
 		PriceService priceService = new PriceService();
 		Price price = new Price();
 		price.setPrice(1000);
@@ -309,6 +325,7 @@ public class TestCreateProduct {
 		product.setBenefits(
 				"It is a very effective weedicide for control of narrow leaf weeds in broad leaf crops.It does not burn the weeds but kills the weeds - so they do not regerminate.");
 		product.setActive(true);
+		product.setImageURL(generateImageURL());
 
 		PriceService priceService = new PriceService();
 		Price price = new Price();
@@ -341,6 +358,7 @@ public class TestCreateProduct {
 		product.setBenefits(
 				"It is a very effective weedicide for control of narrow leaf weeds in broad leaf crops.It does not burn the weeds but kills the weeds - so they do not regerminate.");
 		product.setActive(true);
+		product.setImageURL(generateImageURL());
 
 		PriceService priceService = new PriceService();
 		Price price = new Price();
@@ -372,6 +390,7 @@ public class TestCreateProduct {
 		product.setBenefits(
 				"It is a very effective weedicide for control of narrow leaf weeds in broad leaf crops.It does not burn the weeds but kills the weeds - so they do not regerminate.");
 		product.setActive(true);
+		product.setImageURL(generateImageURL());
 
 		PriceService priceService = new PriceService();
 		Price price = new Price();
@@ -403,6 +422,7 @@ public class TestCreateProduct {
 		product.setBenefits(
 				"It is a very effective weedicide for control of narrow leaf weeds in broad leaf crops.It does not burn the weeds but kills the weeds - so they do not regerminate.");
 		product.setActive(true);
+		product.setImageURL(generateImageURL());
 
 		PriceService priceService = new PriceService();
 		Price price = new Price();
@@ -434,6 +454,7 @@ public class TestCreateProduct {
 		product.setBenefits(
 				"It is a very effective weedicide for control of narrow leaf weeds in broad leaf crops.It does not burn the weeds but kills the weeds - so they do not regerminate.");
 		product.setActive(true);
+		product.setImageURL(generateImageURL());
 
 		PriceService priceService = new PriceService();
 		Price price = new Price();
@@ -465,6 +486,7 @@ public class TestCreateProduct {
 		product.setBenefits(
 				"It is a very effective weedicide for control of narrow leaf weeds in broad leaf crops.It does not burn the weeds but kills the weeds - so they do not regerminate.");
 		product.setActive(true);
+		product.setImageURL(generateImageURL());
 
 		PriceService priceService = new PriceService();
 		Price price = new Price();
@@ -496,6 +518,7 @@ public class TestCreateProduct {
 				"Weed leaves turn purplish/red within 5-8 days after Targa Super application and within 10-15 days are completely killed.");
 		product.setBenefits(null);
 		product.setActive(true);
+		product.setImageURL(generateImageURL());
 
 		PriceService priceService = new PriceService();
 		Price price = new Price();
@@ -527,6 +550,7 @@ public class TestCreateProduct {
 				"Weed leaves turn purplish/red within 5-8 days after Targa Super application and within 10-15 days are completely killed.");
 		product.setBenefits("");
 		product.setActive(true);
+		product.setImageURL(generateImageURL());
 
 		PriceService priceService = new PriceService();
 		Price price = new Price();
@@ -559,7 +583,8 @@ public class TestCreateProduct {
 		product.setBenefits(
 				"It is a very effective weedicide for control of narrow leaf weeds in broad leaf crops.It does not burn the weeds but kills the weeds - so they do not regerminate.");
 		product.setActive(true);
-
+		product.setImageURL(generateImageURL());
+		
 		PriceService priceService = new PriceService();
 		Price price = new Price();
 		price.setPrice(10);
@@ -576,7 +601,7 @@ public class TestCreateProduct {
 	}
 
 	@Test
-	public void testCreateProductPriceUnder10000Rupees() {
+	public void testCreateProductPriceUnder50000Rupees() {
 		ProductService productService = new ProductService();
 
 		Product product = new Product();
@@ -591,6 +616,7 @@ public class TestCreateProduct {
 		product.setBenefits(
 				"It is a very effective weedicide for control of narrow leaf weeds in broad leaf crops.It does not burn the weeds but kills the weeds - so they do not regerminate.");
 		product.setActive(true);
+		product.setImageURL(generateImageURL());
 
 		PriceService priceService = new PriceService();
 		Price price = new Price();
@@ -602,6 +628,73 @@ public class TestCreateProduct {
 		});
 
 		String exceptedMessage = "Price should be between a minimum of 50 and a maximum of 50000.";
+		String actualMessage = exception.getMessage();
+
+		assertTrue(exceptedMessage.equals(actualMessage));
+	}
+
+	@Test
+	public void testCreateProductImgeUrlWithEmpty() {
+		ProductService productService = new ProductService();
+
+		Product product = new Product();
+		product.setName("Dow agro");
+		product.setCategoryId(1);
+		product.setManufacture("Dhanuka Agritech Limited");
+		product.setProductWeight("500g");
+		product.setDescription(
+				"Targa Super  (Quizalofop Ethyl 5% EC) is selective, systemic herbicide of Aryloxyphenoxy-propionates group. It is used to control narrow leaf weeds in broad leaf crops.");
+		product.setApplication(
+				"Weed leaves turn purplish/red within 5-8 days after Targa Super application and within 10-15 days are completely killed.");
+		product.setBenefits(
+				"It is a very effective weedicide for control of narrow leaf weeds in broad leaf crops.It does not burn the weeds but kills the weeds - so they do not regerminate.");
+		product.setActive(true);
+		product.setImageURL("");
+
+		PriceService priceService = new PriceService();
+		Price price = new Price();
+		price.setPrice(50020);
+		product.setPrice(price);
+
+		Exception exception = assertThrows(ValidationException.class, () -> {
+			productService.createProduct(product);
+		});
+
+		String exceptedMessage = "Product image cannot be empty";
+		String actualMessage = exception.getMessage();
+
+		assertTrue(exceptedMessage.equals(actualMessage));
+	}
+	
+
+	@Test
+	public void testCreateProductImgeUrlWithNull() {
+		ProductService productService = new ProductService();
+
+		Product product = new Product();
+		product.setName("Dow agro");
+		product.setCategoryId(1);
+		product.setManufacture("Dhanuka Agritech Limited");
+		product.setProductWeight("500g");
+		product.setDescription(
+				"Targa Super  (Quizalofop Ethyl 5% EC) is selective, systemic herbicide of Aryloxyphenoxy-propionates group. It is used to control narrow leaf weeds in broad leaf crops.");
+		product.setApplication(
+				"Weed leaves turn purplish/red within 5-8 days after Targa Super application and within 10-15 days are completely killed.");
+		product.setBenefits(
+				"It is a very effective weedicide for control of narrow leaf weeds in broad leaf crops.It does not burn the weeds but kills the weeds - so they do not regerminate.");
+		product.setActive(true);
+		product.setImageURL(null);
+
+		PriceService priceService = new PriceService();
+		Price price = new Price();
+		price.setPrice(50020);
+		product.setPrice(price);
+
+		Exception exception = assertThrows(ValidationException.class, () -> {
+			productService.createProduct(product);
+		});
+
+		String exceptedMessage = "Product image cannot be empty";
 		String actualMessage = exception.getMessage();
 
 		assertTrue(exceptedMessage.equals(actualMessage));

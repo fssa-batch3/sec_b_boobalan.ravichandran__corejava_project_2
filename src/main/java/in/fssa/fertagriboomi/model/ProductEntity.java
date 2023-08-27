@@ -1,6 +1,6 @@
 package in.fssa.fertagriboomi.model;
 
-public abstract class ProductEntity implements Comparable<Product> {
+public abstract class ProductEntity {
 
 	private int id;
 	private String name;
@@ -12,22 +12,7 @@ public abstract class ProductEntity implements Comparable<Product> {
 	private boolean isActive = true;
 	private int categoryId;
 	private Price price;
-
-	public Price getPrice() {
-		return price;
-	}
-
-	public void setPrice(Price price) {
-		this.price = price;
-	}
-
-	public String getManufacture() {
-		return manufacture;
-	}
-
-	public void setManufacture(String manufacture) {
-		this.manufacture = manufacture;
-	}
+	private String imageURL;
 
 	public int getId() {
 		return id;
@@ -77,6 +62,14 @@ public abstract class ProductEntity implements Comparable<Product> {
 		this.benefits = benefits;
 	}
 
+	public String getManufacture() {
+		return manufacture;
+	}
+
+	public void setManufacture(String manufacture) {
+		this.manufacture = manufacture;
+	}
+
 	public boolean isActive() {
 		return isActive;
 	}
@@ -93,16 +86,28 @@ public abstract class ProductEntity implements Comparable<Product> {
 		this.categoryId = categoryId;
 	}
 
+	public Price getPrice() {
+		return price;
+	}
+
+	public void setPrice(Price price) {
+		this.price = price;
+	}
+
+	public String getImageURL() {
+		return imageURL;
+	}
+
+	public void setImageURL(String imageURL) {
+		this.imageURL = imageURL;
+	}
+
 	@Override
 	public String toString() {
 		return "ProductEntity [id=" + id + ", name=" + name + ", productWeight=" + productWeight + ", description="
 				+ description + ", application=" + application + ", benefits=" + benefits + ", manufacture="
-				+ manufacture + ", isActive=" + isActive + ", categoryId=" + categoryId + "]";
+				+ manufacture + ", isActive=" + isActive + ", categoryId=" + categoryId + ", price=" + price
+				+ ", imageURL=" + imageURL + "]";
 	}
 
-	@Override
-	public int compareTo(Product o) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 }

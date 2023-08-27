@@ -28,7 +28,7 @@ public class ProductService {
 	public void createProduct(Product newProduct) throws ServiceException, ValidationException {
 		try {
 			ProductDAO productDao = new ProductDAO();
-			ProductValidator.validate(newProduct);
+			ProductValidator.validateCreate(newProduct);
 
 			Price productPrice = newProduct.getPrice();
 			int priceValue = productPrice.getPrice();

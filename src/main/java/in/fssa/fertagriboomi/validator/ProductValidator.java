@@ -18,7 +18,7 @@ public class ProductValidator {
 	 * @throws ValidationException If the Product object is invalid or conflicts
 	 *                             with existing data.
 	 */
-	public static void validate(Product product) throws ValidationException {
+	public static void validateCreate(Product product) throws ValidationException {
 		if (product == null) {
 			throw new ValidationException("Invalid Product input");
 		}
@@ -34,9 +34,9 @@ public class ProductValidator {
 		StringUtil.rejectIfInvalidString(product.getDescription(), "Product Description");
 		StringUtil.rejectIfInvalidString(product.getManufacture(), "Product manufacture company");
 
-		// if (product.getName() == null || "".equals(product.getName().trim())) {
-//			throw new ValidationException("Product name cannot be null or Empty");
-//		}
+		if (product.getImageURL() == null || "".equals(product.getImageURL().trim())) {
+			throw new ValidationException("Product image cannot be empty");
+		}
 
 //		if (product.getProductWeight() == null || "".equals(product.getProductWeight().trim())) {
 //			throw new ValidationException("Product quantity cannot be nul or empty");
@@ -101,6 +101,10 @@ public class ProductValidator {
 		StringUtil.rejectIfInvalidString(newUpdate.getApplication(), "Product Application");
 		StringUtil.rejectIfInvalidString(newUpdate.getBenefits(), "Product Benefits");
 		StringUtil.rejectIfInvalidString(newUpdate.getDescription(), "Product Description");
+
+		if (newUpdate.getImageURL() == null || "".equals(newUpdate.getImageURL().trim())) {
+			throw new ValidationException("Product image cannot be empty");
+		}
 
 		ProductDAO productDAO = null;
 		try {

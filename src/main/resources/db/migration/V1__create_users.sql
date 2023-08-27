@@ -20,14 +20,14 @@ INSERT INTO users (name, email, password, mobile_number) VALUES
 select* from users;
 
 
-CREATE TABLE if not exists categories_type (
+CREATE TABLE if not exists category_types (
 id INT AUTO_INCREMENT PRIMARY KEY,
 name VARCHAR(100) NOT NULL,
  is_active BOOLEAN DEFAULT TRUE,
 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 modified_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
-INSERT INTO categories_type (name) VALUES
+INSERT INTO category_types (name) VALUES
 ('BRANDS'),
 ('CROP PRODUCTION');
 select* from categories_type;
@@ -47,6 +47,7 @@ INSERT INTO categories (name, category_type_id) VALUES
 
 select* from categories;
 
+
 CREATE TABLE IF NOT EXISTS products(
 id INT AUTO_INCREMENT PRIMARY KEY,
 name VARCHAR(150) NOT NULL,
@@ -55,16 +56,17 @@ description TEXT NOT NULL,
 benefits TEXT NOT NULL,
 application TEXT NOT NULL,
 manufacture VARCHAR(200) NOT NULL,
+image_url TEXT NOT NULL,
 is_active BOOLEAN DEFAULT TRUE,
 category_id INT,
 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 modified_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 FOREIGN KEY (category_id) REFERENCES categories(id)
 );
-INSERT INTO products (name, product_weight, description, benefits, application,manufacture, category_id) VALUES
-('DHANUKA M45 FUNGICIDE', '2kg', 'High-performance fertilizer', 'Fast processing', 'Business and gaming','DHANUKA', 1),
-('BIOVITA SEAWEED ORGANIC PLANT GROWTH REGULATOR', '500g', 'Suitable fertilizers for all the crops', 'Use 20 days only per hector', 'ow has for the first time made 100% silicon available','BIOVITA', 2),
-('DHANUKA F25', '5kg', 'PLANT GROWTH REGULATOR', 'Fast processing', 'Use 30 days only per hector','DHANUKA', 2);
+INSERT INTO products (name, product_weight, description, benefits, application,manufacture, category_id, image_url) VALUES
+('DHANUKA M45 FUNGICIDE', '2kg', 'High-performance fertilizer', 'Fast processing', 'Business and gaming','DHANUKA', 1, 'https://example.com/images/1a2b3c4d5e6f.jpg'),
+('BIOVITA SEAWEED ORGANIC PLANT GROWTH REGULATOR', '500g', 'Suitable fertilizers for all the crops', 'Use 20 days only per hector', 'ow has for the first time made 100% silicon available','BIOVITA', 2, 'https://example.com/images/6g7h8i9j0k1l.jpg'),
+('DHANUKA F25', '5kg', 'PLANT GROWTH REGULATOR', 'Fast processing', 'Use 30 days only per hector','DHANUKA', 2, 'https://example.com/images/mnopqrstu2v.jpg');
 
 select* from products;
 

@@ -49,7 +49,7 @@ public class PriceValidator {
 		}
 
 		if (newPrice.getPrice() <= 50 || newPrice.getPrice() >= 10000) {
-			throw new ValidationException("Price should be between a minimum of 50 and a maximum of 10000.");
+			throw new ValidationException("Price should be between a minimum of 50 and a maximum of 50000.");
 		}
 
 		PriceDAO priceDAO = null;
