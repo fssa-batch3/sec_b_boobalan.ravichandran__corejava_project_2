@@ -68,4 +68,18 @@ public class PriceValidator {
 			throw new ValidationException(e);
 		}
 	}
+
+	public static void validateProductId(int productId) throws ValidationException {
+		if (productId <= 0) {
+			throw new ValidationException("Invalid Product ID");
+		}
+		PriceDAO priceDAO = null;
+		try {
+			priceDAO = new PriceDAO();
+			priceDAO.isProductExists(productId);
+		} catch (DAOException e) {
+			throw new ValidationException(e);
+		}
+		
+	}
 }
