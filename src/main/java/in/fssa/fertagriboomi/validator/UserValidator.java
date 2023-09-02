@@ -109,4 +109,43 @@ public class UserValidator {
 		}
 
 	}
+
+	public static boolean ValidateEmailAndPassword(String userEmail, String password) throws ValidationException {
+
+		StringUtil.rejectIfInvalidString(userEmail, "email");
+		StringUtil.rejectIfInvalidString(password, "password");
+
+		UserDAO userDAO = new UserDAO();
+		boolean emailExists = false;
+		try {
+			emailExists = userDAO.findByEmail(userEmail);
+			if (emailExists) {
+				userDAO.findUserRegisterOrNot(userEmail, password);
+			} else {
+				throw new ValidationException("We cannot find an account with that email address");
+			}
+		} catch (DAOException e) {
+			throw new ValidationException(e);
+		}
+		return emailExists;
+	}
+
+	public static void ValidateEmailAddress(String email) throws ValidationException {
+		
+		 if (email == null || "".equals(email.trim())) {
+		     throw new ValidationException("Email cannot be null or empty");
+		    }
+		 UserDAO userDAO = new UserDAO();
+		 boolean emailExists = false;
+		try {
+			emailExists = userDAO.findByEmail(email);
+			if(!emailExists) {
+				throw new ValidationException("We cannot find an account with that email address");
+			}
+		} catch (DAOException e) {
+			throw new ValidationException(e);
+		}
+		
+	}
+
 }

@@ -38,7 +38,7 @@ public class PriceService {
 	 * @throws ServiceException    If an error occurs while interacting with the
 	 *                             database.
 	 */
-	public void createPrice(int productId, Price newPrice) throws ValidationException, ServiceException {
+	public void createPrice(int productId, int newPrice) throws ValidationException, ServiceException {
 		try {
 			PriceDAO priceDao = new PriceDAO();
 			LocalDateTime localDateTime = LocalDateTime.now();
@@ -60,7 +60,7 @@ public class PriceService {
 	 * @throws ValidationException If the provided data is not valid for updating
 	 *                             the price.
 	 */
-	public void updatePrice(int productId, Price newPrice) throws ServiceException, ValidationException {
+	public void updatePrice(int productId, int newPrice) throws ServiceException, ValidationException {
 		PriceDAO priceDao = new PriceDAO();
 		PriceValidator.validateUpdate(productId, newPrice);
 

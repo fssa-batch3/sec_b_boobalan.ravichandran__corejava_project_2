@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import in.fssa.fertagriboomi.exception.DAOException;
-
+import in.fssa.fertagriboomi.exception.ValidationException;
 import in.fssa.fertagriboomi.interfaces.ProductInterface;
 import in.fssa.fertagriboomi.model.Category;
 import in.fssa.fertagriboomi.model.Product;
@@ -29,7 +29,7 @@ public class ProductDAO implements ProductInterface {
 		List<Product> categoryArray = new ArrayList<Product>();
 		ResultSet rs = null;
 		try {
-			String query = "SELECT id, name, is_active, product_weight, description, benefits, application, manufacture, category_id, image_url   FROM products WHERE is_active = 1";
+			String query = "SELECT id, name, is_active, product_weight, description, benefits, application, manufacture, category_id, image_url   FROM products  ";
 			conn = ConnectionUtil.getConnection();
 			ps = conn.prepareStatement(query);
 			rs = ps.executeQuery();
@@ -293,6 +293,8 @@ public class ProductDAO implements ProductInterface {
 
 	}
 
+
+
 	/**
 	 * Lists all products belonging to a specific category.
 	 *
@@ -313,9 +315,7 @@ public class ProductDAO implements ProductInterface {
 			ps = conn.prepareStatement(query);
 			ps.setInt(1, categoryId);
 			rs = ps.executeQuery();
-			if (!rs.next()) {
-				throw new DAOException("Invalid Category id");
-			}
+			
 			while (rs.next()) {
 				Product product = new Product();
 				product.setId(rs.getInt("id"));
@@ -332,6 +332,7 @@ public class ProductDAO implements ProductInterface {
 				ProductList.add(product);
 
 			}
+			
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -344,6 +345,46 @@ public class ProductDAO implements ProductInterface {
 		return ProductList;
 
 	}
+	
+	
+	/**
+	 * Lists all products belonging to a specific category.
+	 *
+	 * @param categoryId The ID of the category to filter products by.
+	 * @return A list of Product objects belonging to the specified category.
+	 * @throws DAOException     if an error occurs while accessing the database.
+	 * @throws RuntimeException if a database access error occurs.
+	 */
+	public void isCategoryProductsExits(int categoryId) throws DAOException {
+
+		
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			String query = "SELECT id  FROM products WHERE is_active=1 AND category_id=?";
+			conn = ConnectionUtil.getConnection();
+			ps = conn.prepareStatement(query);
+			ps.setInt(1, categoryId);
+			rs = ps.executeQuery();
+			
+			if(!rs.next()) {
+				throw new DAOException("The products for the specified category are not found in the product list.");
+				
+			}
+			
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println(e.getMessage());
+			throw new DAOException(e);
+		} finally {
+			ConnectionUtil.close(conn, ps, rs);
+		}
+
+	
+
+	}
 
 	/**
 	 * Checks if a product with the given ID has been deleted (is_active=0) in the
@@ -354,24 +395,25 @@ public class ProductDAO implements ProductInterface {
 	 * @throws RuntimeException if a database access error occurs.
 	 */
 	public boolean isDeletedProduct(int productId) throws DAOException {
-		Connection conn = null;
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-		try {
-			String query = "SELECT id FROM products WHERE is_active=0 AND id=?";
-			conn = ConnectionUtil.getConnection();
-			ps = conn.prepareStatement(query);
-			ps.setInt(1, productId);
-			rs = ps.executeQuery();
-			return rs.next();
-		} catch (SQLException e) {
-			e.printStackTrace();
-			System.out.println(e.getMessage());
-			throw new DAOException(e);
-		} finally {
-			ConnectionUtil.close(conn, ps, rs);
-		}
+	    Connection conn = null;
+	    PreparedStatement ps = null;
+	    ResultSet rs = null;
+	    try {
+	        String query = "SELECT id FROM products WHERE is_active=0 AND id=?";
+	        conn = ConnectionUtil.getConnection();
+	        ps = conn.prepareStatement(query);
+	        ps.setInt(1, productId);
+	        rs = ps.executeQuery();
+	        return rs.next(); // Return true if a deleted product is found.
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        System.out.println(e.getMessage());
+	        throw new DAOException(e);
+	    } finally {
+	        ConnectionUtil.close(conn, ps, rs);
+	    }
 	}
+
 
 	/**
 	 * Changes the active status of a product with the given ID to "active".

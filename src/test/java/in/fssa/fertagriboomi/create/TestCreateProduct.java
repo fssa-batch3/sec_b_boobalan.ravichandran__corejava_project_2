@@ -19,7 +19,7 @@ import in.fssa.fertagriboomi.service.ProductService;
 import in.fssa.fertagriboomi.service.UserService;
 
 public class TestCreateProduct {
-	
+
 	private String generateRandomProductName() {
 		String alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 		StringBuilder dishName = new StringBuilder();
@@ -30,12 +30,14 @@ public class TestCreateProduct {
 		}
 		return dishName.toString();
 	}
+
 	public String generateImageURL() {
-        // Generate a unique image URL using UUID
-        String imageName = UUID.randomUUID().toString() + ".jpg";
-        String imageUrl = "https://example.com/images/" + imageName;
-        return imageUrl;
-    }
+		// Generate a unique image URL using UUID
+		String imageName = UUID.randomUUID().toString() + ".jpg";
+		String imageUrl = "https://example.com/images/" + imageName;
+		return imageUrl;
+	}
+
 	@Test
 	public void testCreateProductWithValideInput() {
 		ProductService productService = new ProductService();
@@ -56,8 +58,8 @@ public class TestCreateProduct {
 		PriceService priceService = new PriceService();
 		Price price = new Price();
 		price.setPrice(1600);
-		product.setPrice(price);
-		
+		int priceValue = price.getPrice();
+		product.setPrice(priceValue);
 
 		assertDoesNotThrow(() -> {
 			productService.createProduct(product);
@@ -95,11 +97,12 @@ public class TestCreateProduct {
 				"It is a very effective weedicide for control of narrow leaf weeds in broad leaf crops.It does not burn the weeds but kills the weeds - so they do not regerminate.");
 		product.setActive(true);
 		product.setImageURL(generateImageURL());
-		
+
 		PriceService priceService = new PriceService();
 		Price price = new Price();
 		price.setPrice(1000);
-		product.setPrice(price);
+		int priceValue = price.getPrice();
+		product.setPrice(priceValue);
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
 			productService.createProduct(product);
@@ -132,7 +135,8 @@ public class TestCreateProduct {
 		PriceService priceService = new PriceService();
 		Price price = new Price();
 		price.setPrice(1000);
-		product.setPrice(price);
+		int priceValue = price.getPrice();
+		product.setPrice(priceValue);
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
 			productService.createProduct(product);
@@ -165,7 +169,8 @@ public class TestCreateProduct {
 		PriceService priceService = new PriceService();
 		Price price = new Price();
 		price.setPrice(1000);
-		product.setPrice(price);
+		int priceValue = price.getPrice();
+		product.setPrice(priceValue);
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
 			productService.createProduct(product);
@@ -198,7 +203,8 @@ public class TestCreateProduct {
 		PriceService priceService = new PriceService();
 		Price price = new Price();
 		price.setPrice(1000);
-		product.setPrice(price);
+		int priceValue = price.getPrice();
+		product.setPrice(priceValue);
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
 			productService.createProduct(product);
@@ -231,8 +237,8 @@ public class TestCreateProduct {
 		PriceService priceService = new PriceService();
 		Price price = new Price();
 		price.setPrice(1000);
-		product.setPrice(price);
-
+		int priceValue = price.getPrice();
+		product.setPrice(priceValue);
 		Exception exception = assertThrows(ValidationException.class, () -> {
 			productService.createProduct(product);
 		});
@@ -264,7 +270,8 @@ public class TestCreateProduct {
 		PriceService priceService = new PriceService();
 		Price price = new Price();
 		price.setPrice(1000);
-		product.setPrice(price);
+		int priceValue = price.getPrice();
+		product.setPrice(priceValue);
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
 			productService.createProduct(product);
@@ -293,11 +300,12 @@ public class TestCreateProduct {
 				"It is a very effective weedicide for control of narrow leaf weeds in broad leaf crops.It does not burn the weeds but kills the weeds - so they do not regerminate.");
 		product.setActive(true);
 		product.setImageURL(generateImageURL());
-		
+
 		PriceService priceService = new PriceService();
 		Price price = new Price();
 		price.setPrice(1000);
-		product.setPrice(price);
+		int priceValue = price.getPrice();
+		product.setPrice(priceValue);
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
 			productService.createProduct(product);
@@ -330,7 +338,8 @@ public class TestCreateProduct {
 		PriceService priceService = new PriceService();
 		Price price = new Price();
 		price.setPrice(1000);
-		product.setPrice(price);
+		int priceValue = price.getPrice();
+		product.setPrice(priceValue);
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
 			productService.createProduct(product);
@@ -363,7 +372,8 @@ public class TestCreateProduct {
 		PriceService priceService = new PriceService();
 		Price price = new Price();
 		price.setPrice(1000);
-		product.setPrice(price);
+		int priceValue = price.getPrice();
+		product.setPrice(priceValue);
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
 			productService.createProduct(product);
@@ -395,7 +405,8 @@ public class TestCreateProduct {
 		PriceService priceService = new PriceService();
 		Price price = new Price();
 		price.setPrice(1000);
-		product.setPrice(price);
+		int priceValue = price.getPrice();
+		product.setPrice(priceValue);
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
 			productService.createProduct(product);
@@ -427,7 +438,8 @@ public class TestCreateProduct {
 		PriceService priceService = new PriceService();
 		Price price = new Price();
 		price.setPrice(1000);
-		product.setPrice(price);
+		int priceValue = price.getPrice();
+		product.setPrice(priceValue);
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
 			productService.createProduct(product);
@@ -459,8 +471,9 @@ public class TestCreateProduct {
 		PriceService priceService = new PriceService();
 		Price price = new Price();
 		price.setPrice(1000);
-		product.setPrice(price);
-
+		int priceValue = price.getPrice();
+		product.setPrice(priceValue);
+		
 		Exception exception = assertThrows(ValidationException.class, () -> {
 			productService.createProduct(product);
 		});
@@ -491,7 +504,8 @@ public class TestCreateProduct {
 		PriceService priceService = new PriceService();
 		Price price = new Price();
 		price.setPrice(1000);
-		product.setPrice(price);
+		int priceValue = price.getPrice();
+		product.setPrice(priceValue);
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
 			productService.createProduct(product);
@@ -523,7 +537,8 @@ public class TestCreateProduct {
 		PriceService priceService = new PriceService();
 		Price price = new Price();
 		price.setPrice(1000);
-		product.setPrice(price);
+		int priceValue = price.getPrice();
+		product.setPrice(priceValue);
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
 			productService.createProduct(product);
@@ -555,7 +570,8 @@ public class TestCreateProduct {
 		PriceService priceService = new PriceService();
 		Price price = new Price();
 		price.setPrice(1000);
-		product.setPrice(price);
+		int priceValue = price.getPrice();
+		product.setPrice(priceValue);
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
 			productService.createProduct(product);
@@ -584,11 +600,12 @@ public class TestCreateProduct {
 				"It is a very effective weedicide for control of narrow leaf weeds in broad leaf crops.It does not burn the weeds but kills the weeds - so they do not regerminate.");
 		product.setActive(true);
 		product.setImageURL(generateImageURL());
-		
+
 		PriceService priceService = new PriceService();
 		Price price = new Price();
 		price.setPrice(10);
-		product.setPrice(price);
+		int priceValue = price.getPrice();
+		product.setPrice(priceValue);
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
 			productService.createProduct(product);
@@ -621,7 +638,8 @@ public class TestCreateProduct {
 		PriceService priceService = new PriceService();
 		Price price = new Price();
 		price.setPrice(50020);
-		product.setPrice(price);
+		int priceValue = price.getPrice();
+		product.setPrice(priceValue);
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
 			productService.createProduct(product);
@@ -654,7 +672,8 @@ public class TestCreateProduct {
 		PriceService priceService = new PriceService();
 		Price price = new Price();
 		price.setPrice(50020);
-		product.setPrice(price);
+		int priceValue = price.getPrice();
+		product.setPrice(priceValue);
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
 			productService.createProduct(product);
@@ -665,7 +684,6 @@ public class TestCreateProduct {
 
 		assertTrue(exceptedMessage.equals(actualMessage));
 	}
-	
 
 	@Test
 	public void testCreateProductImgeUrlWithNull() {
@@ -688,7 +706,8 @@ public class TestCreateProduct {
 		PriceService priceService = new PriceService();
 		Price price = new Price();
 		price.setPrice(50020);
-		product.setPrice(price);
+		int priceValue = price.getPrice();
+		product.setPrice(priceValue);
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
 			productService.createProduct(product);

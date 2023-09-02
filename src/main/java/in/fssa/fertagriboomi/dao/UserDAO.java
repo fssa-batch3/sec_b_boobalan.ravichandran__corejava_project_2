@@ -57,7 +57,7 @@ public class UserDAO implements UserInterface {
 	 * @throws RuntimeException if a database access error occurs.
 	 */
 	@Override
-	public void update(int id, User updatedUser) throws Exception {
+	public void update(int id, User updatedUser) throws DAOException {
 		Connection conn = null;
 		PreparedStatement ps = null;
 
@@ -82,11 +82,7 @@ public class UserDAO implements UserInterface {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println(e.getMessage());
-			throw new Exception();
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println(e.getMessage());
-			throw new Exception();
+			throw new DAOException(e);
 		} finally {
 			ConnectionUtil.close(conn, ps);
 		}
@@ -206,10 +202,100 @@ public class UserDAO implements UserInterface {
 
 	}
 
+	public boolean findByEmail(String email) throws DAOException {
+
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		try {
+			String query = "SELECT email FROM users WHERE email=?";
+			conn = ConnectionUtil.getConnection();
+			ps = conn.prepareStatement(query);
+			ps.setString(1, email);
+			rs = ps.executeQuery();
+
+			return rs.next();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println(e.getMessage());
+			throw new DAOException(e);
+		} finally {
+
+			ConnectionUtil.close(conn, ps);
+		}
+
+	}
+
 	@Override
 	public void delete(int id) {
 		// TODO Auto-generated method stub
 
 	}
 
+	public boolean findUserRegisterOrNot(String userEmail, String password) throws DAOException {
+
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		try {
+			String query = "SELECT email, password FROM users WHERE email=? AND password=?";
+			conn = ConnectionUtil.getConnection();
+			ps = conn.prepareStatement(query);
+			ps.setString(1, userEmail);
+			ps.setString(2, password);
+			rs = ps.executeQuery();
+			if (!rs.next()) {
+				throw new DAOException("Sorry we could not log you in. Your password is incorrect.");
+			}
+
+			return rs.next();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println(e.getMessage());
+			throw new DAOException(e);
+		} finally {
+
+			ConnectionUtil.close(conn, ps);
+		}
+	}
+
+	public User findUserByEmail(String email) throws DAOException {
+
+		Connection conn = null;
+		PreparedStatement ps = null;
+		User user = null;
+		ResultSet rs = null;
+
+		try {
+			String query = "SELECT id, name, email, password, mobile_number, is_active FROM users WHERE email=?";
+			conn = ConnectionUtil.getConnection();
+			ps = conn.prepareStatement(query);
+			ps.setString(1, email);
+			rs = ps.executeQuery();
+			if(rs.next()) {
+				user = new User();
+				user.setId(rs.getInt("id"));
+				user.setName(rs.getString("name"));
+				user.setEmail(rs.getString("email"));
+				user.setPassword(rs.getString("password"));
+				user.setPhoneNumber(rs.getLong("mobile_number"));
+				user.setActive(rs.getBoolean("is_active"));
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println(e.getMessage());
+			throw new DAOException(e);
+		} finally {
+
+			ConnectionUtil.close(conn, ps);
+		}
+
+		return user;
+
+	}
 }

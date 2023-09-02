@@ -17,16 +17,14 @@ public class PriceValidator {
 	 * @param price     The Price object to validate.
 	 * @throws ValidationException If the Price object is invalid.
 	 */
-	public static void validate(int productId, Price price) throws ValidationException {
-		if (price == null) {
-			throw new ValidationException("Invalid Price input");
-		}
+	public static void validate(int productId, int price) throws ValidationException {
+		
 
 		if (productId <= 0) {
 			throw new ValidationException("Invalid Product ID");
 		}
 
-		if (!(price.getPrice() >= 50 && price.getPrice() <= 50000)) {
+		if (!(price >= 50 && price <= 50000)) {
 			throw new ValidationException("Price should be between a minimum of 50 and a maximum of 50000.");
 		}
 	}
@@ -39,16 +37,16 @@ public class PriceValidator {
 	 * @throws ValidationException If the Price object is invalid or conflicts with
 	 *                             existing data.
 	 */
-	public static void validateUpdate(int productId, Price newPrice) throws ValidationException {
-		if (newPrice == null) {
-			throw new ValidationException("Invalid Price input");
-		}
+	public static void validateUpdate(int productId, int newPrice) throws ValidationException {
+//		if (newPrice == null) {
+//			throw new ValidationException("Invalid Price input");
+//		}
 
 		if (productId <= 0) {
 			throw new ValidationException("Invalid Product ID");
 		}
 
-		if (newPrice.getPrice() <= 50 || newPrice.getPrice() >= 10000) {
+		if ( newPrice <= 50 || newPrice >= 10000) {
 			throw new ValidationException("Price should be between a minimum of 50 and a maximum of 50000.");
 		}
 

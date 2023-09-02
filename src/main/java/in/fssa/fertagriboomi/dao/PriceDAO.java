@@ -24,14 +24,14 @@ public class PriceDAO implements PriceInterface {
 	 * @throws RuntimeException if a database access error occurs.
 	 */
 	@Override
-	public void create(int productId, Price newPrice, Timestamp dateTime) throws DAOException {
+	public void create(int productId, int newPrice, Timestamp dateTime) throws DAOException {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		try {
 			String query = "INSERT INTO prices (price, product_id, start_date) VALUES (?,?,?)";
 			conn = ConnectionUtil.getConnection();
 			ps = conn.prepareStatement(query);
-			ps.setInt(1, newPrice.getPrice());
+			ps.setInt(1, newPrice);
 			ps.setInt(2, productId);
 			ps.setTimestamp(3, dateTime);
 			ps.executeUpdate();
@@ -91,15 +91,16 @@ public class PriceDAO implements PriceInterface {
 		ResultSet rs = null;
 		int priceId = 0;
 		try {
-			String query = "SELECT id FROM prices WHERE product_id=? AND end_date is NULL";
+			String query = "SELECT id, price FROM prices WHERE product_id=? AND end_date is NULL";
 			conn = ConnectionUtil.getConnection();
 			ps = conn.prepareStatement(query);
 			ps.setInt(1, productId);
 			rs = ps.executeQuery();
+			
 			if (!rs.next()) {
 				throw new DAOException("This product price is not available");
 			}
-			priceId = rs.getInt("id");
+			priceId = rs.getInt("price");
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -156,7 +157,7 @@ public class PriceDAO implements PriceInterface {
 	 * @throws DAOException If an error occurs while interacting with the database
 	 *                      or if a duplicate price entry is found.
 	 */
-	public void isPriceAlreadyExists(int productId, Price newPrice) throws DAOException {
+	public void isPriceAlreadyExists(int productId, int newPrice) throws DAOException {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -165,7 +166,7 @@ public class PriceDAO implements PriceInterface {
 			conn = ConnectionUtil.getConnection();
 			ps = conn.prepareStatement(query);
 			ps.setInt(1, productId);
-			ps.setInt(2, newPrice.getPrice());
+			ps.setInt(2, newPrice);
 			rs = ps.executeQuery();
 			if (rs.next()) {
 				throw new DAOException("Product price should be same");
@@ -177,5 +178,7 @@ public class PriceDAO implements PriceInterface {
 			throw new DAOException(e);
 		}
 	}
+
+	
 
 }

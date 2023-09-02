@@ -14,7 +14,7 @@ import in.fssa.fertagriboomi.service.ProductService;
 
 public class TestProductFind {
 	@Test
-	public void testFindAllProductType() {
+	public void testFindAllProducts() {
 		ProductService productService = new ProductService();
 
 		// newUser.setActive(true);
@@ -78,7 +78,7 @@ public class TestProductFind {
 		ProductService productService = new ProductService();
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			productService.listAllProductsByCategoryId(-20);
+			productService.listAllProductsByCategoryId(-22);
 		});
 
 		String exceptedMessage = "Invalid Category id";
@@ -87,6 +87,20 @@ public class TestProductFind {
 		assertTrue(exceptedMessage.equals(actualMessage));
 	}
 
+	@Test
+	public void testFindProductWithValidCategoryIdButNotYetProductCreated() {
+		ProductService productService = new ProductService();
+
+		Exception exception = assertThrows(ValidationException.class, () -> {
+			productService.listAllProductsByCategoryId(8);
+		});
+
+		String expectedMessage = "The products for the specified category are not found in the product list.";
+		String actualMessage = exception.getMessage();
+		System.out.println("Expected: " + expectedMessage);
+		System.out.println("Actual: " + actualMessage);
+		assertTrue(actualMessage.contains(expectedMessage));
+	}
 	@Test
 	public void testFindProductWithNonExistentCategoryId() {
 		ProductService productService = new ProductService();

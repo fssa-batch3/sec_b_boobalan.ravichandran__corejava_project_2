@@ -180,22 +180,23 @@ public class ProductValidator {
 	 * @throws ValidationException If the Category ID is invalid or not found.
 	 */
 	public static void validateCategoryId(int id) throws ValidationException {
-		if (id <= 0) {
-			throw new ValidationException("Invalid Category id");
-		}
-		ProductDAO productDAO = null;
-		try {
-			productDAO = new ProductDAO();
-			boolean categoryExists = productDAO.isCategoryExists(id);
-			if (categoryExists) {
-				productDAO.listAllTheProductsByCategoryId(id);
-			} else {
-				throw new ValidationException("Invalid Category id");
-			}
-		} catch (DAOException e) {
-			throw new ValidationException(e);
-		}
+	    if (id <= 0) {
+	        throw new ValidationException("Invalid Category id");
+	    }
 
+	    ProductDAO productDAO = new ProductDAO();
+
+	    try {
+	        boolean categoryExists = productDAO.isCategoryExists(id);
+	        if (categoryExists) {
+	        	productDAO.isCategoryProductsExits(id);
+	            productDAO.listAllTheProductsByCategoryId(id);
+	        } else {
+	            throw new ValidationException("Invalid Category id");
+	        }
+	    } catch (DAOException e) {
+	        throw new ValidationException(e);
+	    }
 	}
-
 }
+
