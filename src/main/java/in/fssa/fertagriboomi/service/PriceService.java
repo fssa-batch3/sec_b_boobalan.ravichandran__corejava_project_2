@@ -19,7 +19,7 @@ public class PriceService {
 		int price = 0; 
 		try {
 			PriceValidator.validateProductId(productId);
-			price = priceDAO.getPriceIdByProductId(productId);
+			price = priceDAO.getPriceByProductId(productId);
 		}catch (DAOException e) {
 			throw new ServiceException(e);
 		}

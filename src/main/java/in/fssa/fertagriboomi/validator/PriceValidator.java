@@ -46,7 +46,7 @@ public class PriceValidator {
 			throw new ValidationException("Invalid Product ID");
 		}
 
-		if ( newPrice <= 50 || newPrice >= 10000) {
+		if ( newPrice <= 50 || newPrice >= 50000) {
 			throw new ValidationException("Price should be between a minimum of 50 and a maximum of 50000.");
 		}
 

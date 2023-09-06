@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Test;
 
 import in.fssa.fertagriboomi.service.UserService;
 
-
 public class TestLoginUser {
 	@Test
 	public void testLoginUserWithValidInputs() {
@@ -17,8 +16,8 @@ public class TestLoginUser {
 		assertDoesNotThrow(() -> {
 			userService.findEmailAndPasswordExists("user161934@gmail.com", "Xyz12345@");
 		});
-   }
-	
+	}
+
 	@Test
 	public void testLoginWithInvalidEmailAddress() {
 		UserService userService = new UserService();
@@ -32,22 +31,20 @@ public class TestLoginUser {
 		assertTrue(actualMessage.contains(exceptedMessage));
 	}
 
-	
-
 	@Test
 	public void testLoginWithInvalidPassword() {
 		UserService userService = new UserService();
 		Exception exception = assertThrows(Exception.class, () -> {
-			userService.findEmailAndPasswordExists("user161934@gmail.com", "Xyz2345@");
+			userService.findEmailAndPasswordExists("rboomibaln459@gmail.com", "Xyz2345@");
 		});
 		String exceptedMessage = "Sorry we could not log you in. Your password is incorrect.";
 		String actualMessage = exception.getMessage();
-//		System.out.println(exceptedMessage);
-//		System.out.println(actualMessage);
+		System.out.println(exceptedMessage);
+		System.out.println(actualMessage);
 		assertTrue(actualMessage.contains(exceptedMessage));
-	
+
 	}
-	
+
 	@Test
 	public void testLoginWithEmailAddressNull() {
 		UserService userService = new UserService();
@@ -59,8 +56,9 @@ public class TestLoginUser {
 //		System.out.println(exceptedMessage);
 //		System.out.println(actualMessage);
 		assertTrue(actualMessage.contains(exceptedMessage));
-	
+
 	}
+
 	@Test
 	public void testLoginWithEmailAddressEmptyString() {
 		UserService userService = new UserService();
@@ -72,9 +70,9 @@ public class TestLoginUser {
 //		System.out.println(exceptedMessage);
 //		System.out.println(actualMessage);
 		assertTrue(actualMessage.contains(exceptedMessage));
-	
+
 	}
-	
+
 	@Test
 	public void testLoginWithPasswordsNull() {
 		UserService userService = new UserService();
@@ -83,12 +81,12 @@ public class TestLoginUser {
 		});
 		String exceptedMessage = "password cannot be null or empty";
 		String actualMessage = exception.getMessage();
-	System.out.println(exceptedMessage);
-	System.out.println(actualMessage);
+		System.out.println(exceptedMessage);
+		System.out.println(actualMessage);
 		assertTrue(actualMessage.contains(exceptedMessage));
-	
+
 	}
-	
+
 	@Test
 	public void testLoginWithPasswordsEmptyString() {
 		UserService userService = new UserService();
@@ -97,9 +95,9 @@ public class TestLoginUser {
 		});
 		String exceptedMessage = "password cannot be null or empty";
 		String actualMessage = exception.getMessage();
-	System.out.println(exceptedMessage);
-	System.out.println(actualMessage);
+		System.out.println(exceptedMessage);
+		System.out.println(actualMessage);
 		assertTrue(actualMessage.contains(exceptedMessage));
-	
+
 	}
 }

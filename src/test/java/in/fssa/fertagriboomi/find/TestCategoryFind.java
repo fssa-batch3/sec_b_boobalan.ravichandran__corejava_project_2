@@ -97,7 +97,8 @@ public class TestCategoryFind {
 
 		String exceptedMessage = "This Category type is not listed among the available Category types";
 		String actualMessage = exception.getMessage();
-
+		System.out.println("e" + exceptedMessage);
+		System.out.println("e" + actualMessage);
 		assertTrue(actualMessage.contains(exceptedMessage));
 	}
 

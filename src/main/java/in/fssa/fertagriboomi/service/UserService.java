@@ -40,12 +40,12 @@ public class UserService {
 	 * @throws Exception           If an error occurs while interacting with the
 	 *                             database or validating user data.
 	 */
-	public void createUser(User newUser) throws ServiceException, ValidationException {
+	public void createUser(User newUser) throws ServiceException {
 		try {
 			UserDAO userDao = new UserDAO();
 			UserValidator.validate(newUser);
 			userDao.create(newUser);
-		} catch (DAOException e) {
+		} catch (DAOException | ValidationException e) {
 			throw new ServiceException(e);
 		}
 	}
@@ -60,21 +60,22 @@ public class UserService {
 	 * @throws Exception           If an error occurs while interacting with the
 	 *                             database or validating user data.
 	 */
-	public void updateUser(int id, User newUpdate) throws ValidationException, ServiceException {
+	public void updateUser(int id, User newUpdate) throws ServiceException {
 		try {
 			UserDAO userDAO = new UserDAO();
 			UserValidator.validateUpdate(newUpdate, id);
 			userDAO.update(id, newUpdate);
-		} catch (DAOException e) {
+		} catch (DAOException | ValidationException e) {
 			throw new ServiceException(e);
 		}
 	}
 
 	public boolean findEmailAndPasswordExists(String userEmail, String password) throws ServiceException {
-		UserDAO userDAO = new UserDAO();
+
 		boolean isRegister = false;
 
 		try {
+
 			isRegister = UserValidator.ValidateEmailAndPassword(userEmail, password);
 
 		} catch (ValidationException e) {
@@ -83,20 +84,20 @@ public class UserService {
 		return isRegister;
 
 	}
-	
+
 	public User findByEmail(String email) throws ServiceException {
 		UserDAO userDAO = new UserDAO();
 		User user = null;
 		try {
 			UserValidator.ValidateEmailAddress(email);
 			user = new User();
-			user= userDAO.findUserByEmail(email);
+			user = userDAO.findUserByEmail(email);
 		} catch (DAOException | ValidationException e) {
-			
+
 			throw new ServiceException(e);
 		}
-		
+
 		return user;
-		
+
 	}
 }

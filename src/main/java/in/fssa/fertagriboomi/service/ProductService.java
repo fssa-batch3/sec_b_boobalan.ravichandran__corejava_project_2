@@ -1,6 +1,5 @@
 package in.fssa.fertagriboomi.service;
 
-
 import java.util.List;
 
 import in.fssa.fertagriboomi.dao.ProductDAO;
@@ -30,7 +29,6 @@ public class ProductService {
 			ProductDAO productDao = new ProductDAO();
 			ProductValidator.validateCreate(newProduct);
 
-			
 			int priceValue = newProduct.getPrice();
 
 			if (priceValue <= 50 || priceValue >= 50000) {
@@ -49,14 +47,23 @@ public class ProductService {
 	 * Retrieves a list of all products.
 	 *
 	 * @return A list of Product objects.
+	 * @throws ServiceException
 	 */
-	public List<Product> getAllProducts() {
+	public List<Product> getAllProducts() throws ServiceException {
 		ProductDAO productDao = new ProductDAO();
 		List<Product> productList = productDao.findAll();
-		
-		for(Product product : productList) {
-			
-			System.out.println(product);
+
+		for (Product product : productList) {
+			int price;
+			try {
+				price = new PriceService().getPrice(product.getId());
+				// System.out.println(price);
+				product.setPrice(price);
+			} catch (ServiceException | ValidationException e) {
+				e.printStackTrace();
+				throw new ServiceException(e);
+			}
+
 		}
 		return productList;
 	}
@@ -132,7 +139,7 @@ public class ProductService {
 	 *                             database.
 	 * @throws ValidationException If the provided category ID is not valid.
 	 */
-	
+
 	public List<Product> listAllProductsByCategoryId(int id) throws ServiceException, ValidationException {
 		List<Product> productList = null;
 		ProductDAO productDao = null;
@@ -140,11 +147,11 @@ public class ProductService {
 			productDao = new ProductDAO();
 			ProductValidator.validateCategoryId(id);
 			productList = productDao.listAllTheProductsByCategoryId(id);
-			for(Product product: productList) {
-				   int price = new PriceService().getPrice(product.getId());
-			       
-		           // System.out.println(price);
-		            product.setPrice(price);
+			for (Product product : productList) {
+				int price = new PriceService().getPrice(product.getId());
+
+				// System.out.println(price);
+				product.setPrice(price);
 			}
 		} catch (DAOException e) {
 			throw new ServiceException(e);

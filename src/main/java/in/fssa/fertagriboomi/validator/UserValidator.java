@@ -35,10 +35,11 @@ public class UserValidator {
 			throw new ValidationException(
 					"Invalid phone number. The phone number must be in the range of 6000000001 to 9999999999.");
 		}
-		Pattern namePattern = Pattern.compile("^[A-Za-z]+$");
+		Pattern namePattern = Pattern.compile("^[A-Za-z ]+$");
 		Matcher nameMatcher = namePattern.matcher(user.getName());
 		if (!nameMatcher.matches()) {
-			throw new ValidationException("Invalid User Name. The name must only contain alphabetic characters");
+			throw new ValidationException(
+					"Invalid User Name. The name must only contain alphabetic characters and spaces");
 		}
 
 		Pattern emailPattern = Pattern.compile("^[A-Za-z0-9+_.-]+@(.+)$");
@@ -57,7 +58,10 @@ public class UserValidator {
 		UserDAO userDAO = null;
 		try {
 			userDAO = new UserDAO();
-			userDAO.isEmailAlreadyExists(user.getEmail());
+			boolean isEmailExists = userDAO.isEmailAlreadyExists(user.getEmail());
+			if (isEmailExists) {
+				throw new ValidationException("The email already exists");
+			}
 		} catch (DAOException e) {
 			throw new ValidationException(e);
 		}
@@ -120,7 +124,10 @@ public class UserValidator {
 		try {
 			emailExists = userDAO.findByEmail(userEmail);
 			if (emailExists) {
-				userDAO.findUserRegisterOrNot(userEmail, password);
+				boolean isRegister = userDAO.findUserRegisterOrNot(userEmail, password);
+				if (!isRegister) {
+					throw new ValidationException("Sorry we could not log you in. Your password is incorrect.");
+				}
 			} else {
 				throw new ValidationException("We cannot find an account with that email address");
 			}
@@ -131,21 +138,21 @@ public class UserValidator {
 	}
 
 	public static void ValidateEmailAddress(String email) throws ValidationException {
-		
-		 if (email == null || "".equals(email.trim())) {
-		     throw new ValidationException("Email cannot be null or empty");
-		    }
-		 UserDAO userDAO = new UserDAO();
-		 boolean emailExists = false;
+
+		if (email == null || "".equals(email.trim())) {
+			throw new ValidationException("Email cannot be null or empty");
+		}
+		UserDAO userDAO = new UserDAO();
+		boolean emailExists = false;
 		try {
 			emailExists = userDAO.findByEmail(email);
-			if(!emailExists) {
+			if (!emailExists) {
 				throw new ValidationException("We cannot find an account with that email address");
 			}
 		} catch (DAOException e) {
 			throw new ValidationException(e);
 		}
-		
+
 	}
 
 }

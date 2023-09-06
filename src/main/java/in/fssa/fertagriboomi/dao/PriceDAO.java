@@ -57,7 +57,7 @@ public class PriceDAO implements PriceInterface {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		try {
-			String query = "SELECT id FROM products WHERE id=?";
+			String query = "SELECT id FROM products WHERE id=? ";
 			conn = ConnectionUtil.getConnection();
 			ps = conn.prepareStatement(query);
 			ps.setInt(1, productId);
@@ -91,12 +91,42 @@ public class PriceDAO implements PriceInterface {
 		ResultSet rs = null;
 		int priceId = 0;
 		try {
+			String query = "SELECT id, price FROM prices WHERE product_id = ? AND end_date IS NULL";
+			conn = ConnectionUtil.getConnection();
+			ps = conn.prepareStatement(query);
+			ps.setInt(1, productId);
+			rs = ps.executeQuery();
+
+			if (!rs.next()) {
+				throw new DAOException("This product id is not available");
+			}
+			priceId = rs.getInt("id");
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println(e.getMessage());
+			throw new DAOException(e);
+		} finally {
+
+			ConnectionUtil.close(conn, ps);
+		}
+
+		return priceId;
+	}
+
+	public int getPriceByProductId(int productId) throws DAOException {
+
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		int priceId = 0;
+		try {
 			String query = "SELECT id, price FROM prices WHERE product_id=? AND end_date is NULL";
 			conn = ConnectionUtil.getConnection();
 			ps = conn.prepareStatement(query);
 			ps.setInt(1, productId);
 			rs = ps.executeQuery();
-			
+
 			if (!rs.next()) {
 				throw new DAOException("This product price is not available");
 			}
@@ -176,9 +206,9 @@ public class PriceDAO implements PriceInterface {
 			e.printStackTrace();
 			System.out.println(e.getMessage());
 			throw new DAOException(e);
+		} finally {
+			ConnectionUtil.close(conn, ps, rs);
 		}
 	}
-
-	
 
 }

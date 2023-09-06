@@ -23,10 +23,8 @@ public class CategoryService {
 		CategoryDAO categoryDao = new CategoryDAO();
 		List<Category> categoryList = categoryDao.findAll();
 
-		
+		for (Category category : categoryList) {
 
-		for( Category  category: categoryList) {
-			
 			System.out.println(category);
 		}
 		return categoryList;
@@ -37,24 +35,23 @@ public class CategoryService {
 	 *
 	 * @param newId The ID of the category to find.
 	 * @return The Category object with the given ID.
-	 * @throws DAOException 
+	 * @throws DAOException
 	 * @throws ServiceException    If an error occurs while interacting with the
 	 *                             database.
 	 * @throws ValidationException If the provided ID is not valid.
 	 */
-	public Category findCategoryById(int newId) throws  ServiceException {
+	public Category findCategoryById(int newId) throws ValidationException, ServiceException {
 		CategoryDAO categoryDao = null;
 		Category category = null;
-	
-			categoryDao = new CategoryDAO();
-			try {
-				CategoryValidator.validateId(newId);
-				category = categoryDao.findById(newId);
-				
-			} catch (ValidationException | DAOException e) {
-				throw new ServiceException(e);
-			}
-			
+
+		categoryDao = new CategoryDAO();
+		try {
+			CategoryValidator.validateId(newId); // Validate the ID
+			category = categoryDao.findById(newId);
+		} catch (DAOException e) {
+			throw new ServiceException(e);
+		}
+
 		return category;
 	}
 
@@ -64,28 +61,29 @@ public class CategoryService {
 	 * @param categoryTypeId The ID of the category type.
 	 * @return A list of Category objects that belong to the specified category
 	 *         type.
-	 * @throws DAOException 
+	 * @throws DAOException
 	 * @throws ServiceException    If an error occurs while interacting with the
 	 *                             database.
 	 * @throws ValidationException If the provided category type ID is not valid.
 	 */
-	public List<Category> findCategoriesByCategoryTypeId(int categoryTypeId) throws ServiceException {
+	public List<Category> findCategoriesByCategoryTypeId(int categoryTypeId)
+			throws ServiceException, ValidationException {
 		CategoryDAO categoryDao = null;
 		List<Category> categoryList = null;
-		
+
+		CategoryValidator.validateCategoryTypeId(categoryTypeId); // Validate the input
+
+		try {
 			categoryDao = new CategoryDAO();
-			try {
-				CategoryValidator.validateCategoryTypeId(categoryTypeId);
-				categoryList = categoryDao.findCategoriesByCategoryTypeId(categoryTypeId);
-				for(Category categoryType: categoryList) {
-				
-					System.out.println(categoryType);
-				}
-			} catch (ValidationException | DAOException e) {
-				throw new ServiceException(e);
+			categoryList = categoryDao.findCategoriesByCategoryTypeId(categoryTypeId);
+			for (Category categoryType : categoryList) {
+				System.out.println(categoryType);
 			}
-			
-		
+		} catch (DAOException e) {
+			throw new ServiceException(e);
+		}
+
 		return categoryList;
 	}
+
 }

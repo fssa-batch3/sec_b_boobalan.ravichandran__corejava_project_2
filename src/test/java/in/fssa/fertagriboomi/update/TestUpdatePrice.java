@@ -14,8 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class TestUpdatePrice {
 
-	public class PriceServiceTest {
-
+	
 		@Test
 		public void testUpdatePriceWithValidInput() {
 			PriceService priceService = new PriceService();
@@ -32,7 +31,7 @@ public class TestUpdatePrice {
 		private int generateRandomPriceInRange(int min, int max) {
 			return (int) (Math.random() * (max - min + 1)) + min;
 		}
-	}
+	
 
 
 
@@ -101,17 +100,17 @@ public class TestUpdatePrice {
 		PriceService priceService = new PriceService();
 
 		Price price = new Price();
-		price.setPrice(2300);
+		price.setPrice(2900);
 		int priceValue =  price.getPrice();
 		// newUser.setActive(true);
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			priceService.updatePrice(22, priceValue);
+			priceService.updatePrice(220, priceValue);
 		});
 
 		String expectedMessage = "Product not available in the product list";
 		String actualMessage = exception.getMessage();
-//		System.out.println("Expected: " + expectedMessage);
-//		System.out.println("Actual: " + actualMessage);
+		System.out.println("Expected: " + expectedMessage);
+		System.out.println("Actual: " + actualMessage);
 
 		assertTrue(actualMessage.contains(expectedMessage));
 	}
@@ -131,8 +130,8 @@ public class TestUpdatePrice {
 
 		String expectedMessage = "Product price should be same";
 		String actualMessage = exception.getMessage();
-//		System.out.println("Expected: " + expectedMessage);
-//		System.out.println("Actual: " + actualMessage);
+		System.out.println("Expected: " + expectedMessage);
+		System.out.println("Actual: " + actualMessage);
 
 		assertTrue(actualMessage.contains(expectedMessage));
 

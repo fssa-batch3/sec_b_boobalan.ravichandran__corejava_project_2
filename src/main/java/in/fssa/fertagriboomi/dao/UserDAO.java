@@ -138,7 +138,7 @@ public class UserDAO implements UserInterface {
 	 * @throws DAOException If an error occurs while interacting with the database
 	 *                      or if the email already exists.
 	 */
-	public void isEmailAlreadyExists(String email) throws DAOException {
+	public boolean isEmailAlreadyExists(String email) throws DAOException {
 
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -150,9 +150,8 @@ public class UserDAO implements UserInterface {
 			ps = conn.prepareStatement(query);
 			ps.setString(1, email);
 			rs = ps.executeQuery();
-			if (rs.next()) {
-				throw new DAOException("The email already exists");
-			}
+			
+			return rs.next();
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -247,10 +246,6 @@ public class UserDAO implements UserInterface {
 			ps.setString(1, userEmail);
 			ps.setString(2, password);
 			rs = ps.executeQuery();
-			if (!rs.next()) {
-				throw new DAOException("Sorry we could not log you in. Your password is incorrect.");
-			}
-
 			return rs.next();
 
 		} catch (SQLException e) {
@@ -276,7 +271,7 @@ public class UserDAO implements UserInterface {
 			ps = conn.prepareStatement(query);
 			ps.setString(1, email);
 			rs = ps.executeQuery();
-			if(rs.next()) {
+			if (rs.next()) {
 				user = new User();
 				user.setId(rs.getInt("id"));
 				user.setName(rs.getString("name"));
