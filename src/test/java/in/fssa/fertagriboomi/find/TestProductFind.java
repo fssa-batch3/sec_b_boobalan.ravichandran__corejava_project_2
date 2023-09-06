@@ -92,11 +92,11 @@ public class TestProductFind {
 		ProductService productService = new ProductService();
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
-			productService.listAllProductsByCategoryId(8);
+			productService.listAllProductsByCategoryId(999);
 		});
 
 		String expectedMessage = "The products for the specified category are not found in the product list.";
-		String actualMessage = exception.getMessage();
+		String actualMessage = exception.getLocalizedMessage();
 		System.out.println("Expected: " + expectedMessage);
 		System.out.println("Actual: " + actualMessage);
 		assertTrue(actualMessage.contains(expectedMessage));
@@ -109,7 +109,7 @@ public class TestProductFind {
 			productService.listAllProductsByCategoryId(50);
 		});
 
-		String expectedMessage = "Invalid Category id";
+		String expectedMessage = "The products for the specified category are not found in the product list.";
 		String actualMessage = exception.getMessage();
 
 		System.out.println("Expected: " + expectedMessage);

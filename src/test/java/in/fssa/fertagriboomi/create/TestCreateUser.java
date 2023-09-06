@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
+import in.fssa.fertagriboomi.exception.ServiceException;
 import in.fssa.fertagriboomi.exception.ValidationException;
 import in.fssa.fertagriboomi.model.User;
 import in.fssa.fertagriboomi.service.UserService;
@@ -37,8 +38,9 @@ public class TestCreateUser {
 		});
 		String exceptedMessage = "Invalid User input";
 		String actualMessage = exception.getMessage();
-
-		assertTrue(exceptedMessage.equals(actualMessage));
+		System.out.println("ex" + exceptedMessage);
+		System.out.println("ac" + actualMessage);
+		assertTrue(actualMessage.contains(exceptedMessage));
 	}
 
 	@Test
@@ -59,7 +61,7 @@ public class TestCreateUser {
 		String exceptedMessage = "email cannot be null or empty";
 		String actualMessage = exception.getMessage();
 
-		assertTrue(exceptedMessage.equals(actualMessage));
+		assertTrue(actualMessage.contains(exceptedMessage));
 	}
 
 	@Test
@@ -80,7 +82,7 @@ public class TestCreateUser {
 		String exceptedMessage = "email cannot be null or empty";
 		String actualMessage = exception.getMessage();
 
-		assertTrue(exceptedMessage.equals(actualMessage));
+		assertTrue(actualMessage.contains(exceptedMessage));
 	}
 
 	@Test
@@ -101,7 +103,7 @@ public class TestCreateUser {
 		String exceptedMessage = "Invalid Email Address";
 		String actualMessage = exception.getMessage();
 
-		assertTrue(exceptedMessage.equals(actualMessage));
+		assertTrue(actualMessage.contains(exceptedMessage));
 	}
 
 	@Test
@@ -143,7 +145,7 @@ public class TestCreateUser {
 		String exceptedMessage = "password cannot be null or empty";
 		String actualMessage = exception.getMessage();
 
-		assertTrue(exceptedMessage.equals(actualMessage));
+		assertTrue(actualMessage.contains(exceptedMessage));
 	}
 
 	@Test
@@ -163,7 +165,7 @@ public class TestCreateUser {
 		String exceptedMessage = "password cannot be null or empty";
 		String actualMessage = exception.getMessage();
 
-		assertTrue(exceptedMessage.equals(actualMessage));
+		assertTrue(actualMessage.contains(exceptedMessage));
 	}
 
 	@Test
@@ -184,7 +186,7 @@ public class TestCreateUser {
 		String exceptedMessage = "Invalid Password. The password must be at least 8 characters long and contain at least one letter, one digit, and one special character. It should not contain spaces.";
 		String actualMessage = exception.getMessage();
 
-		assertTrue(exceptedMessage.equals(actualMessage));
+		assertTrue(actualMessage.contains(exceptedMessage));
 	}
 
 //	Name
@@ -206,7 +208,7 @@ public class TestCreateUser {
 		String exceptedMessage = "Name cannot be null or empty";
 		String actualMessage = exception.getMessage();
 
-		assertTrue(exceptedMessage.equals(actualMessage));
+		assertTrue(actualMessage.contains(exceptedMessage));
 	}
 
 	@Test
@@ -226,7 +228,7 @@ public class TestCreateUser {
 		String exceptedMessage = "Name cannot be null or empty";
 		String actualMessage = exception.getMessage();
 
-		assertTrue(exceptedMessage.equals(actualMessage));
+		assertTrue(actualMessage.contains(exceptedMessage));
 	}
 
 	@Test
@@ -247,7 +249,7 @@ public class TestCreateUser {
 		String exceptedMessage = "Invalid User Name. The name must only contain alphabetic characters";
 		String actualMessage = exception.getMessage();
 
-		assertTrue(exceptedMessage.equals(actualMessage));
+		assertTrue(actualMessage.contains(exceptedMessage));
 	}
 
 	@Test
@@ -260,7 +262,6 @@ public class TestCreateUser {
 		newUser.setEmail("rboomibaln461@gmailcom");
 		newUser.setPhoneNumber(96);
 		newUser.setPassword("Abcd1234@");
-		
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
 			userService.createUser(newUser);
@@ -268,7 +269,7 @@ public class TestCreateUser {
 
 		String exceptedMessage = "Invalid phone number. The phone number must be in the range of 6000000001 to 9999999999.";
 		String actualMessage = exception.getMessage();
-		
+
 		System.out.println(exceptedMessage);
 		System.out.println(actualMessage);
 

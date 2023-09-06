@@ -14,7 +14,7 @@ public class TestLoginUser {
 		UserService userService = new UserService();
 
 		assertDoesNotThrow(() -> {
-			userService.findEmailAndPasswordExists("user161934@gmail.com", "Xyz12345@");
+			userService.findEmailAndPasswordExists("john@example.com", "Abc12345@");
 		});
 	}
 

@@ -39,7 +39,7 @@ public class ProductService {
 			PriceService priceService = new PriceService();
 			priceService.createPrice(productId, newProduct.getPrice());
 		} catch (DAOException e) {
-			throw new ServiceException(e);
+			throw new ServiceException(e.getMessage());
 		}
 	}
 
@@ -61,7 +61,7 @@ public class ProductService {
 				product.setPrice(price);
 			} catch (ServiceException | ValidationException e) {
 				e.printStackTrace();
-				throw new ServiceException(e);
+				throw new ServiceException(e.getMessage());
 			}
 
 		}
@@ -84,7 +84,7 @@ public class ProductService {
 			ProductValidator.validateUpdate(id, newUpdate);
 			productDao.update(id, newUpdate);
 		} catch (DAOException e) {
-			throw new ServiceException(e);
+			throw new ServiceException(e.getMessage());
 		}
 	}
 
@@ -107,7 +107,7 @@ public class ProductService {
 			int price = new PriceService().getPrice(newId);
 			product.setPrice(price);
 		} catch (DAOException e) {
-			throw new ServiceException(e);
+			throw new ServiceException(e.getMessage());
 		}
 		return product;
 	}
@@ -126,7 +126,7 @@ public class ProductService {
 			ProductValidator.validateDeleteId(id);
 			productDao.delete(id);
 		} catch (DAOException e) {
-			throw new ServiceException(e);
+			throw new ServiceException(e.getMessage());
 		}
 	}
 
@@ -154,7 +154,7 @@ public class ProductService {
 				product.setPrice(price);
 			}
 		} catch (DAOException e) {
-			throw new ServiceException(e);
+			throw new ServiceException(e.getMessage());
 		}
 		return productList;
 	}
@@ -171,7 +171,7 @@ public class ProductService {
 			ProductDAO productDao = new ProductDAO();
 			productDao.changeActive(id);
 		} catch (DAOException e) {
-			throw new ServiceException(e);
+			throw new ServiceException(e.getMessage());
 		}
 	}
 }

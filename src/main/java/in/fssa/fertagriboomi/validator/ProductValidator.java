@@ -192,7 +192,7 @@ public class ProductValidator {
 	        	productDAO.isCategoryProductsExits(id);
 	            productDAO.listAllTheProductsByCategoryId(id);
 	        } else {
-	            throw new ValidationException("Invalid Category id");
+	            throw new ValidationException("The products for the specified category are not found in the product list.");
 	        }
 	    } catch (DAOException e) {
 	        throw new ValidationException(e);

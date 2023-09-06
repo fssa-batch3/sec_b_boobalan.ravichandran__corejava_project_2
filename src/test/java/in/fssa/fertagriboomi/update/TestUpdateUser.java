@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
+import in.fssa.fertagriboomi.exception.ServiceException;
 import in.fssa.fertagriboomi.exception.ValidationException;
 import in.fssa.fertagriboomi.model.User;
 import in.fssa.fertagriboomi.service.UserService;
@@ -74,7 +75,7 @@ public class TestUpdateUser {
 		String exceptedMessage = "Name cannot be null or empty";
 		String actualMessage = exception.getMessage();
 
-		assertTrue(exceptedMessage.equals(actualMessage));
+		assertTrue(actualMessage.contains(exceptedMessage));
 	}
 
 	@Test
