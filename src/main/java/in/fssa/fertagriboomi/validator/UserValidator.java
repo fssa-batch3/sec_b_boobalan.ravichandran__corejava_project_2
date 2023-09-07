@@ -63,7 +63,7 @@ public class UserValidator {
 				throw new ValidationException("The email already exists");
 			}
 		} catch (DAOException e) {
-			throw new ValidationException(e);
+			throw new ValidationException(e.getMessage());
 		}
 
 	}
@@ -109,7 +109,7 @@ public class UserValidator {
 			userDAO = new UserDAO();
 			userDAO.isValidUserId(id);
 		} catch (DAOException e) {
-			throw new ValidationException(e);
+			throw new ValidationException(e.getMessage());
 		}
 
 	}
@@ -132,7 +132,7 @@ public class UserValidator {
 				throw new ValidationException("We cannot find an account with that email address");
 			}
 		} catch (DAOException e) {
-			throw new ValidationException(e);
+			throw new ValidationException(e.getMessage());
 		}
 		return emailExists;
 	}
@@ -150,7 +150,7 @@ public class UserValidator {
 				throw new ValidationException("We cannot find an account with that email address");
 			}
 		} catch (DAOException e) {
-			throw new ValidationException(e);
+			throw new ValidationException(e.getMessage());
 		}
 
 	}

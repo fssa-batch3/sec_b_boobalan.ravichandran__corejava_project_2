@@ -49,7 +49,7 @@ public class CategoryService {
 			CategoryValidator.validateId(newId); // Validate the ID
 			category = categoryDao.findById(newId);
 		} catch (DAOException e) {
-			throw new ServiceException(e);
+			throw new ServiceException(e.getMessage());
 		}
 
 		return category;
@@ -80,7 +80,7 @@ public class CategoryService {
 				System.out.println(categoryType);
 			}
 		} catch (DAOException e) {
-			throw new ServiceException(e);
+			throw new ServiceException(e.getMessage());
 		}
 
 		return categoryList;

@@ -386,6 +386,40 @@ public class TestCreateProduct {
 	}
 
 	@Test
+	public void testCreateProductWeightWithInvalidPattern() {
+		ProductService productService = new ProductService();
+
+		Product product = new Product();
+		product.setName("Targa Super gold");
+		product.setCategoryId(1);
+		product.setManufacture("Dhanuka Agritech Limited");
+		product.setProductWeight("200");
+		product.setDescription(
+				"Targa Super  (Quizalofop Ethyl 5% EC) is selective, systemic herbicide of Aryloxyphenoxy-propionates group. It is used to control narrow leaf weeds in broad leaf crops.");
+		product.setApplication(
+				"Weed leaves turn purplish/red within 5-8 days after Targa Super application and within 10-15 days are completely killed.");
+		product.setBenefits(
+				"It is a very effective weedicide for control of narrow leaf weeds in broad leaf crops.It does not burn the weeds but kills the weeds - so they do not regerminate.");
+		product.setActive(true);
+		product.setImageURL(generateImageURL());
+
+		PriceService priceService = new PriceService();
+		Price price = new Price();
+		price.setPrice(1000);
+		int priceValue = price.getPrice();
+		product.setPrice(priceValue);
+
+		Exception exception = assertThrows(ValidationException.class, () -> {
+			productService.createProduct(product);
+		});
+
+		String exceptedMessage = "Please enter a valid product weight (e.g., 20 ml, 2.5kg) excluding 0g, 0kg, 0gms, 0ml, or 0l.";
+		String actualMessage = exception.getMessage();
+
+		assertTrue(exceptedMessage.equals(actualMessage));
+	}
+
+	@Test
 	public void testCreateProductDescriptionWithNull() {
 		ProductService productService = new ProductService();
 
@@ -473,7 +507,7 @@ public class TestCreateProduct {
 		price.setPrice(1000);
 		int priceValue = price.getPrice();
 		product.setPrice(priceValue);
-		
+
 		Exception exception = assertThrows(ValidationException.class, () -> {
 			productService.createProduct(product);
 		});

@@ -13,21 +13,21 @@ import in.fssa.fertagriboomi.validator.PriceValidator;
  * Service class for managing Price entities.
  */
 public class PriceService {
-	
-	public int getPrice(int productId) throws  ServiceException, ValidationException {
+
+	public int getPrice(int productId) throws ServiceException, ValidationException {
 		PriceDAO priceDAO = new PriceDAO();
-		int price = 0; 
+		int price = 0;
 		try {
 			PriceValidator.validateProductId(productId);
 			price = priceDAO.getPriceByProductId(productId);
-		}catch (DAOException e) {
-			throw new ServiceException(e);
+		} catch (DAOException e) {
+			throw new ServiceException(e.getMessage());
 		}
-		
+
 		return price;
-		
-	
+
 	}
+
 	/**
 	 * Creates a new price entry for a product.
 	 *
@@ -46,7 +46,7 @@ public class PriceService {
 			PriceValidator.validate(productId, newPrice);
 			priceDao.create(productId, newPrice, dateTime);
 		} catch (DAOException e) {
-			throw new ServiceException(e);
+			throw new ServiceException(e.getMessage());
 		}
 	}
 
@@ -72,7 +72,7 @@ public class PriceService {
 			priceDao.updateProductPrice(priceId, dateTime);
 			priceDao.create(productId, newPrice, dateTime);
 		} catch (DAOException e) {
-			throw new ServiceException(e);
+			throw new ServiceException(e.getMessage());
 		}
 	}
 }

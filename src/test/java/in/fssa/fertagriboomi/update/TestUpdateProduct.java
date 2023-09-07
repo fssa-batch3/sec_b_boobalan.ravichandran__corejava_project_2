@@ -18,11 +18,12 @@ import in.fssa.fertagriboomi.service.UserService;
 
 public class TestUpdateProduct {
 	public String generateImageURL() {
-        // Generate a unique image URL using UUID
-        String imageName = UUID.randomUUID().toString() + ".jpg";
-        String imageUrl = "https://example.com/images/" + imageName;
-        return imageUrl;
-    }
+		// Generate a unique image URL using UUID
+		String imageName = UUID.randomUUID().toString() + ".jpg";
+		String imageUrl = "https://example.com/images/" + imageName;
+		return imageUrl;
+	}
+
 	@Test
 	public void testUpdateProductWithValideInput() {
 		ProductService productService = new ProductService();
@@ -57,7 +58,7 @@ public class TestUpdateProduct {
 		product.setBenefits(
 				"It is a very effective weedicide for control of narrow leaf weeds in broad leaf crops.It does not burn the weeds but kills the weeds - so they do not regerminate.");
 		product.setImageURL(generateImageURL());
-		
+
 		Exception exception = assertThrows(Exception.class, () -> {
 			productService.updateProduct(0, product);
 		});
@@ -81,7 +82,7 @@ public class TestUpdateProduct {
 		product.setBenefits(
 				"It is a very effective weedicide for control of narrow leaf weeds in broad leaf crops.It does not burn the weeds but kills the weeds - so they do not regerminate.");
 		product.setImageURL(generateImageURL());
-		
+
 		Exception exception = assertThrows(Exception.class, () -> {
 			productService.updateProduct(28, product);
 		});
@@ -105,7 +106,7 @@ public class TestUpdateProduct {
 		product.setBenefits(
 				"It is a very effective weedicide for control of narrow leaf weeds in broad leaf crops.It does not burn the weeds but kills the weeds - so they do not regerminate.");
 		product.setImageURL(generateImageURL());
-		
+
 		Exception exception = assertThrows(ValidationException.class, () -> {
 			productService.updateProduct(1, product);
 
@@ -131,13 +132,39 @@ public class TestUpdateProduct {
 		product.setBenefits(
 				"It is a very effective weedicide for control of narrow leaf weeds in broad leaf crops.It does not burn the weeds but kills the weeds - so they do not regerminate.");
 		product.setImageURL(generateImageURL());
-		
+
 		Exception exception = assertThrows(ValidationException.class, () -> {
 			productService.updateProduct(1, product);
 
 		});
 
 		String exceptedMessage = "Product quantity cannot be null or empty";
+		String actualMessage = exception.getMessage();
+
+		assertTrue(exceptedMessage.equals(actualMessage));
+	}
+
+	@Test
+	public void testUpdateProductWeightWithInvalidPattern() {
+		ProductService productService = new ProductService();
+
+		Product product = new Product();
+
+		product.setProductWeight("67ll");
+		product.setDescription(
+				"Targa Super  (Quizalofop Ethyl 5% EC) is selective, systemic herbicide of Aryloxyphenoxy-propionates group. It is used to control narrow leaf weeds in broad leaf crops.");
+		product.setApplication(
+				"Weed leaves turn purplish/red within 5-8 days after Targa Super application and within 10-15 days are completely killed.");
+		product.setBenefits(
+				"It is a very effective weedicide for control of narrow leaf weeds in broad leaf crops.It does not burn the weeds but kills the weeds - so they do not regerminate.");
+		product.setImageURL(generateImageURL());
+
+		Exception exception = assertThrows(ValidationException.class, () -> {
+			productService.updateProduct(1, product);
+
+		});
+
+		String exceptedMessage = "Please enter a valid product weight (e.g., 20 ml, 2.5kg) excluding 0g, 0kg, 0gms, 0ml, or 0l.";
 		String actualMessage = exception.getMessage();
 
 		assertTrue(exceptedMessage.equals(actualMessage));
@@ -156,7 +183,7 @@ public class TestUpdateProduct {
 		product.setBenefits(
 				"It is a very effective weedicide for control of narrow leaf weeds in broad leaf crops.It does not burn the weeds but kills the weeds - so they do not regerminate.");
 		product.setImageURL(generateImageURL());
-		
+
 		Exception exception = assertThrows(ValidationException.class, () -> {
 			productService.updateProduct(1, product);
 		});
@@ -180,7 +207,7 @@ public class TestUpdateProduct {
 		product.setBenefits(
 				"It is a very effective weedicide for control of narrow leaf weeds in broad leaf crops.It does not burn the weeds but kills the weeds - so they do not regerminate.");
 		product.setImageURL(generateImageURL());
-		
+
 		Exception exception = assertThrows(ValidationException.class, () -> {
 			productService.updateProduct(1, product);
 		});
@@ -204,7 +231,7 @@ public class TestUpdateProduct {
 		product.setBenefits(
 				"It is a very effective weedicide for control of narrow leaf weeds in broad leaf crops.It does not burn the weeds but kills the weeds - so they do not regerminate.");
 		product.setImageURL(generateImageURL());
-		
+
 		Exception exception = assertThrows(ValidationException.class, () -> {
 			productService.updateProduct(1, product);
 
@@ -229,7 +256,7 @@ public class TestUpdateProduct {
 		product.setBenefits(
 				"It is a very effective weedicide for control of narrow leaf weeds in broad leaf crops.It does not burn the weeds but kills the weeds - so they do not regerminate.");
 		product.setImageURL(generateImageURL());
-		
+
 		Exception exception = assertThrows(ValidationException.class, () -> {
 			productService.updateProduct(1, product);
 
@@ -254,7 +281,7 @@ public class TestUpdateProduct {
 				"Weed leaves turn purplish/red within 5-8 days after Targa Super application and within 10-15 days are completely killed.");
 		product.setBenefits(null);
 		product.setImageURL(generateImageURL());
-		
+
 		Exception exception = assertThrows(ValidationException.class, () -> {
 			productService.updateProduct(1, product);
 		});
@@ -278,7 +305,7 @@ public class TestUpdateProduct {
 				"Weed leaves turn purplish/red within 5-8 days after Targa Super application and within 10-15 days are completely killed.");
 		product.setBenefits("");
 		product.setImageURL(generateImageURL());
-		
+
 		Exception exception = assertThrows(ValidationException.class, () -> {
 			productService.updateProduct(1, product);
 
@@ -289,7 +316,7 @@ public class TestUpdateProduct {
 
 		assertTrue(exceptedMessage.equals(actualMessage));
 	}
-	
+
 	@Test
 	public void testUpdateProductImageURLWithEmptyString() {
 		ProductService productService = new ProductService();
@@ -301,9 +328,10 @@ public class TestUpdateProduct {
 				"Targa Super  (Quizalofop Ethyl 5% EC) is selective, systemic herbicide of Aryloxyphenoxy-propionates group. It is used to control narrow leaf weeds in broad leaf crops.");
 		product.setApplication(
 				"Weed leaves turn purplish/red within 5-8 days after Targa Super application and within 10-15 days are completely killed.");
-		product.setBenefits("It is a very effective weedicide for control of narrow leaf weeds in broad leaf crops.It does not burn the weeds but kills the weeds - so they do not regerminate.");
+		product.setBenefits(
+				"It is a very effective weedicide for control of narrow leaf weeds in broad leaf crops.It does not burn the weeds but kills the weeds - so they do not regerminate.");
 		product.setImageURL("");
-		
+
 		Exception exception = assertThrows(ValidationException.class, () -> {
 			productService.updateProduct(1, product);
 
@@ -326,9 +354,10 @@ public class TestUpdateProduct {
 				"Targa Super  (Quizalofop Ethyl 5% EC) is selective, systemic herbicide of Aryloxyphenoxy-propionates group. It is used to control narrow leaf weeds in broad leaf crops.");
 		product.setApplication(
 				"Weed leaves turn purplish/red within 5-8 days after Targa Super application and within 10-15 days are completely killed.");
-		product.setBenefits("It is a very effective weedicide for control of narrow leaf weeds in broad leaf crops.It does not burn the weeds but kills the weeds - so they do not regerminate.");
+		product.setBenefits(
+				"It is a very effective weedicide for control of narrow leaf weeds in broad leaf crops.It does not burn the weeds but kills the weeds - so they do not regerminate.");
 		product.setImageURL("");
-		
+
 		Exception exception = assertThrows(ValidationException.class, () -> {
 			productService.updateProduct(1, product);
 

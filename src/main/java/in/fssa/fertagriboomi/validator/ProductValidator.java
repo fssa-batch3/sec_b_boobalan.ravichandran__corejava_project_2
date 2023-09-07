@@ -1,5 +1,8 @@
 package in.fssa.fertagriboomi.validator;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import in.fssa.fertagriboomi.dao.ProductDAO;
 import in.fssa.fertagriboomi.exception.DAOException;
 import in.fssa.fertagriboomi.exception.ValidationException;
@@ -38,6 +41,14 @@ public class ProductValidator {
 			throw new ValidationException("Product image cannot be empty");
 		}
 
+		String pattern = "^(?!0(g|kg|gms|ml|l)$)(\\d+(\\.\\d+)?\\s*(g|kg|gms|ml|l))$";
+		Pattern weightPattern = Pattern.compile(pattern, Pattern.CASE_INSENSITIVE);
+		Matcher weightMatcher = weightPattern.matcher(product.getProductWeight());
+		if (!weightMatcher.matches()) {
+			throw new ValidationException(
+					"Please enter a valid product weight (e.g., 20 ml, 2.5kg) excluding 0g, 0kg, 0gms, 0ml, or 0l.");
+		}
+
 //		if (product.getProductWeight() == null || "".equals(product.getProductWeight().trim())) {
 //			throw new ValidationException("Product quantity cannot be nul or empty");
 //		}
@@ -65,7 +76,7 @@ public class ProductValidator {
 				throw new ValidationException("Category does not exist");
 			}
 		} catch (DAOException e) {
-			throw new ValidationException(e);
+			throw new ValidationException(e.getMessage());
 		}
 
 		try {
@@ -75,7 +86,7 @@ public class ProductValidator {
 				throw new ValidationException("Product name is already exists");
 			}
 		} catch (DAOException e) {
-			throw new ValidationException(e);
+			throw new ValidationException(e.getMessage());
 		}
 
 	}
@@ -106,13 +117,21 @@ public class ProductValidator {
 			throw new ValidationException("Product image cannot be empty");
 		}
 
+		String pattern = "^(?!0(g|kg|gms|ml|l)$)(\\d+(\\.\\d+)?\\s*(g|kg|gms|ml|l))$";
+		Pattern weightPattern = Pattern.compile(pattern, Pattern.CASE_INSENSITIVE);
+		Matcher weightMatcher = weightPattern.matcher(newUpdate.getProductWeight());
+		if (!weightMatcher.matches()) {
+			throw new ValidationException(
+					"Please enter a valid product weight (e.g., 20 ml, 2.5kg) excluding 0g, 0kg, 0gms, 0ml, or 0l.");
+		}
+
 		ProductDAO productDAO = null;
 		try {
 			productDAO = new ProductDAO();
 			productDAO.findById(id);
 
 		} catch (DAOException e) {
-			throw new ValidationException(e);
+			throw new ValidationException(e.getMessage());
 		}
 
 	}
@@ -134,7 +153,7 @@ public class ProductValidator {
 			productDAO.findById(newId);
 
 		} catch (DAOException e) {
-			throw new ValidationException(e);
+			throw new ValidationException(e.getMessage());
 		}
 
 	}
@@ -168,7 +187,7 @@ public class ProductValidator {
 			}
 
 		} catch (DAOException e) {
-			throw new ValidationException(e);
+			throw new ValidationException(e.getMessage());
 		}
 
 	}
@@ -180,23 +199,23 @@ public class ProductValidator {
 	 * @throws ValidationException If the Category ID is invalid or not found.
 	 */
 	public static void validateCategoryId(int id) throws ValidationException {
-	    if (id <= 0) {
-	        throw new ValidationException("Invalid Category id");
-	    }
+		if (id <= 0) {
+			throw new ValidationException("Invalid Category id");
+		}
 
-	    ProductDAO productDAO = new ProductDAO();
+		ProductDAO productDAO = new ProductDAO();
 
-	    try {
-	        boolean categoryExists = productDAO.isCategoryExists(id);
-	        if (categoryExists) {
-	        	productDAO.isCategoryProductsExits(id);
-	            productDAO.listAllTheProductsByCategoryId(id);
-	        } else {
-	            throw new ValidationException("The products for the specified category are not found in the product list.");
-	        }
-	    } catch (DAOException e) {
-	        throw new ValidationException(e);
-	    }
+		try {
+			boolean categoryExists = productDAO.isCategoryExists(id);
+			if (categoryExists) {
+				productDAO.isCategoryProductsExits(id);
+				productDAO.listAllTheProductsByCategoryId(id);
+			} else {
+				throw new ValidationException(
+						"The products for the specified category are not found in the product list.");
+			}
+		} catch (DAOException e) {
+			throw new ValidationException(e.getMessage());
+		}
 	}
 }
-

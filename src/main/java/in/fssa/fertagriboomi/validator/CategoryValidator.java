@@ -51,7 +51,7 @@ public class CategoryValidator {
 			categoryDAO = new CategoryDAO();
 			categoryDAO.findById(newId);
 		} catch (DAOException e) {
-			throw new ValidationException(e);
+			throw new ValidationException(e.getMessage());
 		}
 	}
 
@@ -72,7 +72,7 @@ public class CategoryValidator {
 			categoryDAO = new CategoryDAO();
 			categoryDAO.isCategoryTypeIdExists(categoryTypeId);
 		} catch (DAOException e) {
-			throw new ValidationException(e);
+			throw new ValidationException(e.getMessage());
 		}
 	}
 }

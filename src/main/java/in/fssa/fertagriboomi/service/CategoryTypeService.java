@@ -58,7 +58,7 @@ public class CategoryTypeService {
 			categoryType = categoryTypeDao.findById(newId);
 
 		} catch (DAOException e) {
-			throw new ServiceException(e);
+			throw new ServiceException(e.getMessage());
 		}
 		return categoryType;
 	}

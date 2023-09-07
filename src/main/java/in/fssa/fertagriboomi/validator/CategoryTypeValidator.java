@@ -47,7 +47,7 @@ public class CategoryTypeValidator {
 			categoryTypeDAO = new CategoryTypeDAO();
 			categoryTypeDAO.isCategoryIdExists(newId);
 		} catch (DAOException e) {
-			throw new ValidationException(e);
+			throw new ValidationException(e.getMessage());
 		}
 	}
 }

@@ -18,7 +18,6 @@ public class PriceValidator {
 	 * @throws ValidationException If the Price object is invalid.
 	 */
 	public static void validate(int productId, int price) throws ValidationException {
-		
 
 		if (productId <= 0) {
 			throw new ValidationException("Invalid Product ID");
@@ -46,7 +45,7 @@ public class PriceValidator {
 			throw new ValidationException("Invalid Product ID");
 		}
 
-		if ( newPrice <= 50 || newPrice >= 50000) {
+		if (newPrice <= 50 || newPrice >= 50000) {
 			throw new ValidationException("Price should be between a minimum of 50 and a maximum of 50000.");
 		}
 
@@ -55,15 +54,14 @@ public class PriceValidator {
 			priceDAO = new PriceDAO();
 			priceDAO.isProductExists(productId);
 		} catch (DAOException e) {
-			throw new ValidationException(e);
+			throw new ValidationException(e.getMessage());
 		}
 
-		
 		try {
 			priceDAO = new PriceDAO();
 			priceDAO.isPriceAlreadyExists(productId, newPrice);
 		} catch (DAOException e) {
-			throw new ValidationException(e);
+			throw new ValidationException(e.getMessage());
 		}
 	}
 
@@ -76,8 +74,8 @@ public class PriceValidator {
 			priceDAO = new PriceDAO();
 			priceDAO.isProductExists(productId);
 		} catch (DAOException e) {
-			throw new ValidationException(e);
+			throw new ValidationException(e.getMessage());
 		}
-		
+
 	}
 }
