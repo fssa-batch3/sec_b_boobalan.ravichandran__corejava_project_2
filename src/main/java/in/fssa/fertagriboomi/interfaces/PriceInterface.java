@@ -7,8 +7,6 @@ import in.fssa.fertagriboomi.model.Price;
 
 public interface PriceInterface {
 
-	public void create(int ProductId, int newPrice, Timestamp dateTime) throws Exception;
+	void create(int productId, int newPrice, int newDiscount, Timestamp dateTime) throws DAOException;
 
-	
-	
 }

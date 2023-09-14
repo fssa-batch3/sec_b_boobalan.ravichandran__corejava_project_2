@@ -11,8 +11,8 @@ public abstract class ProductEntity {
 	private String manufacture;
 	private boolean isActive = true;
 	private int categoryId;
-	private Price price;
-	private int  productPrice;
+	private int productPrice;
+	private int productDiscount;
 	private String imageURL;
 
 	public int getId() {
@@ -85,7 +85,7 @@ public abstract class ProductEntity {
 
 	public void setCategoryId(int categoryId) {
 		this.categoryId = categoryId;
-		
+
 	}
 
 	public int getPrice() {
@@ -94,6 +94,14 @@ public abstract class ProductEntity {
 
 	public void setPrice(int price) {
 		productPrice = price;
+	}
+
+	public int getDiscount() {
+		return productDiscount;
+	}
+
+	public void setDiscount(int discount) {
+		productDiscount = discount;
 	}
 
 	public String getImageURL() {
@@ -109,7 +117,7 @@ public abstract class ProductEntity {
 		return "ProductEntity [id=" + id + ", name=" + name + ", productWeight=" + productWeight + ", description="
 				+ description + ", application=" + application + ", benefits=" + benefits + ", manufacture="
 				+ manufacture + ", isActive=" + isActive + ", categoryId=" + categoryId + ", price=" + productPrice
-				+ ", imageURL=" + imageURL + "]";
+				+ ",Discount=" + productDiscount + ", imageURL=" + imageURL + "]";
 	}
 
 }

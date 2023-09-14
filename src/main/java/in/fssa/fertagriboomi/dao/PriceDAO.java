@@ -24,16 +24,17 @@ public class PriceDAO implements PriceInterface {
 	 * @throws RuntimeException if a database access error occurs.
 	 */
 	@Override
-	public void create(int productId, int newPrice, Timestamp dateTime) throws DAOException {
+	public void create(int productId, int newPrice, int newDiscount, Timestamp dateTime) throws DAOException {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		try {
-			String query = "INSERT INTO prices (price, product_id, start_date) VALUES (?,?,?)";
+			String query = "INSERT INTO prices (price,discount, product_id, start_date) VALUES (?,?,?,?)";
 			conn = ConnectionUtil.getConnection();
 			ps = conn.prepareStatement(query);
 			ps.setInt(1, newPrice);
-			ps.setInt(2, productId);
-			ps.setTimestamp(3, dateTime);
+			ps.setInt(2, newDiscount);
+			ps.setInt(3, productId);
+			ps.setTimestamp(4, dateTime);
 			ps.executeUpdate();
 			System.out.println("Price created succesfully");
 		} catch (SQLException e) {
@@ -114,14 +115,14 @@ public class PriceDAO implements PriceInterface {
 		return priceId;
 	}
 
-	public int getPriceByProductId(int productId) throws DAOException {
+	public Price getPriceByProductId(int productId) throws DAOException {
 
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		int priceId = 0;
+		Price priceAndDiscount = null;
 		try {
-			String query = "SELECT id, price FROM prices WHERE product_id=? AND end_date is NULL";
+			String query = "SELECT id, price, discount FROM prices WHERE product_id=? AND end_date is NULL";
 			conn = ConnectionUtil.getConnection();
 			ps = conn.prepareStatement(query);
 			ps.setInt(1, productId);
@@ -130,7 +131,9 @@ public class PriceDAO implements PriceInterface {
 			if (!rs.next()) {
 				throw new DAOException("This product price is not available");
 			}
-			priceId = rs.getInt("price");
+			priceAndDiscount = new Price();
+			priceAndDiscount.setPrice(rs.getInt("price"));
+			priceAndDiscount.setDiscount(rs.getInt("discount"));
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -141,7 +144,7 @@ public class PriceDAO implements PriceInterface {
 			ConnectionUtil.close(conn, ps);
 		}
 
-		return priceId;
+		return priceAndDiscount;
 	}
 
 	/**
@@ -187,19 +190,20 @@ public class PriceDAO implements PriceInterface {
 	 * @throws DAOException If an error occurs while interacting with the database
 	 *                      or if a duplicate price entry is found.
 	 */
-	public void isPriceAlreadyExists(int productId, int newPrice) throws DAOException {
+	public void isPriceAlreadyExists(int productId, int newPrice, int discount) throws DAOException {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		try {
-			String query = "SELECT id, price FROM prices WHERE product_id = ? AND price = ? AND end_date IS NULL";
+			String query = "SELECT id, price FROM prices WHERE product_id = ? AND price = ? AND discount = ? AND end_date IS NULL";
 			conn = ConnectionUtil.getConnection();
 			ps = conn.prepareStatement(query);
 			ps.setInt(1, productId);
 			ps.setInt(2, newPrice);
+			ps.setInt(3, discount);
 			rs = ps.executeQuery();
 			if (rs.next()) {
-				throw new DAOException("Product price should be same");
+				throw new DAOException("Product price and discount should be same");
 			}
 
 		} catch (SQLException e) {

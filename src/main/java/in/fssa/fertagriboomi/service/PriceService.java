@@ -14,9 +14,9 @@ import in.fssa.fertagriboomi.validator.PriceValidator;
  */
 public class PriceService {
 
-	public int getPrice(int productId) throws ServiceException, ValidationException {
+	public Price getPrice(int productId) throws ServiceException, ValidationException {
 		PriceDAO priceDAO = new PriceDAO();
-		int price = 0;
+		Price price = null;
 		try {
 			PriceValidator.validateProductId(productId);
 			price = priceDAO.getPriceByProductId(productId);
@@ -25,6 +25,20 @@ public class PriceService {
 		}
 
 		return price;
+
+	}
+
+	public int getPriceId(int productId) throws ServiceException, ValidationException {
+		PriceDAO priceDAO = new PriceDAO();
+		int priceId;
+		try {
+			PriceValidator.validateProductId(productId);
+			priceId = priceDAO.getPriceIdByProductId(productId);
+		} catch (DAOException e) {
+			throw new ServiceException(e.getMessage());
+		}
+
+		return priceId;
 
 	}
 
@@ -38,13 +52,13 @@ public class PriceService {
 	 * @throws ServiceException    If an error occurs while interacting with the
 	 *                             database.
 	 */
-	public void createPrice(int productId, int newPrice) throws ValidationException, ServiceException {
+	public void createPrice(int productId, int newPrice, int newDiscount) throws ValidationException, ServiceException {
 		try {
 			PriceDAO priceDao = new PriceDAO();
 			LocalDateTime localDateTime = LocalDateTime.now();
 			java.sql.Timestamp dateTime = java.sql.Timestamp.valueOf(localDateTime);
-			PriceValidator.validate(productId, newPrice);
-			priceDao.create(productId, newPrice, dateTime);
+			PriceValidator.validate(productId, newPrice, newDiscount);
+			priceDao.create(productId, newPrice, newDiscount, dateTime);
 		} catch (DAOException e) {
 			throw new ServiceException(e.getMessage());
 		}
@@ -60,9 +74,9 @@ public class PriceService {
 	 * @throws ValidationException If the provided data is not valid for updating
 	 *                             the price.
 	 */
-	public void updatePrice(int productId, int newPrice) throws ServiceException, ValidationException {
+	public void updatePrice(int productId, int newPrice, int newDiscount) throws ServiceException, ValidationException {
 		PriceDAO priceDao = new PriceDAO();
-		PriceValidator.validateUpdate(productId, newPrice);
+		PriceValidator.validateUpdate(productId, newPrice, newDiscount);
 
 		try {
 			int priceId = priceDao.getPriceIdByProductId(productId);
@@ -70,7 +84,7 @@ public class PriceService {
 			java.sql.Timestamp dateTime = java.sql.Timestamp.valueOf(localDateTime);
 
 			priceDao.updateProductPrice(priceId, dateTime);
-			priceDao.create(productId, newPrice, dateTime);
+			priceDao.create(productId, newPrice, newDiscount, dateTime);
 		} catch (DAOException e) {
 			throw new ServiceException(e.getMessage());
 		}

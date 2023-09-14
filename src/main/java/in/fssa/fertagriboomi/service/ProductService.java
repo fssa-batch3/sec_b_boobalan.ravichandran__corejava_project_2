@@ -37,7 +37,7 @@ public class ProductService {
 
 			int productId = productDao.create(newProduct);
 			PriceService priceService = new PriceService();
-			priceService.createPrice(productId, newProduct.getPrice());
+			priceService.createPrice(productId, newProduct.getPrice(), newProduct.getDiscount());
 		} catch (DAOException e) {
 			throw new ServiceException(e.getMessage());
 		}
@@ -51,14 +51,25 @@ public class ProductService {
 	 */
 	public List<Product> getAllProducts() throws ServiceException {
 		ProductDAO productDao = new ProductDAO();
-		List<Product> productList = productDao.findAll();
+		List<Product> productList = null;
+		try {
+			productList = productDao.findAll();
+		} catch (DAOException e) {
+			e.printStackTrace();
+			throw new ServiceException(e.getMessage());
+		}
 
 		for (Product product : productList) {
-			int price;
+			int priceValue, discountValue;
 			try {
-				price = new PriceService().getPrice(product.getId());
-				// System.out.println(price);
-				product.setPrice(price);
+
+				Price price = new PriceService().getPrice(product.getId());
+				priceValue = price.getPrice();
+				discountValue = price.getDiscount();
+				// System.out.println(priceValue + " " + discountValue);
+				product.setPrice(priceValue);
+				product.setDiscount(discountValue);
+
 			} catch (ServiceException | ValidationException e) {
 				e.printStackTrace();
 				throw new ServiceException(e.getMessage());
@@ -104,8 +115,12 @@ public class ProductService {
 			productDao = new ProductDAO();
 			ProductValidator.validateId(newId);
 			product = productDao.findById(newId);
-			int price = new PriceService().getPrice(newId);
-			product.setPrice(price);
+			Price price = new PriceService().getPrice(newId);
+			int productPrice = price.getPrice();
+			int productDiscount = price.getDiscount();
+			product.setPrice(productPrice);
+			product.setDiscount(productDiscount);
+
 		} catch (DAOException e) {
 			throw new ServiceException(e.getMessage());
 		}
@@ -148,10 +163,12 @@ public class ProductService {
 			ProductValidator.validateCategoryId(id);
 			productList = productDao.listAllTheProductsByCategoryId(id);
 			for (Product product : productList) {
-				int price = new PriceService().getPrice(product.getId());
-
+				Price price = new PriceService().getPrice(product.getId());
+				int priceValue = price.getPrice();
+				int discountValue = price.getDiscount();
 				// System.out.println(price);
-				product.setPrice(price);
+				product.setPrice(priceValue);
+				product.setDiscount(discountValue);
 			}
 		} catch (DAOException e) {
 			throw new ServiceException(e.getMessage());

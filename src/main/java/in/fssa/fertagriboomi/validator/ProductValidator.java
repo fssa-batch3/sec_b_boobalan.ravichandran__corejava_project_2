@@ -41,7 +41,7 @@ public class ProductValidator {
 			throw new ValidationException("Product image cannot be empty");
 		}
 
-		String pattern = "^(?!0(g|kg|gms|ml|l)$)(\\d+(\\.\\d+)?\\s*(g|kg|gms|ml|l))$";
+		String pattern = "^(?!0(g|kg|gms|ml|l)$)(\\d+(\\.\\d+)?\\s*(g|kg|gm|gms|ml|l))$";
 		Pattern weightPattern = Pattern.compile(pattern, Pattern.CASE_INSENSITIVE);
 		Matcher weightMatcher = weightPattern.matcher(product.getProductWeight());
 		if (!weightMatcher.matches()) {
@@ -49,25 +49,12 @@ public class ProductValidator {
 					"Please enter a valid product weight (e.g., 20 ml, 2.5kg) excluding 0g, 0kg, 0gms, 0ml, or 0l.");
 		}
 
-//		if (product.getProductWeight() == null || "".equals(product.getProductWeight().trim())) {
-//			throw new ValidationException("Product quantity cannot be nul or empty");
-//		}
+		int discountValue = product.getDiscount();
+		int priceValue = (int) (0.92 * product.getPrice());
+		if (discountValue < 0 || discountValue > priceValue) {
 
-//		if (product.getApplication() == null || "".equals(product.getApplication().trim())) {
-//			throw new ValidationException("Product Application cannot be nul or empty");
-//		}
-//
-//		if (product.getBenefits() == null || "".equals(product.getBenefits().trim())) {
-//			throw new ValidationException("Product Benifits cannot be nul or empty");
-//		}
-//
-//		if (product.getDescription() == null || "".equals(product.getDescription().trim())) {
-//			throw new ValidationException("Product Description cannot be nul or empty");
-//		}
-//
-//		if (product.getManufacture() == null || "".equals(product.getManufacture().trim())) {
-//			throw new ValidationException("Product manufacture company cannot be null or empty.");
-//		}
+			throw new ValidationException("Discount should be between 0 and a maximum of 92% of the price.");
+		}
 
 		ProductDAO productDAO = new ProductDAO();
 		try {

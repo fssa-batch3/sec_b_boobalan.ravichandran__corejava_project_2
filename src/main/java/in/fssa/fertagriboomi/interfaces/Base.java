@@ -3,12 +3,13 @@ package in.fssa.fertagriboomi.interfaces;
 import java.util.List;
 import java.util.Set;
 
+import in.fssa.fertagriboomi.exception.DAOException;
 import in.fssa.fertagriboomi.exception.ValidationException;
 import in.fssa.fertagriboomi.model.User;
 
 public interface Base<T> {
 
-	public abstract List<T> findAll();
+	public abstract List<T> findAll() throws DAOException;
 
 	public abstract void delete(int id) throws Exception;
 

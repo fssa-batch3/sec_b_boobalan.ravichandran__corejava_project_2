@@ -17,7 +17,7 @@ public class PriceValidator {
 	 * @param price     The Price object to validate.
 	 * @throws ValidationException If the Price object is invalid.
 	 */
-	public static void validate(int productId, int price) throws ValidationException {
+	public static void validate(int productId, int price, int discount) throws ValidationException {
 
 		if (productId <= 0) {
 			throw new ValidationException("Invalid Product ID");
@@ -26,6 +26,10 @@ public class PriceValidator {
 		if (!(price >= 50 && price <= 50000)) {
 			throw new ValidationException("Price should be between a minimum of 50 and a maximum of 50000.");
 		}
+		if (discount < 0 || discount > (int) (0.90 * price)) {
+			throw new ValidationException("Discount should be between 0 and a maximum of 92% of the price.");
+		}
+
 	}
 
 	/**
@@ -36,10 +40,7 @@ public class PriceValidator {
 	 * @throws ValidationException If the Price object is invalid or conflicts with
 	 *                             existing data.
 	 */
-	public static void validateUpdate(int productId, int newPrice) throws ValidationException {
-//		if (newPrice == null) {
-//			throw new ValidationException("Invalid Price input");
-//		}
+	public static void validateUpdate(int productId, int newPrice, int newDiscount) throws ValidationException {
 
 		if (productId <= 0) {
 			throw new ValidationException("Invalid Product ID");
@@ -48,7 +49,9 @@ public class PriceValidator {
 		if (newPrice <= 50 || newPrice >= 50000) {
 			throw new ValidationException("Price should be between a minimum of 50 and a maximum of 50000.");
 		}
-
+		if (newDiscount < 0 || newDiscount > (int) (0.90 * newPrice)) {
+			throw new ValidationException("Discount should be between 0 and a maximum of 92% of the price.");
+		}
 		PriceDAO priceDAO = null;
 		try {
 			priceDAO = new PriceDAO();
@@ -59,7 +62,7 @@ public class PriceValidator {
 
 		try {
 			priceDAO = new PriceDAO();
-			priceDAO.isPriceAlreadyExists(productId, newPrice);
+			priceDAO.isPriceAlreadyExists(productId, newPrice, newDiscount);
 		} catch (DAOException e) {
 			throw new ValidationException(e.getMessage());
 		}

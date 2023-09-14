@@ -55,11 +55,16 @@ public class TestCreateProduct {
 				"It is a very effective weedicide for control of narrow leaf weeds in broad leaf crops.It does not burn the weeds but kills the weeds - so they do not regerminate.");
 		product.setActive(true);
 		product.setImageURL(generateImageURL());
-		PriceService priceService = new PriceService();
+		//PriceService priceService = new PriceService();
+
 		Price price = new Price();
 		price.setPrice(1600);
+		price.setDiscount(50);
 		int priceValue = price.getPrice();
+		int discountValue = price.getDiscount();
+		//System.out.println(discountValue);
 		product.setPrice(priceValue);
+		product.setDiscount(discountValue);
 
 		assertDoesNotThrow(() -> {
 			productService.createProduct(product);
@@ -99,10 +104,14 @@ public class TestCreateProduct {
 		product.setImageURL(generateImageURL());
 
 		PriceService priceService = new PriceService();
+
 		Price price = new Price();
-		price.setPrice(1000);
+		price.setPrice(1600);
+		price.setDiscount(100);
 		int priceValue = price.getPrice();
+		int discountValue = price.getDiscount();
 		product.setPrice(priceValue);
+		product.setDiscount(discountValue);
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
 			productService.createProduct(product);
@@ -133,10 +142,14 @@ public class TestCreateProduct {
 		product.setImageURL(generateImageURL());
 
 		PriceService priceService = new PriceService();
+
 		Price price = new Price();
-		price.setPrice(1000);
+		price.setPrice(1600);
+		price.setDiscount(100);
 		int priceValue = price.getPrice();
+		int discountValue = price.getDiscount();
 		product.setPrice(priceValue);
+		product.setDiscount(discountValue);
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
 			productService.createProduct(product);
@@ -167,10 +180,14 @@ public class TestCreateProduct {
 		product.setImageURL(generateImageURL());
 
 		PriceService priceService = new PriceService();
+
 		Price price = new Price();
-		price.setPrice(1000);
+		price.setPrice(1600);
+		price.setDiscount(100);
 		int priceValue = price.getPrice();
+		int discountValue = price.getDiscount();
 		product.setPrice(priceValue);
+		product.setDiscount(discountValue);
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
 			productService.createProduct(product);
@@ -201,10 +218,14 @@ public class TestCreateProduct {
 		product.setImageURL(generateImageURL());
 
 		PriceService priceService = new PriceService();
+
 		Price price = new Price();
-		price.setPrice(1000);
+		price.setPrice(1600);
+		price.setDiscount(100);
 		int priceValue = price.getPrice();
+		int discountValue = price.getDiscount();
 		product.setPrice(priceValue);
+		product.setDiscount(discountValue);
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
 			productService.createProduct(product);
@@ -235,10 +256,15 @@ public class TestCreateProduct {
 		product.setImageURL(generateImageURL());
 
 		PriceService priceService = new PriceService();
+
 		Price price = new Price();
-		price.setPrice(1000);
+		price.setPrice(1600);
+		price.setDiscount(100);
 		int priceValue = price.getPrice();
+		int discountValue = price.getDiscount();
 		product.setPrice(priceValue);
+		product.setDiscount(discountValue);
+
 		Exception exception = assertThrows(ValidationException.class, () -> {
 			productService.createProduct(product);
 		});
@@ -268,10 +294,14 @@ public class TestCreateProduct {
 		product.setImageURL(generateImageURL());
 
 		PriceService priceService = new PriceService();
+
 		Price price = new Price();
-		price.setPrice(1000);
+		price.setPrice(1600);
+		price.setDiscount(100);
 		int priceValue = price.getPrice();
+		int discountValue = price.getDiscount();
 		product.setPrice(priceValue);
+		product.setDiscount(discountValue);
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
 			productService.createProduct(product);
@@ -303,9 +333,12 @@ public class TestCreateProduct {
 
 		PriceService priceService = new PriceService();
 		Price price = new Price();
-		price.setPrice(1000);
+		price.setPrice(1600);
+		price.setDiscount(100);
 		int priceValue = price.getPrice();
+		int discountValue = price.getDiscount();
 		product.setPrice(priceValue);
+		product.setDiscount(discountValue);
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
 			productService.createProduct(product);
@@ -337,9 +370,12 @@ public class TestCreateProduct {
 
 		PriceService priceService = new PriceService();
 		Price price = new Price();
-		price.setPrice(1000);
+		price.setPrice(1600);
+		price.setDiscount(100);
 		int priceValue = price.getPrice();
+		int discountValue = price.getDiscount();
 		product.setPrice(priceValue);
+		product.setDiscount(discountValue);
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
 			productService.createProduct(product);
@@ -371,9 +407,12 @@ public class TestCreateProduct {
 
 		PriceService priceService = new PriceService();
 		Price price = new Price();
-		price.setPrice(1000);
+		price.setPrice(1600);
+		price.setDiscount(100);
 		int priceValue = price.getPrice();
+		int discountValue = price.getDiscount();
 		product.setPrice(priceValue);
+		product.setDiscount(discountValue);
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
 			productService.createProduct(product);
@@ -405,9 +444,12 @@ public class TestCreateProduct {
 
 		PriceService priceService = new PriceService();
 		Price price = new Price();
-		price.setPrice(1000);
+		price.setPrice(1600);
+		price.setDiscount(100);
 		int priceValue = price.getPrice();
+		int discountValue = price.getDiscount();
 		product.setPrice(priceValue);
+		product.setDiscount(discountValue);
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
 			productService.createProduct(product);
@@ -438,9 +480,12 @@ public class TestCreateProduct {
 
 		PriceService priceService = new PriceService();
 		Price price = new Price();
-		price.setPrice(1000);
+		price.setPrice(1600);
+		price.setDiscount(100);
 		int priceValue = price.getPrice();
+		int discountValue = price.getDiscount();
 		product.setPrice(priceValue);
+		product.setDiscount(discountValue);
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
 			productService.createProduct(product);
@@ -470,10 +515,14 @@ public class TestCreateProduct {
 		product.setImageURL(generateImageURL());
 
 		PriceService priceService = new PriceService();
+
 		Price price = new Price();
-		price.setPrice(1000);
+		price.setPrice(1600);
+		price.setDiscount(100);
 		int priceValue = price.getPrice();
+		int discountValue = price.getDiscount();
 		product.setPrice(priceValue);
+		product.setDiscount(discountValue);
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
 			productService.createProduct(product);
@@ -504,9 +553,12 @@ public class TestCreateProduct {
 
 		PriceService priceService = new PriceService();
 		Price price = new Price();
-		price.setPrice(1000);
+		price.setPrice(1600);
+		price.setDiscount(100);
 		int priceValue = price.getPrice();
+		int discountValue = price.getDiscount();
 		product.setPrice(priceValue);
+		product.setDiscount(discountValue);
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
 			productService.createProduct(product);
@@ -537,9 +589,12 @@ public class TestCreateProduct {
 
 		PriceService priceService = new PriceService();
 		Price price = new Price();
-		price.setPrice(1000);
+		price.setPrice(1600);
+		price.setDiscount(100);
 		int priceValue = price.getPrice();
+		int discountValue = price.getDiscount();
 		product.setPrice(priceValue);
+		product.setDiscount(discountValue);
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
 			productService.createProduct(product);
@@ -570,9 +625,12 @@ public class TestCreateProduct {
 
 		PriceService priceService = new PriceService();
 		Price price = new Price();
-		price.setPrice(1000);
+		price.setPrice(1600);
+		price.setDiscount(100);
 		int priceValue = price.getPrice();
+		int discountValue = price.getDiscount();
 		product.setPrice(priceValue);
+		product.setDiscount(discountValue);
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
 			productService.createProduct(product);
@@ -603,9 +661,12 @@ public class TestCreateProduct {
 
 		PriceService priceService = new PriceService();
 		Price price = new Price();
-		price.setPrice(1000);
+		price.setPrice(1600);
+		price.setDiscount(100);
 		int priceValue = price.getPrice();
+		int discountValue = price.getDiscount();
 		product.setPrice(priceValue);
+		product.setDiscount(discountValue);
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
 			productService.createProduct(product);
@@ -638,8 +699,11 @@ public class TestCreateProduct {
 		PriceService priceService = new PriceService();
 		Price price = new Price();
 		price.setPrice(10);
+		price.setDiscount(100);
 		int priceValue = price.getPrice();
+		int discountValue = price.getDiscount();
 		product.setPrice(priceValue);
+		product.setDiscount(discountValue);
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
 			productService.createProduct(product);
@@ -653,6 +717,45 @@ public class TestCreateProduct {
 
 	@Test
 	public void testCreateProductPriceUnder50000Rupees() {
+		ProductService productService = new ProductService();
+
+		Product product = new Product();
+		product.setName("Dow agro088979");
+		product.setCategoryId(1);
+		product.setManufacture("Dhanuka Agritech Limited");
+		product.setProductWeight("500g");
+		product.setDescription(
+				"Targa Super  (Quizalofop Ethyl 5% EC) is selective, systemic herbicide of Aryloxyphenoxy-propionates group. It is used to control narrow leaf weeds in broad leaf crops.");
+		product.setApplication(
+				"Weed leaves turn purplish/red within 5-8 days after Targa Super application and within 10-15 days are completely killed.");
+		product.setBenefits(
+				"It is a very effective weedicide for control of narrow leaf weeds in broad leaf crops.It does not burn the weeds but kills the weeds - so they do not regerminate.");
+		product.setActive(true);
+		product.setImageURL(generateImageURL());
+
+		PriceService priceService = new PriceService();
+		Price price = new Price();
+		price.setPrice(53600);
+		price.setDiscount(100);
+		int priceValue = price.getPrice();
+		int discountValue = price.getDiscount();
+		product.setPrice(priceValue);
+		product.setDiscount(discountValue);
+		Exception exception = assertThrows(ValidationException.class, () -> {
+			productService.createProduct(product);
+		});
+
+		String exceptedMessage = "Price should be between a minimum of 50 and a maximum of 50000.";
+		String actualMessage = exception.getMessage();
+
+		System.out.println("exceptedMessage " + exceptedMessage);
+		System.out.println("actualMessage " + actualMessage);
+
+		assertTrue(exceptedMessage.equals(actualMessage));
+	}
+
+	@Test
+	public void testCreateProductDiscountBelowZero() {
 		ProductService productService = new ProductService();
 
 		Product product = new Product();
@@ -671,16 +774,56 @@ public class TestCreateProduct {
 
 		PriceService priceService = new PriceService();
 		Price price = new Price();
-		price.setPrice(50020);
+		price.setPrice(1600);
+		price.setDiscount(-23);
 		int priceValue = price.getPrice();
+		int discountValue = price.getDiscount();
 		product.setPrice(priceValue);
-
+		product.setDiscount(discountValue);
 		Exception exception = assertThrows(ValidationException.class, () -> {
 			productService.createProduct(product);
 		});
 
-		String exceptedMessage = "Price should be between a minimum of 50 and a maximum of 50000.";
+		String exceptedMessage = "Discount should be between 0 and a maximum of 92% of the price.";
 		String actualMessage = exception.getMessage();
+
+		assertTrue(exceptedMessage.equals(actualMessage));
+	}
+
+	@Test
+	public void testCreateProductDiscountMoreThan90PercentageOfProductPrice() {
+		ProductService productService = new ProductService();
+
+		Product product = new Product();
+		product.setName("Dow agrodcd");
+		product.setCategoryId(1);
+		product.setManufacture("Dhanuka Agritech Limited");
+		product.setProductWeight("500g");
+		product.setDescription(
+				"Targa Super  (Quizalofop Ethyl 5% EC) is selective, systemic herbicide of Aryloxyphenoxy-propionates group. It is used to control narrow leaf weeds in broad leaf crops.");
+		product.setApplication(
+				"Weed leaves turn purplish/red within 5-8 days after Targa Super application and within 10-15 days are completely killed.");
+		product.setBenefits(
+				"It is a very effective weedicide for control of narrow leaf weeds in broad leaf crops.It does not burn the weeds but kills the weeds - so they do not regerminate.");
+		product.setActive(true);
+		product.setImageURL(generateImageURL());
+
+		// PriceService priceService = new PriceService();
+		Price price = new Price();
+		price.setPrice(1600);
+		price.setDiscount(100);
+		int priceValue = price.getPrice();
+		int discountValue = price.getDiscount();
+		product.setPrice(priceValue);
+		product.setDiscount(discountValue);
+		Exception exception = assertThrows(ValidationException.class, () -> {
+			productService.createProduct(product);
+		});
+
+		String exceptedMessage = "Discount should be between 0 and a maximum of 92% of the price.";
+		String actualMessage = exception.getMessage();
+		System.out.println("exceptedMessage " + exceptedMessage+ discountValue);
+		System.out.println("actualMessage " + actualMessage);
 
 		assertTrue(exceptedMessage.equals(actualMessage));
 	}
@@ -705,9 +848,12 @@ public class TestCreateProduct {
 
 		PriceService priceService = new PriceService();
 		Price price = new Price();
-		price.setPrice(50020);
+		price.setPrice(1600);
+		price.setDiscount(100);
 		int priceValue = price.getPrice();
+		int discountValue = price.getDiscount();
 		product.setPrice(priceValue);
+		product.setDiscount(discountValue);
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
 			productService.createProduct(product);
@@ -739,9 +885,12 @@ public class TestCreateProduct {
 
 		PriceService priceService = new PriceService();
 		Price price = new Price();
-		price.setPrice(50020);
+		price.setPrice(1600);
+		price.setDiscount(100);
 		int priceValue = price.getPrice();
+		int discountValue = price.getDiscount();
 		product.setPrice(priceValue);
+		product.setDiscount(discountValue);
 
 		Exception exception = assertThrows(ValidationException.class, () -> {
 			productService.createProduct(product);

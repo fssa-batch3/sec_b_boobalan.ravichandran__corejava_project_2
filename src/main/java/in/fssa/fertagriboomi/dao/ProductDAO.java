@@ -20,10 +20,11 @@ public class ProductDAO implements ProductInterface {
 	 * Retrieves a list of all active products from the database.
 	 *
 	 * @return A list of Product objects representing all active products.
+	 * @throws DAOException 
 	 * @throws RuntimeException if a database access error occurs.
 	 */
 	@Override
-	public List<Product> findAll() {
+	public List<Product> findAll() throws DAOException {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		List<Product> categoryArray = new ArrayList<Product>();
@@ -51,7 +52,7 @@ public class ProductDAO implements ProductInterface {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println(e.getMessage());
-			throw new RuntimeException(e);
+			throw new DAOException(e);
 		} finally {
 			ConnectionUtil.close(conn, ps, rs);
 		}
@@ -182,7 +183,7 @@ public class ProductDAO implements ProductInterface {
 			System.out.println(e.getMessage());
 			throw new DAOException(e);
 		} finally {
-			ConnectionUtil.close(conn, ps, rs); // Close the ResultSet here
+			ConnectionUtil.close(conn, ps, rs); 
 		}
 		return product;
 	}
@@ -305,7 +306,7 @@ public class ProductDAO implements ProductInterface {
 	 */
 	public List<Product> listAllTheProductsByCategoryId(int categoryId) throws DAOException {
 
-		List<Product> ProductList = new ArrayList<Product>();
+		List<Product> productList = new ArrayList<Product>();
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -329,7 +330,7 @@ public class ProductDAO implements ProductInterface {
 				product.setCategoryId(rs.getInt("category_id"));
 				product.setImageURL(rs.getString("image_url"));
 				
-				ProductList.add(product);
+				productList.add(product);
 
 			}
 			
@@ -342,7 +343,7 @@ public class ProductDAO implements ProductInterface {
 			ConnectionUtil.close(conn, ps, rs);
 		}
 
-		return ProductList;
+		return productList;
 
 	}
 	
