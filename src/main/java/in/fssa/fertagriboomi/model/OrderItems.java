@@ -8,8 +8,47 @@ public class OrderItems {
 	private int productId;
 	private int priceId;
 	private int quantity;
+	private String productName;
+	private String productImage;
+	private int price;
+	private int discount;
 	private java.sql.Timestamp orderDate;
 	private java.sql.Timestamp deliveryDate;
+
+	
+	public String getProductName() {
+		return productName;
+	}
+
+	public void setProductName(String productName) {
+		this.productName = productName;
+	}
+
+	public String getProductImage() {
+		return productImage;
+	}
+
+	public void setProductImage(String productImage) {
+		this.productImage = productImage;
+	}
+
+	public int getPrice() {
+		return price;
+	}
+
+	public void setPrice(int price) {
+		this.price = price;
+	}
+
+	public int getDiscount() {
+		return discount;
+	}
+
+	public void setDiscount(int discount) {
+		this.discount = discount;
+	}
+
+
 
 	public int getOrderId() {
 		return orderId;
@@ -69,8 +108,10 @@ public class OrderItems {
 
 	@Override
 	public String toString() {
-		return "OrderItems [orderId=" + orderId + ", id=" + id + ", productId=" + productId + ", priceId=" + priceId
-				+ ", quantity=" + quantity + ", orderDate=" + orderDate + ", deliveryDate=" + deliveryDate + "]";
+		return "OrderItems [id=" + id + ", orderId=" + orderId + ", productId=" + productId + ", priceId=" + priceId
+				+ ", quantity=" + quantity + ", productName=" + productName + ", productImage=" + productImage
+				+ ", price=" + price + ", discount=" + discount + ", orderDate=" + orderDate + ", deliveryDate="
+				+ deliveryDate + "]";
 	}
 
 }

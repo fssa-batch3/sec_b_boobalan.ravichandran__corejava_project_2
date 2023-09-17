@@ -1,5 +1,7 @@
 package in.fssa.fertagriboomi.model;
 
+import java.util.List;
+
 public class Orders {
 	private int id;
 	private boolean status;
@@ -10,6 +12,28 @@ public class Orders {
 	private int quantity;
 	private java.sql.Timestamp orderDate;
 	private java.sql.Timestamp deliveryDate;
+	private int orderItemId;
+	private List<OrderItems> orderItems;
+	public int getPriceId() {
+		return priceId;
+	}
+
+	public void setPriceId(int priceId) {
+		this.priceId = priceId;
+	}
+
+	
+	
+	public int getOrderItemId() {
+		return orderItemId;
+	}
+
+	public void setOrderItemId(int orderItemId) {
+		this.orderItemId = orderItemId;
+	}
+
+	
+
 	
 	public int getProductId() {
 		return productId;
@@ -17,14 +41,6 @@ public class Orders {
 
 	public void setProductId(int productId) {
 		this.productId = productId;
-	}
-
-	public int getPriceId() {
-		return priceId;
-	}
-
-	public void setPriceId(int priceId) {
-		this.priceId = priceId;
 	}
 
 	public int getQuantity() {
@@ -67,6 +83,7 @@ public class Orders {
 	public void setStatus(boolean status) {
 		this.status = status;
 	}
+	
 
 	public int getAddressId() {
 		return addressId;
@@ -84,11 +101,20 @@ public class Orders {
 		this.userEmail = userEmail;
 	}
 
+
+    public List<OrderItems> getOrderItems() {
+        return orderItems;
+    }
+
+    public void setOrderItems(List<OrderItems> orderItems) {
+        this.orderItems = orderItems;
+    }
 	@Override
 	public String toString() {
 		return "Orders [id=" + id + ", status=" + status + ", addressId=" + addressId + ", userEmail=" + userEmail
 				+ ", productId=" + productId + ", priceId=" + priceId + ", quantity=" + quantity + ", orderDate="
-				+ orderDate + ", deliveryDate=" + deliveryDate + "]";
+				+ orderDate + ", deliveryDate=" + deliveryDate + ", orderItemId=" + orderItemId + ", orderItems="
+				+ orderItems + "]";
 	}
 
 }

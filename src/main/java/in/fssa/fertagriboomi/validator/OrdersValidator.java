@@ -1,6 +1,7 @@
 package in.fssa.fertagriboomi.validator;
 
 import in.fssa.fertagriboomi.dao.OrdersDAO;
+import in.fssa.fertagriboomi.dao.UserDAO;
 import in.fssa.fertagriboomi.exception.DAOException;
 import in.fssa.fertagriboomi.exception.ValidationException;
 import in.fssa.fertagriboomi.model.OrderItems;
@@ -78,6 +79,41 @@ public class OrdersValidator {
 		}
 
 		
+		
+	}
+
+	public static void validateUserEmail(String email)  throws ValidationException{
+		if (email == null || "".equals(email) )  {
+			throw new ValidationException("User Email Cannot be null or empty");
+		}
+		
+		try {
+			boolean isUserEmailExists = new UserDAO().findByEmail(email);
+			if(!isUserEmailExists) {
+				throw new ValidationException("User Email Cannot find");
+			}
+		} catch (DAOException e) {
+			e.printStackTrace();
+			throw new ValidationException(e.getMessage());
+		}
+		
+		
+	}
+
+	public static void validateOrderId(int orderId) throws ValidationException {
+		if (orderId <= 0) {
+			throw new ValidationException("Invalid Order Id");
+		}
+
+		try {
+			boolean isOrderExistes = new OrdersDAO().findOrderById(orderId);
+			if(!isOrderExistes) {
+				throw new ValidationException("This Order is not available");
+			}
+		} catch (DAOException e) {
+			e.printStackTrace();
+			throw new ValidationException(e.getMessage());
+		}
 		
 	}
 }
