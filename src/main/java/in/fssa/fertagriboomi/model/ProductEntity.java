@@ -14,6 +14,23 @@ public abstract class ProductEntity {
 	private int productPrice;
 	private int productDiscount;
 	private String imageURL;
+	public int getStockCount() {
+		return stockCount;
+	}
+
+	public void setStockCount(int stockCount) {
+		this.stockCount = stockCount;
+	}
+
+	private int stockCount;
+
+	public int getProductDiscount() {
+		return productDiscount;
+	}
+
+	public void setProductDiscount(int productDiscount) {
+		this.productDiscount = productDiscount;
+	}
 
 	public int getId() {
 		return id;
@@ -116,8 +133,9 @@ public abstract class ProductEntity {
 	public String toString() {
 		return "ProductEntity [id=" + id + ", name=" + name + ", productWeight=" + productWeight + ", description="
 				+ description + ", application=" + application + ", benefits=" + benefits + ", manufacture="
-				+ manufacture + ", isActive=" + isActive + ", categoryId=" + categoryId + ", price=" + productPrice
-				+ ",Discount=" + productDiscount + ", imageURL=" + imageURL + "]";
+				+ manufacture + ", isActive=" + isActive + ", categoryId=" + categoryId + ", productPrice="
+				+ productPrice + ", productDiscount=" + productDiscount + ", imageURL=" + imageURL + ", stockCount="
+				+ stockCount + "]";
 	}
 
 }

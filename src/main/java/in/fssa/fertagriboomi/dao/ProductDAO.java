@@ -30,7 +30,7 @@ public class ProductDAO implements ProductInterface {
 		List<Product> categoryArray = new ArrayList<Product>();
 		ResultSet rs = null;
 		try {
-			String query = "SELECT id, name, is_active, product_weight, description, benefits, application, manufacture, category_id, image_url   FROM products  ";
+			String query = "SELECT id, name, is_active, product_weight, description, benefits, application, manufacture, category_id, image_url   FROM products WHERE is_active=1 ";
 			conn = ConnectionUtil.getConnection();
 			ps = conn.prepareStatement(query);
 			rs = ps.executeQuery();

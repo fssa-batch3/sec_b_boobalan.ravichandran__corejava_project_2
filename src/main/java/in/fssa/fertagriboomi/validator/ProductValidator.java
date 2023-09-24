@@ -104,7 +104,7 @@ public class ProductValidator {
 			throw new ValidationException("Product image cannot be empty");
 		}
 
-		String pattern = "^(?!0(g|kg|gms|ml|l)$)(\\d+(\\.\\d+)?\\s*(g|kg|gms|ml|l))$";
+		String pattern = "^(?!0(g|kg|gms|gm|ml|l)$)(\\d+(\\.\\d+)?\\s*(g|kg|gms|gm|ml|l))$";
 		Pattern weightPattern = Pattern.compile(pattern, Pattern.CASE_INSENSITIVE);
 		Matcher weightMatcher = weightPattern.matcher(newUpdate.getProductWeight());
 		if (!weightMatcher.matches()) {

@@ -1,8 +1,11 @@
 package in.fssa.fertagriboomi.model;
 
+import javax.validation.constraints.NotNull;
+
 public abstract class CategoryEntity {
 
 	private int id;
+	@NotNull(message = "Category name cannot be null or empty")
 	private String name;
 	private boolean isActive = true;
 	private int categoryTypeId;

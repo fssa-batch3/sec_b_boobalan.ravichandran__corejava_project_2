@@ -1,5 +1,8 @@
 package in.fssa.fertagriboomi.dao;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -33,7 +36,7 @@ public class UserDAO implements UserInterface {
 			ps.setString(1, newUser.getName());
 			ps.setString(2, newUser.getEmail());
 			ps.setLong(3, newUser.getPhoneNumber());
-			ps.setString(4, newUser.getPassword());
+			ps.setString(4, hashPassword(newUser.getPassword()).trim());
 			ps.executeUpdate();
 
 			System.out.println("User has been created succesfully");
@@ -62,14 +65,13 @@ public class UserDAO implements UserInterface {
 		PreparedStatement ps = null;
 
 		try {
-			String query = "UPDATE users SET name=?, password=? , mobile_number=?  WHERE is_active=1 AND id=?";
+			String query = "UPDATE users SET name=?, mobile_number=?  WHERE is_active=1 AND id=?";
 			conn = ConnectionUtil.getConnection();
 			ps = conn.prepareStatement(query);
 
 			ps.setString(1, updatedUser.getName());
-			ps.setString(2, updatedUser.getPassword());
-			ps.setLong(3, updatedUser.getPhoneNumber());
-			ps.setInt(4, id);
+			ps.setLong(2, updatedUser.getPhoneNumber());
+			ps.setInt(3, id);
 
 			int rowsUpdated = ps.executeUpdate();
 
@@ -235,29 +237,53 @@ public class UserDAO implements UserInterface {
 
 	public boolean findUserRegisterOrNot(String userEmail, String password) throws DAOException {
 
-		Connection conn = null;
-		PreparedStatement ps = null;
-		ResultSet rs = null;
+		String sql = "SELECT password FROM users WHERE email = ?";
 
-		try {
-			String query = "SELECT email, password FROM users WHERE email=? AND password=?";
-			conn = ConnectionUtil.getConnection();
-			ps = conn.prepareStatement(query);
-			ps.setString(1, userEmail);
-			ps.setString(2, password);
-			rs = ps.executeQuery();
-			return rs.next();
+		try (Connection conn = ConnectionUtil.getConnection(); PreparedStatement pst = conn.prepareStatement(sql)) {
+			pst.setString(1, userEmail.trim());
 
+			try (ResultSet rs = pst.executeQuery()) {
+				if (rs.next()) {
+					String storedHashedPassword = rs.getString("password");
+					
+					return checkPassword(password, storedHashedPassword);
+				}
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println(e.getMessage());
 			throw new DAOException(e);
-		} finally {
-
-			ConnectionUtil.close(conn, ps);
 		}
+
+		return false;
 	}
 
+	/**
+	 * Checks if the entered password matches the stored hashed password.
+	 *
+	 * @param enteredPassword      The password entered by the user during login.
+	 * @param storedHashedPassword The hashed password stored in the database.
+	 * @return true if the entered password is correct; otherwise, false.
+	 * @throws InvalidEmployeeException if an error occurs during hashing.
+	 */
+	public static boolean checkPassword(String enteredPassword, String storedHashedPassword) throws DAOException {
+		try {
+			MessageDigest md = MessageDigest.getInstance("SHA-256");
+			byte[] enteredHashedBytes = md.digest(enteredPassword.getBytes(StandardCharsets.UTF_8));
+
+			// Convert the byte array to a hexadecimal string
+			StringBuilder enteredHashedPassword = new StringBuilder();
+			for (byte b : enteredHashedBytes) {
+				enteredHashedPassword.append(String.format("%02x", b));
+			}
+
+			// Compare the entered hashed password with the stored hashed password
+			return enteredHashedPassword.toString().equals(storedHashedPassword);
+		} catch (NoSuchAlgorithmException e) {
+			throw new DAOException(e.getMessage());
+		}
+	}
+	
 	public User findUserByEmail(String email) throws DAOException {
 
 		Connection conn = null;
@@ -283,7 +309,6 @@ public class UserDAO implements UserInterface {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			System.out.println(e.getMessage());
 			throw new DAOException(e);
 		} finally {
 
@@ -292,5 +317,31 @@ public class UserDAO implements UserInterface {
 
 		return user;
 
+	}
+	
+	
+	/**
+	 * Hashes the provided password using the SHA-256 cryptographic hash function.
+	 *
+	 * @param password the raw password to be hashed.
+	 * @return the hashed password as a hexadecimal string.
+	 * @throws InvalidEmployeeException if an error occurs during hashing (e.g.,
+	 *                                  NoSuchAlgorithmException).
+	 */
+	public static String hashPassword(String password) throws DAOException {
+		try {
+			MessageDigest md = MessageDigest.getInstance("SHA-256");
+			byte[] hashedBytes = md.digest(password.getBytes(StandardCharsets.UTF_8));
+
+			// Convert the byte array to a hexadecimal string
+			StringBuilder sb = new StringBuilder();
+			for (byte b : hashedBytes) {
+				sb.append(String.format("%02x", b));
+			}
+
+			return sb.toString();
+		} catch (NoSuchAlgorithmException e) {
+			throw new DAOException(e.getMessage());
+		}
 	}
 }

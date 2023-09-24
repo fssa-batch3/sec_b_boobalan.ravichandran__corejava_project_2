@@ -7,6 +7,7 @@ import in.fssa.fertagriboomi.exception.DAOException;
 import in.fssa.fertagriboomi.exception.ServiceException;
 import in.fssa.fertagriboomi.exception.ValidationException;
 import in.fssa.fertagriboomi.model.Product;
+import in.fssa.fertagriboomi.model.Stocks;
 import in.fssa.fertagriboomi.model.Price;
 import in.fssa.fertagriboomi.validator.ProductValidator;
 
@@ -35,7 +36,16 @@ public class ProductService {
 				throw new ValidationException("Price should be between a minimum of 50 and a maximum of 50000.");
 			}
 
+			
+			
 			int productId = productDao.create(newProduct);
+			
+			StockService stockService = new StockService();
+			Stocks stock = new Stocks();
+			stock.setProductId(productId);
+			stock.setStockCount(newProduct.getStockCount());
+			stockService.createStock(stock);
+			
 			PriceService priceService = new PriceService();
 			priceService.createPrice(productId, newProduct.getPrice(), newProduct.getDiscount());
 		} catch (DAOException e) {

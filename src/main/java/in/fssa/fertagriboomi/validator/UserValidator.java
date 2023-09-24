@@ -82,7 +82,7 @@ public class UserValidator {
 		if (id <= 0) {
 			throw new ValidationException("Invalid User id");
 		}
-		StringUtil.rejectIfInvalidString(newUpdate.getPassword(), "password");
+
 		StringUtil.rejectIfInvalidString(newUpdate.getName(), "Name");
 
 		if (!(newUpdate.getPhoneNumber() >= 6000000001l && newUpdate.getPhoneNumber() <= 9999999999l)) {
@@ -97,12 +97,6 @@ public class UserValidator {
 			throw new ValidationException("Invalid User Name");
 		}
 
-		Pattern passwordPattern = Pattern.compile("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@#$%^&+=_!])(?!.*\\s).{8,}$");
-		Matcher passwordMatcher = passwordPattern.matcher(newUpdate.getPassword());
-		if (!passwordMatcher.matches()) {
-			throw new ValidationException(
-					"Invalid Password. The password must be at least 8 characters long and contain at least one letter, one digit, and one special character. It should not contain spaces.");
-		}
 
 		UserDAO userDAO = null;
 		try {

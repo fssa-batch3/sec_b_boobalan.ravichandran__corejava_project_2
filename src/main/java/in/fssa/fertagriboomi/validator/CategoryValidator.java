@@ -4,6 +4,7 @@ import in.fssa.fertagriboomi.dao.CategoryDAO;
 import in.fssa.fertagriboomi.exception.DAOException;
 import in.fssa.fertagriboomi.exception.ValidationException;
 import in.fssa.fertagriboomi.model.Category;
+import in.fssa.fertagriboomi.util.StringUtil;
 
 /**
  * Validator class for validating Category objects.
@@ -21,10 +22,7 @@ public class CategoryValidator {
 			throw new ValidationException("Invalid category input");
 		}
 
-		if (category.getName() == null || "".equals(category.getName().trim())) {
-			throw new ValidationException("Category name cannot be null or empty");
-		}
-
+		StringUtil.rejectIfInvalidString(category.getName(), "Category name");
 		if (category.getId() <= 0) {
 			throw new ValidationException("Invalid category ID");
 		}

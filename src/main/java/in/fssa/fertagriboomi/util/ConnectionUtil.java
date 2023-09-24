@@ -23,20 +23,25 @@ public class ConnectionUtil {
 		String userName;
 		String passWord;
 
-//		 if we use local use this
-		url = System.getenv("DATABASE_HOSTNAME");
-		userName = System.getenv("DATABASE_USERNAME");
-		passWord = System.getenv("DATABASE_PASSWORD");
+		// Check if the "CI" environment variable is set
+		String environment = System.getenv("CI");
 
-//			Dotenv env = Dotenv.load();
-//			url = env.get("DATABASE_HOSTNAME");
-//			userName = env.get("DATABASE_USERNAME");
-//			passWord = env.get("DATABASE_PASSWORD");
+		if (environment != null && environment.equalsIgnoreCase("true")) {
+			// Use local database credentials
+			url = System.getenv("DATABASE_HOST");
+			userName = System.getenv("DATABASE_USERNAME");
+			passWord = System.getenv("DATABASE_PASSWORD");
+		} else {
+			// Use cloud database credentials
+			url = System.getenv("LOCAL_DATABASE_HOSTNAME");
+			userName = System.getenv("LOCAL_DATABASE_USERNAME");
+			passWord = System.getenv("LOCAL_DATABASE_PASSWORD");
 
-		// if we use cloud use this
-//		url = "jdbc:mysql://164.52.216.41:3306/boobalan_ravichandran_corejava_project";
-//		userName = "vcMmMZBgHbzR";
-//		passWord = "ccf7e6b8-34a3-47b3-ad19-ab83f8512e3f";
+//					url = System.getenv("CLOUD_DATABASE_HOST");
+//					userName = System.getenv("CLOUD_DATABASE_USERNAME");
+//					passWord = System.getenv("CLOUD_DATABASE_PASSWORD");
+		}
+
 
 		Connection conn = null;
 

@@ -27,7 +27,7 @@ public class OrdersService {
 	
 
 		try {
-			System.out.println(ordersDAO.create(order));
+		
 			return ordersDAO.create(order);
 			   
 		} catch (DAOException e) {
