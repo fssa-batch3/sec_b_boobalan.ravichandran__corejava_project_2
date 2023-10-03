@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -151,6 +152,36 @@ public class OrdersDAO {
 	    }
 	    return ordersArray;
 	}
+	public List<Orders> findAllOrders() throws DAOException {
+	    Connection conn = null;
+	    PreparedStatement ps = null;
+	    List<Orders> ordersArray = new ArrayList<Orders>();
+	    ResultSet rs = null;
+	    try {
+	        String query = "SELECT id, address_id, user_email, status FROM orders";
+	        conn = ConnectionUtil.getConnection();
+	        ps = conn.prepareStatement(query);
+	        rs = ps.executeQuery();
+
+	        while (rs.next()) {
+	            Orders order = new Orders();
+	            order.setId(rs.getInt("id"));
+	            order.setAddressId(rs.getInt("address_id"));
+	            order.setStatus(rs.getBoolean("status"));
+	            order.setUserEmail(rs.getString("user_email"));
+	           
+	            ordersArray.add(order);
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        System.out.println(e.getMessage());
+	        throw new DAOException(e);
+	    } finally {
+	        ConnectionUtil.close(conn, ps, rs);
+	    }
+	    return ordersArray;
+	}
+
 
 	
 	public List<Orders> findAllOrderByEmail(String email) throws DAOException {
@@ -263,7 +294,7 @@ public class OrdersDAO {
 		
 		try {
 
-			String query = "INSERT INTO order_items (order_id, price_id, product_id, quantity, ordered_date, delivery_date) VALUES (?,?,?,?,?,?)";
+			String query = "INSERT INTO order_items (order_id, price_id, product_id, quantity, ordered_date) VALUES (?,?,?,?,?)";
 			conn = ConnectionUtil.getConnection();
 			ps = conn.prepareStatement(query);
 			ps.setInt(1, orderId);
@@ -271,7 +302,6 @@ public class OrdersDAO {
 			ps.setInt(3, orderItems.getProductId() );
 			ps.setInt(4, orderItems.getQuantity());
 			ps.setTimestamp(5, orderItems.getOrderDate());
-			ps.setTimestamp(6, orderItems.getDeliveryDate());
 			ps.executeUpdate();
 			
 			System.out.println("Order Items has been created succesfully");
@@ -458,6 +488,33 @@ public class OrdersDAO {
 		}
 		
 	}
+
+	public void changeDeliveryDate(Timestamp sqlTimestamp, int orderId) throws DAOException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		try {
+			String query = "UPDATE order_items SET delivery_date=? WHERE id=?";
+			conn = ConnectionUtil.getConnection();
+			ps = conn.prepareStatement(query);
+			ps.setTimestamp(1, sqlTimestamp);
+			ps.setInt(2, orderId);
+			int rowsUpdated = ps.executeUpdate();
+			if (rowsUpdated > 0) {
+				System.out.println("Delivery date of Order Item with ID " + orderId + " has been updated successfully.");
+			} else {
+				System.out.println("Delivery date of Order Item with ID " + orderId + " not found.");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println(e.getMessage());
+			throw new DAOException(e);
+		} finally {
+			ConnectionUtil.close(conn, ps);
+		}
+		
+	}
+
+
 
 
 

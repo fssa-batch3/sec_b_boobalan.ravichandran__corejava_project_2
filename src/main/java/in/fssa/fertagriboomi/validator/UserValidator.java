@@ -66,6 +66,16 @@ public class UserValidator {
 			throw new ValidationException(e.getMessage());
 		}
 
+		
+		try {
+			userDAO = new UserDAO();
+			boolean isEmailExists = userDAO.isMobileNumberAlreadyExists(user.getPhoneNumber());
+			if (isEmailExists) {
+				throw new ValidationException("The Mobile Number is already exists");
+			}
+		} catch (DAOException e) {
+			throw new ValidationException(e.getMessage());
+		}
 	}
 
 	/**

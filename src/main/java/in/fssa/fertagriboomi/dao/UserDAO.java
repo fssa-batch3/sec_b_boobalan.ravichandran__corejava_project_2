@@ -344,4 +344,31 @@ public class UserDAO implements UserInterface {
 			throw new DAOException(e.getMessage());
 		}
 	}
+	
+	
+	public boolean isMobileNumberAlreadyExists(long number) throws DAOException {
+
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		try {
+			String query = "SELECT mobile_number FROM users WHERE mobile_number=?";
+			conn = ConnectionUtil.getConnection();
+			ps = conn.prepareStatement(query);
+			ps.setLong(1, number);
+			rs = ps.executeQuery();
+			
+			return rs.next();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println(e.getMessage());
+			throw new DAOException(e);
+		} finally {
+
+			ConnectionUtil.close(conn, ps);
+		}
+
+	}
 }

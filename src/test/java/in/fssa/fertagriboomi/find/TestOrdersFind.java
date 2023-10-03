@@ -168,5 +168,16 @@ public class TestOrdersFind {
 			});
 	        
 	    }
+	    
+	    
+	    @Test
+	    public void testChangeDeliverDate() {
+	        OrdersService ordersService = new OrdersService();
+
+			assertDoesNotThrow(() -> {
+				ordersService.changeDeliveryDate("2023-10-08",1);
+			});
+	        
+	    }
 
 }

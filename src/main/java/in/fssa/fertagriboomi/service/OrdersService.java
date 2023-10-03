@@ -1,7 +1,11 @@
 package in.fssa.fertagriboomi.service;
 
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -90,7 +94,22 @@ public class OrdersService {
 	}
 
 	
+	public List<Orders> getAllOrdersId() throws ServiceException, ValidationException {
+	    OrdersDAO ordersDAO = new OrdersDAO();
+	    List<Orders> totalOrders = new ArrayList<>();
 
+	    try {
+	        totalOrders = ordersDAO.findAllOrders();
+	        
+
+	    } catch (DAOException e) {
+	        e.printStackTrace();
+	        throw new ServiceException(e.getMessage());
+	    }
+	    return totalOrders;
+	}
+
+	
 
 	public List<Orders> getAllOrdersByUserEmail(String email) throws ServiceException, ValidationException {
 	    OrdersDAO ordersDAO = new OrdersDAO();
@@ -197,6 +216,36 @@ public class OrdersService {
 		
 	}
 	
+	
+	public void changeDeliveryDate(String date, int orderId) throws ServiceException, ParseException {
+	
+		 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		 java.util.Date parsedDate = dateFormat.parse(date);
+		 Calendar calendar = Calendar.getInstance();
+		 calendar.setTime(parsedDate);
+
+		 // Set the time portion to the current time
+		 calendar.set(Calendar.HOUR_OF_DAY, Calendar.getInstance().get(Calendar.HOUR_OF_DAY));
+		 calendar.set(Calendar.MINUTE, Calendar.getInstance().get(Calendar.MINUTE));
+		 calendar.set(Calendar.SECOND, Calendar.getInstance().get(Calendar.SECOND));
+
+		 java.sql.Timestamp sqlTimestamp = new java.sql.Timestamp(calendar.getTimeInMillis());
+		 List<OrderItems> orderItems = null;
+		 try {
+			orderItems = new OrdersDAO().findAllOrderItemByOrderId(orderId);
+			for(OrderItems order: orderItems){
+				new OrdersDAO().changeDeliveryDate(sqlTimestamp, order.getId() );
+			}
+		} catch (DAOException e) {
+			e.printStackTrace();
+			throw new ServiceException(e.getMessage());
+		}
+		
+	  System.out.println("Formatted Date: " + sqlTimestamp);
+	
+		
+		
+	}
 //	public List<Orders> getAllOrdersFromOrderTableByUserEmail(String email) throws ServiceException{
 //		OrdersDAO ordersDAO = new OrdersDAO();
 //		OrdersValidator.validateOrderId(orderId);
