@@ -5,19 +5,16 @@ use boobalan_ravichandran_corejava_project;
 CREATE TABLE if not exists users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(50) NOT NULL,
-    email VARCHAR(50) NOT NULL,
-    password VARCHAR(20) NOT NULL,
-    mobile_number LONG NOT NULL,
+    email VARCHAR(50) NOT NULL UNIQUE,
+    password VARCHAR(240) NOT NULL,
+    mobile_number LONG NOT NULL, 
     is_active BOOLEAN DEFAULT TRUE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     modified_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
+CREATE UNIQUE INDEX mobile_number_unique_index ON users (mobile_number(15));
 
-INSERT INTO users (name, email, password, mobile_number) VALUES
-('John Doe', 'john@example.com', 'password123', 1234567890),
-('Jane Smith', 'jane@example.com', 'test456', 9876543210);
 
-select* from users;
 
 
 CREATE TABLE if not exists category_types (
@@ -27,10 +24,6 @@ name VARCHAR(100) NOT NULL,
 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 modified_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
-INSERT INTO category_types (name) VALUES
-('BRANDS'),
-('CROP PRODUCTION');
-select* from categories_type;
 
 CREATE TABLE IF NOT EXISTS categories (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -39,13 +32,9 @@ CREATE TABLE IF NOT EXISTS categories (
      is_active BOOLEAN DEFAULT TRUE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     modified_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (category_type_id) REFERENCES categories_type(id)
+    FOREIGN KEY (category_type_id) REFERENCES category_types(id)
 );
-INSERT INTO categories (name, category_type_id) VALUES
-('DHANUKA', 1),
-('BIO INSECTICIDES', 2);
 
-select* from categories;
 
 
 CREATE TABLE IF NOT EXISTS products(
@@ -63,16 +52,11 @@ created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 modified_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 FOREIGN KEY (category_id) REFERENCES categories(id)
 );
-INSERT INTO products (name, product_weight, description, benefits, application,manufacture, category_id, image_url) VALUES
-('DHANUKA M45 FUNGICIDE', '2kg', 'High-performance fertilizer', 'Fast processing', 'Business and gaming','DHANUKA', 1, 'https://example.com/images/1a2b3c4d5e6f.jpg'),
-('BIOVITA SEAWEED ORGANIC PLANT GROWTH REGULATOR', '500g', 'Suitable fertilizers for all the crops', 'Use 20 days only per hector', 'ow has for the first time made 100% silicon available','BIOVITA', 2, 'https://example.com/images/6g7h8i9j0k1l.jpg'),
-('DHANUKA F25', '5kg', 'PLANT GROWTH REGULATOR', 'Fast processing', 'Use 30 days only per hector','DHANUKA', 2, 'https://example.com/images/mnopqrstu2v.jpg');
-
-select* from products;
 
 CREATE TABLE IF NOT EXISTS prices(
     id INT AUTO_INCREMENT PRIMARY KEY,
     price INT NOT NULL,
+    discount INT NOT NULL,
     start_date TIMESTAMP NOT NULL,
     end_date TIMESTAMP,
     product_id INT,
@@ -80,18 +64,83 @@ CREATE TABLE IF NOT EXISTS prices(
     modified_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (product_id) REFERENCES products(id)
 );
-INSERT INTO prices (price, start_date, product_id)
-VALUES (1000, CURRENT_DATE, 1),(1300, CURRENT_DATE, 2),(1500, CURRENT_DATE, 3);
 
-select* from prices;
 
-UPDATE prices
-SET end_date = CURRENT_DATE
-WHERE product_id = 1
-AND end_date IS NULL;
 
-INSERT INTO prices (price, start_date, product_id)
-VALUES (1200, CURRENT_DATE, 1);
 
-select* from prices;
-drop table prices;
+CREATE TABLE addresses (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    address_title VARCHAR(50) NOT NULL,
+    street_name VARCHAR(200) NOT NULL,
+    location VARCHAR(200) NOT NULL,
+    city VARCHAR(200),
+    pincode INT NOT NULL,
+    person_name VARCHAR(80) NOT NULL,
+    state VARCHAR(100) NOT NULL,
+    mobile_number LONG NOT NULL,
+	user_email VARCHAR(220) NOT NULL ,
+    is_active BOOLEAN DEFAULT TRUE,
+	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    modified_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_email) REFERENCES users(email)
+);
+drop table addresses;
+INSERT INTO addresses (address_title, street_name, location, city, pincode, person_name, state, mobile_number, user_email)
+VALUES
+('Home', '123 Main St', 'Suburbia', 'Cityville', 620015, 'John Doe', 'Tamil Nadu', 6551234567, 'rboomibaln459@gmail.com'),
+('Work', '456 Business Blvd', 'Downtown', 'Metropolis', 643261, 'Jane Smith', 'Tamil Nadu', 6859876543, 'rboomibaln459@gmail.com'),
+('Others', '789 Beachfront Dr', 'Seaside', 'Resort Town', 628902, 'Vacationer', 'Tamil Nadu', 7551112233, 'rboomibaln459@gmail.com'),
+('Office', '101 Corporate Ave', 'Business District', 'Commerce City', 620017, 'Businessperson', 'Tamil Nadu', 8554445555, 'rboomibaln459@gmail.com'),
+('Home', '321 Family Lane', 'Suburbville', 'Family Town', 631456, 'Family Member', 'Tamil Nadu', 9557778888, 'rboomibaln459@gmail.com');
+select* from addresses;
+DELETE FROM addresses;
+CREATE TABLE orders (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    status BOOLEAN DEFAULT TRUE,
+    address_id INT,
+    user_email VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    modified_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_email) REFERENCES users(email)
+);
+
+
+CREATE TABLE order_items (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    order_id INT,
+    price_id INT,
+    product_id INT,
+    quantity INT,
+    ordered_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    delivery_date TIMESTAMP DEFAULT (CURRENT_TIMESTAMP + INTERVAL 7 DAY + INTERVAL FLOOR(RAND() * 4) HOUR + INTERVAL FLOOR(RAND() * 60) MINUTE),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    modified_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (order_id) REFERENCES orders(id),
+    FOREIGN KEY (price_id) REFERENCES prices(id),
+    FOREIGN KEY (product_id) REFERENCES products(id)
+);
+
+ CREATE TABLE IF NOT EXISTS reviews(
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  order_item_id INT,
+  product_id INT,
+  customer_name VARCHAR(220) NOT NULL ,
+  ratings INT,
+  review_message TEXT NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  modified_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+     FOREIGN KEY (order_item_id) REFERENCES order_items(id),
+    FOREIGN KEY (product_id) REFERENCES products(id)
+ );
+ 
+  
+  CREATE TABLE IF NOT EXISTS stocks(
+   id INT AUTO_INCREMENT PRIMARY KEY,
+     product_id INT,
+     total_stock INT,
+     status BOOLEAN DEFAULT TRUE,
+	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	modified_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (product_id) REFERENCES products(id)
+  );
+ 
