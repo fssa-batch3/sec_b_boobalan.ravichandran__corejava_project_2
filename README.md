@@ -1,7 +1,7 @@
 # E-Commerce(Fert Agri Boomi) Application Checklist
 
 ## Database Design
-- [ ] ER diagram of the database![\] ](https://iili.io/HtJPxr7.png)
+- [ ] ER diagram of the database![\] ](https://iili.io/JqH2kTN.png)
 - [ ] Table scripts: [script](/src/main/resources/db/migration/V1__create_users.sql)
 
 
